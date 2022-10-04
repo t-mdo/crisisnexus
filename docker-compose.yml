@@ -1,0 +1,25 @@
+version: "3"
+services:
+  db:
+    image: postgres:latest
+    container_name: crisisnexus-pg
+    hostname: crisisnexus-pg
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=crisisnexus
+      - POSTGRES_USER=crisisnexus
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - $HOME/.volumes/crisisnexus/db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  redis:
+    image: redis:latest
+    container_name: crisisnexus-redis
+    hostname: crisisnexus-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+ 
+volumes:
+  db:
