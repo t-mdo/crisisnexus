@@ -98,6 +98,9 @@ GEM
       tilt
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
+    inline_svg (1.8.0)
+      activesupport (>= 3.0)
+      nokogiri (>= 1.6)
     io-console (0.5.11)
     irb (1.4.1)
       reline (>= 0.3.0)
@@ -218,6 +221,7 @@ DEPENDENCIES
   cssbundling-rails
   debug
   haml
+  inline_svg
   jbuilder
   jsbundling-rails
   pg (~> 1.1)
