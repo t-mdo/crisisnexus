@@ -86,3 +86,5 @@ production:
   database: db
   username: crisisnexus
   password: <%= ENV["CRISIS_NEXUS_DATABASE_PASSWORD"] %>
+  host: db
+  port: 5432

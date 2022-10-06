@@ -35,4 +35,6 @@
 
 /node_modules
 
+postgres_data
+
 .DS_Store

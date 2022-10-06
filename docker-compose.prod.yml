@@ -1,0 +1,36 @@
+version: "3"
+services:
+  db:
+    image: postgres:latest
+    container_name: crisisnexus-pg
+    hostname: crisisnexus-pg
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=crisisnexus
+      - POSTGRES_USER=crisisnexus
+      - POSTGRES_PASSWORD=Y9JEj9gh@HiFegSLQ#!dfLA@83LA
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:latest
+    container_name: crisisnexus-redis
+    hostname: crisisnexus-redis
+    restart: unless-stopped
+
+  crisisnexus:
+    build: .
+    container_name: crisisnexus
+    command: bash -c "./bin/start.sh"
+    volumes:
+      - .:/crisisnexus
+    ports:
+      - "5001:5001"
+    environment:
+      - CRISIS_NEXUS_DATABASE_PASSWORD=Y9JEj9gh@HiFegSLQ#!dfLA@83LA
+      - RAILS_SERVE_STATIC_FILES=true
+    depends_on:
+      - db
+ 
+volumes:
+  db:
