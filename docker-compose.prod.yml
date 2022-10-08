@@ -27,8 +27,9 @@ services:
     ports:
       - "5001:5001"
     environment:
-      - CRISIS_NEXUS_DATABASE_PASSWORD=Y9JEj9gh@HiFegSLQ#!dfLA@83LA
+      - CRISIS_NEXUS_DATABASE_PASSWORD
       - RAILS_SERVE_STATIC_FILES=true
+      - RAILS_MASTER_KEY
     depends_on:
       - db
  
