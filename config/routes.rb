@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  # Redirects naked to www in production
+  match '(*any)', to: redirect(subdomain: 'www'), via: :all, constraints: { subdomain: '' } if Rails.env.production?
   
   get '/registration', to: 'registrations#new'
   resource :registration, only: %i(create)
