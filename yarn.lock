@@ -540,6 +540,11 @@ esbuild-openbsd-64@0.15.10:
   resolved "https://registry.yarnpkg.com/esbuild-openbsd-64/-/esbuild-openbsd-64-0.15.10.tgz#4daef5f5d8e74bbda53b65160029445d582570cf"
   integrity sha512-ftMMIwHWrnrYnvuJQRJs/Smlcb28F9ICGde/P3FUTCgDDM0N7WA0o9uOR38f5Xe2/OhNCgkjNeb7QeaE3cyWkQ==
 
+esbuild-plugin-resolve@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/esbuild-plugin-resolve/-/esbuild-plugin-resolve-1.0.3.tgz#cb63004f896b21f09ffc53be1518c080ddeff3ab"
+  integrity sha512-DHtwExowoWa5rC+mLVppGqe4MiFCZsKEeNgps4UAOKqmu3CjUgyyFjw+AHXteGCRdCJID76OsUuyGi2cOLIxUQ==
+
 esbuild-sunos-64@0.15.10:
   version "0.15.10"
   resolved "https://registry.yarnpkg.com/esbuild-sunos-64/-/esbuild-sunos-64-0.15.10.tgz#5fe7bef267a02f322fd249a8214d0274937388a7"

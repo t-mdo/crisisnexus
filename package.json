@@ -2,12 +2,13 @@
   "name": "app",
   "private": "true",
   "scripts": {
-    "build": "esbuild app/javascript/*.* --bundle --sourcemap --loader:.js=jsx --jsx=automatic --outdir=app/assets/builds --public-path=assets",
+    "build": "./bin/build",
     "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify"
   },
   "dependencies": {
     "autoprefixer": "^10.4.12",
     "esbuild": "^0.15.10",
+    "esbuild-plugin-resolve": "^1.0.3",
     "eslint": "^8.25.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",

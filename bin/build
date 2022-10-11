@@ -1,0 +1,36 @@
+#!/usr/bin/env node
+
+const path = require('path');
+const esbuild = require('esbuild');
+const resolve = require('esbuild-plugin-resolve');
+
+const WATCH = process.argv.includes('--watch');
+
+const watchFunc = {
+  onRebuild(error, result) {
+    if (error) console.error('watch build failed:', error);
+    else console.log('watch build succeeded:', result);
+  },
+};
+
+esbuild
+  .build({
+    entryPoints: ['app/javascript/application.js'],
+    bundle: true,
+    sourcemap: true,
+    outdir: 'app/assets/builds',
+    publicPath: 'assets',
+    loader: { '.js': 'jsx' },
+    jsx: 'automatic',
+    watch: WATCH ? watchFunc : null,
+    plugins: [
+      resolve({
+        pages: path.resolve(__dirname, '..', 'app/javascript/pages'),
+        modules: path.resolve(__dirname, '..', 'app/javascript/modules'),
+        components: path.resolve(__dirname, '..', 'app/javascript/components'),
+      }),
+    ],
+  })
+  .then((result) => {
+    console.log('watching...');
+  });
