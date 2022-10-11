@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   
   get '/registration', to: 'registrations#new'
   resource :registration, only: %i(create)
+  get '/login', to: 'sessions#new'
+  resource :sessions, only: %i(create)
 
   # Only static pages for lp
   get '/pricing', to: 'landing#pricing'
