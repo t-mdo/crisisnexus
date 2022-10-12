@@ -34,4 +34,5 @@ group :test do
   gem "webdrivers"
   gem "minitest-bang"
   gem "minitest-reporters"
+  gem "database_cleaner-active_record"
 end
