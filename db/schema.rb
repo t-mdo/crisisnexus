@@ -12,48 +12,48 @@
 
 ActiveRecord::Schema[7.0].define(version: 2022_10_17_171804) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "accounts", force: :cascade do |t|
-    t.string "email", null: false
-    t.string "crypted_password"
-    t.string "salt"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "organization_id", null: false
-    t.index ["email"], name: "index_accounts_on_email", unique: true
-    t.index ["organization_id"], name: "index_accounts_on_organization_id"
+  create_table 'accounts', force: :cascade do |t|
+    t.string 'email', null: false
+    t.string 'crypted_password'
+    t.string 'salt'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.bigint 'organization_id', null: false
+    t.index ['email'], name: 'index_accounts_on_email', unique: true
+    t.index ['organization_id'], name: 'index_accounts_on_organization_id'
   end
 
-  create_table "incidents", force: :cascade do |t|
-    t.integer "local_id"
-    t.string "name", null: false
-    t.text "summary"
-    t.string "status", null: false
-    t.datetime "started_at", null: false
-    t.datetime "ended_at"
-    t.bigint "creator_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "organization_id", null: false
-    t.index ["creator_id"], name: "index_incidents_on_creator_id"
-    t.index ["organization_id"], name: "index_incidents_on_organization_id"
+  create_table 'incidents', force: :cascade do |t|
+    t.integer 'local_id'
+    t.string 'name', null: false
+    t.text 'summary'
+    t.string 'status', null: false
+    t.datetime 'started_at', null: false
+    t.datetime 'ended_at'
+    t.bigint 'creator_id', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.bigint 'organization_id', null: false
+    t.index ['creator_id'], name: 'index_incidents_on_creator_id'
+    t.index ['organization_id'], name: 'index_incidents_on_organization_id'
   end
 
-  create_table "leads", force: :cascade do |t|
-    t.string "email"
-    t.string "conversion_source"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'leads', force: :cascade do |t|
+    t.string 'email'
+    t.string 'conversion_source'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  create_table "organizations", force: :cascade do |t|
-    t.string "name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'organizations', force: :cascade do |t|
+    t.string 'name', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  add_foreign_key "accounts", "organizations"
-  add_foreign_key "incidents", "accounts", column: "creator_id"
-  add_foreign_key "incidents", "organizations"
+  add_foreign_key 'accounts', 'organizations'
+  add_foreign_key 'incidents', 'accounts', column: 'creator_id'
+  add_foreign_key 'incidents', 'organizations'
 end

@@ -7,13 +7,9 @@ module DatabaseCleanerSupport
   extend ActiveSupport::Concern
 
   included do
-    setup do
-      DatabaseCleaner.start
-    end
+    setup { DatabaseCleaner.start }
 
-    teardown do
-      DatabaseCleaner.clean
-    end
+    teardown { DatabaseCleaner.clean }
   end
 end
 

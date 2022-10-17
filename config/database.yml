@@ -17,7 +17,7 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  username: <%= ENV['CRISISNEXUS_PG_USERNAME'] || 'crisisnexus' %> 
+  username: <%= ENV['CRISISNEXUS_PG_USERNAME'] || 'crisisnexus' %>
   port: 5432
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 

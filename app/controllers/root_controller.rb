@@ -1,7 +1,5 @@
 class RootController < ApplicationController
   def index
-    if !logged_in?
-      return redirect_to welcome_path
-    end
+    return redirect_to welcome_path if !logged_in?
   end
 end

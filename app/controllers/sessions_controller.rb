@@ -6,15 +6,15 @@ class SessionsController < ApplicationController
 
   def create
     if params[:email].blank? || params[:password].blank?
-      flash.now[:error] = "Please enter your email and password"
+      flash.now[:error] = 'Please enter your email and password'
       return render :new
     end
-    
+
     user = login(params[:email], params[:password])
     if user.present?
-      redirect_to root_path, notice: "Logged in!"
+      redirect_to root_path, notice: 'Logged in!'
     else
-      flash.now[:error] = "Email or password was invalid"
+      flash.now[:error] = 'Email or password was invalid'
       render :new
     end
   end

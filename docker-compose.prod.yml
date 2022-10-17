@@ -1,4 +1,4 @@
-version: "3"
+version: '3'
 services:
   db:
     image: postgres:latest
@@ -25,13 +25,13 @@ services:
     volumes:
       - .:/crisisnexus
     ports:
-      - "5001:5001"
+      - '5001:5001'
     environment:
       - CRISIS_NEXUS_DATABASE_PASSWORD
       - RAILS_SERVE_STATIC_FILES=true
       - RAILS_MASTER_KEY
     depends_on:
       - db
- 
+
 volumes:
   db:
