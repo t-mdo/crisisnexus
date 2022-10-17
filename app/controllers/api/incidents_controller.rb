@@ -1,6 +1,7 @@
-class IncidentsController < ApiController
+class Api::IncidentsController < ApiController
   def create
-    incident = Incident.create(params[:incident])
+    attributes = params.require(:incident).permit(:name, :summary)
+    incident = Incident.create({ **attributes, creator: current_user })
     if incident.persisted?
       render json: { id: incident.id }
     else
