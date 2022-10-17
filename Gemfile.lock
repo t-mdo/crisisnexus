@@ -89,6 +89,8 @@ GEM
     crass (1.0.6)
     cssbundling-rails (1.1.1)
       railties (>= 6.0.0)
+    database_cleaner (2.0.1)
+      database_cleaner-active_record (~> 2.0.0)
     database_cleaner-active_record (2.0.1)
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0.0)
@@ -137,8 +139,6 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.2)
     minitest (5.16.3)
-    minitest-bang (1.0.4)
-      minitest (>= 4.7.5)
     minitest-reporters (1.5.0)
       ansi
       builder
@@ -271,14 +271,13 @@ DEPENDENCIES
   bootsnap
   capybara
   cssbundling-rails
-  database_cleaner-active_record
+  database_cleaner
   debug
   factory_bot_rails
   haml
   inline_svg
   jbuilder
   jsbundling-rails
-  minitest-bang
   minitest-reporters
   pg (~> 1.1)
   pry

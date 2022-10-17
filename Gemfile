@@ -20,8 +20,8 @@ gem 'sorcery'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
-  gem "pry"
   gem "factory_bot_rails"
+  gem "pry"
 end
 
 group :development do
@@ -30,9 +30,8 @@ end
 
 group :test do
   gem "capybara"
+  gem "database_cleaner"
+  gem "minitest-reporters"
   gem "selenium-webdriver"
   gem "webdrivers"
-  gem "minitest-bang"
-  gem "minitest-reporters"
-  gem "database_cleaner-active_record"
 end
