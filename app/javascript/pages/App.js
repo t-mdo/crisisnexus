@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from 'pages/home/Home';
+import Home from 'pages/Home';
 import SideMenu from 'pages/SideMenu';
 import TopBar from 'pages/TopBar';
 

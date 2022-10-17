@@ -6,6 +6,7 @@
     "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.3",
     "@prettier/plugin-ruby": "^3.2.2",
     "autoprefixer": "^10.4.12",
     "classnames": "^2.3.2",
