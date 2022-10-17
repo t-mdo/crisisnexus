@@ -3,6 +3,8 @@ class Incident < ApplicationRecord
 
   enum :status, { open: 'open', solved: 'solved', post_mortem_published: 'post_mortem_published'}, prefix: true
 
+  validates :status, inclusion: { in: statuses.keys }
+
   before_create :set_status
   before_create :set_started_at
 
@@ -15,4 +17,4 @@ class Incident < ApplicationRecord
   def set_status
     self.status_open!
   end
-enod
+end
