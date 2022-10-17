@@ -24,7 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_12_132503) do
   end
 
   create_table "incidents", force: :cascade do |t|
-    t.integer "organization_index"
+    t.integer "local_id"
     t.string "name", null: false
     t.text "summary"
     t.string "status", null: false

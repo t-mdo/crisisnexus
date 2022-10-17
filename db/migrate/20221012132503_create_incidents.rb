@@ -1,7 +1,7 @@
 class CreateIncidents < ActiveRecord::Migration[7.0]
   def change
     create_table :incidents do |t|
-      t.integer :organization_index
+      t.integer :local_id
       t.string :name, null: false
       t.text :summary
       t.string :status, null: false
