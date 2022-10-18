@@ -6,7 +6,10 @@ class Api::IncidentsController < ApiController
     if incident.persisted?
       render json: { id: incident.id }
     else
-      render json: { errors: incident.errors }, status: :unprocessable_entity
+      render json: {
+               errors: incident.errors.full_messages,
+             },
+             status: :unprocessable_entity
     end
   end
 end

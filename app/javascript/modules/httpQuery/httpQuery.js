@@ -31,7 +31,7 @@ const httpQuery = async ({ url, method = 'GET', body = {}, params = {} }) => {
 
   const data = await response.json().catch(() => {});
 
-  if (!response.ok) throw { ...response, message: data?.message };
+  if (!response.ok) throw { ...response, messages: data?.errors };
   return { ...response, data: await data };
 };
 

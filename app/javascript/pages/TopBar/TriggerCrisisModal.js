@@ -15,6 +15,7 @@ const TriggerCrisisModal = ({ open, onClose }) => {
   const {
     loading,
     error: postError,
+    errorMessages: postErrorMessages,
     trigger: triggerPostIncidents,
   } = useHttpQuery({
     url: '/incidents',
@@ -47,10 +48,14 @@ const TriggerCrisisModal = ({ open, onClose }) => {
           {(formHasErrors || postError) && (
             <Alert className="mb-4" type={ALERT_TYPE_ERROR}>
               <ul>
-                {Object.entries(formErrors).map(([key, { message }]) => (
-                  <li key={key}>{message}</li>
-                ))}
-                {postError && <li>{postError}</li>}
+                {formHasErrors &&
+                  Object.entries(formErrors).map(([key, { message }]) => (
+                    <li key={key}>{message}</li>
+                  ))}
+                {postError &&
+                  postErrorMessages.map((message, index) => (
+                    <li key={index}>{message}</li>
+                  ))}
               </ul>
             </Alert>
           )}

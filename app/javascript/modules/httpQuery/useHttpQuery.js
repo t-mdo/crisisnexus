@@ -31,8 +31,13 @@ const useHttpQuery = ({
         if (onSuccess) onSuccess(response);
       })
       .catch((error) => {
-        const message = error.message;
-        setState({ message, loading: false, success: false, error: true });
+        const errorMessages = error.messages;
+        setState({
+          errorMessages,
+          loading: false,
+          success: false,
+          error: true,
+        });
         if (onFailure) onFailure(message);
       });
   };

@@ -21,8 +21,15 @@ class Incident < ApplicationRecord
 
   after_initialize :set_organization
   after_initialize :set_local_id
+  before_create :abort_if_organization_has_open_incident
 
   private
+
+  def abort_if_organization_has_open_incident
+    return unless organization.incidents.status_open.any?
+    errors.add(:base, 'An incident is already ongoing')
+    throw :abort
+  end
 
   def set_local_id
     return if organization.blank?
