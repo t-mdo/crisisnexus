@@ -3,6 +3,7 @@
 const path = require('path');
 const esbuild = require('esbuild');
 const resolve = require('esbuild-plugin-resolve');
+const svgr = require('esbuild-plugin-svgr');
 
 const WATCH = process.argv.includes('--watch');
 
@@ -28,7 +29,9 @@ esbuild
         pages: path.resolve(__dirname, '..', 'app/javascript/pages'),
         modules: path.resolve(__dirname, '..', 'app/javascript/modules'),
         components: path.resolve(__dirname, '..', 'app/javascript/components'),
+        images: path.resolve(__dirname, '..', 'app/assets/images'),
       }),
+      svgr(),
     ],
   })
   .then((result) => {

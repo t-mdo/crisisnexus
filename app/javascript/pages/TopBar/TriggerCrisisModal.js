@@ -20,6 +20,7 @@ const TriggerCrisisModal = ({ open, onClose }) => {
     url: '/incidents',
     method: 'POST',
     trigger: true,
+    onSuccess: () => onClose(),
   });
 
   const {
@@ -39,17 +40,16 @@ const TriggerCrisisModal = ({ open, onClose }) => {
       <ModalPanel className="w-full">
         <ModalTitle onClose={onClose}>Trigger an incident</ModalTitle>
         <ModalDescription>
-          {formHasErrors ||
-            (postError && (
-              <Alert className="mb-4" type={ALERT_TYPE_ERROR}>
-                <ul>
-                  {Object.entries(formErrors).map(([key, { message }]) => (
-                    <li key={key}>{message}</li>
-                  ))}
-                  {postError && <li>{postError}</li>}
-                </ul>
-              </Alert>
-            ))}
+          {(formHasErrors || postError) && (
+            <Alert className="mb-4" type={ALERT_TYPE_ERROR}>
+              <ul>
+                {Object.entries(formErrors).map(([key, { message }]) => (
+                  <li key={key}>{message}</li>
+                ))}
+                {postError && <li>{postError}</li>}
+              </ul>
+            </Alert>
+          )}
           <form onSubmit={handleSubmit(onSubmit)}>
             <Label>What's happening?</Label>
             <Input

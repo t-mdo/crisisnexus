@@ -1,5 +1,6 @@
 import classnames from 'classnames';
 import { Dialog } from '@headlessui/react';
+import XIcon from 'images/icons/regular/xmark.svg';
 
 export const Modal = ({ children, ...props }) => {
   return (
@@ -23,14 +24,21 @@ export const ModalPanel = ({ children, className }) => (
   </Dialog.Panel>
 );
 
-export const ModalTitle = ({ children, className }) => (
+export const ModalTitle = ({ children, onClose, className }) => (
   <Dialog.Title
     className={classnames(
       'mb-10 text-2xl text-gray-900 font-semibold',
       className,
     )}
   >
-    {children}
+    <div className="flex justify-between items-center">
+      {children}
+      {onClose && (
+        <button tabIndex={-1} onClick={onClose}>
+          <XIcon className="w-4 fill-gray-600" />
+        </button>
+      )}
+    </div>
   </Dialog.Title>
 );
 
