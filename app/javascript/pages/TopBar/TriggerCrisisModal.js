@@ -9,11 +9,12 @@ import {
 import { Input, TextArea } from 'components/form/Input';
 import Label from 'components/form/Label';
 import Button from 'components/Button';
+import { Alert, ALERT_TYPE_ERROR } from 'components/Alert';
 
-const TriggerCrisisModal = () => {
+const TriggerCrisisModal = ({ open, onClose }) => {
   const {
     loading,
-    error,
+    error: postError,
     trigger: triggerPostIncidents,
   } = useHttpQuery({
     url: '/incidents',
@@ -24,8 +25,9 @@ const TriggerCrisisModal = () => {
   const {
     register,
     handleSubmit,
-    formState: { error: formError },
+    formState: { errors: formErrors },
   } = useForm();
+  const formHasErrors = Object.keys(formErrors).length > 0;
 
   const onSubmit = (data) => {
     const payload = { incident: data };
@@ -33,17 +35,32 @@ const TriggerCrisisModal = () => {
   };
 
   return (
-    <Modal open={true} onClose={() => {}}>
+    <Modal open={open} onClose={onClose}>
       <ModalPanel className="w-full">
-        <ModalTitle>Trigger an incident</ModalTitle>
+        <ModalTitle onClose={onClose}>Trigger an incident</ModalTitle>
         <ModalDescription>
+          {formHasErrors ||
+            (postError && (
+              <Alert className="mb-4" type={ALERT_TYPE_ERROR}>
+                <ul>
+                  {Object.entries(formErrors).map(([key, { message }]) => (
+                    <li key={key}>{message}</li>
+                  ))}
+                  {postError && <li>{postError}</li>}
+                </ul>
+              </Alert>
+            ))}
           <form onSubmit={handleSubmit(onSubmit)}>
             <Label>What's happening?</Label>
             <Input
-              {...register('name', { required: true })}
+              {...register('name', {
+                required: 'A short description is required',
+              })}
               type="text"
               className="w-3/4 mb-6"
               placeholder="Short description (Blank page, 500 errors, blank pages, etc.)"
+              aria-required="true"
+              aria-invalid={formErrors?.name ? 'true' : 'false'}
             />
             <Label>Summary (optional)</Label>
             <TextArea
@@ -53,7 +70,9 @@ const TriggerCrisisModal = () => {
               placeholder="Longer summary to describe the incident in details"
             />
             <div className="w-full flex justify-end">
-              <Button role="submit">Godspeed!</Button>
+              <Button loading={loading} role="submit">
+                Godspeed!
+              </Button>
             </div>
           </form>
         </ModalDescription>
