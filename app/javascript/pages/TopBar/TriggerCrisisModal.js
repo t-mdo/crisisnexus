@@ -20,13 +20,17 @@ const TriggerCrisisModal = ({ open, onClose }) => {
     url: '/incidents',
     method: 'POST',
     trigger: true,
-    onSuccess: () => onClose(),
+    onSuccess: () => {
+      resetForm();
+      onClose();
+    },
   });
 
   const {
     register,
     handleSubmit,
     formState: { errors: formErrors },
+    reset: resetForm,
   } = useForm();
   const formHasErrors = Object.keys(formErrors).length > 0;
 
