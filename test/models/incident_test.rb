@@ -16,6 +16,7 @@ class IncidentTest < ActiveSupport::TestCase
   test 'should set local_id according to number of incidents in organization' do
     incident =
       Incident.create!(name: 'test incident', creator: @reporter_account)
+    incident.status_closed!
     incident2 =
       Incident.create!(name: 'test incident 2', creator: @reporter_account)
     assert_equal 1, incident.local_id

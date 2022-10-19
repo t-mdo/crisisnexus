@@ -18,10 +18,20 @@ class Incident < ApplicationRecord
        prefix: true
 
   validates :status, inclusion: { in: statuses.keys }
+  validates :ended_at,
+            comparison: {
+              greater_than: :started_at,
+            },
+            allow_nil: true
 
   after_initialize :set_organization
   before_create :set_local_id
   before_create :abort_if_organization_has_open_incident
+
+  def duration
+    ended_at_or_now = ended_at || Time.now.utc
+    ended_at_or_now - started_at
+  end
 
   private
 

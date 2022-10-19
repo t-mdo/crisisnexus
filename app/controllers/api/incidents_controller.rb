@@ -1,4 +1,8 @@
 class Api::IncidentsController < ApiController
+  def index
+    @incidents = current_organization.incidents.order(started_at: :desc)
+  end
+
   def create
     attributes = params.require(:incident).permit(:name, :summary)
     incident =

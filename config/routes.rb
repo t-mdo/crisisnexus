@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   end
 
   scope module: :api do
-    resources :incidents, only: %i[create]
+    resources :incidents, only: %i[index create]
     namespace :incidents do
       resource :open, only: %i[show], controller: :open
     end
