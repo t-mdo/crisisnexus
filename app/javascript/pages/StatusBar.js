@@ -6,7 +6,7 @@ const DefaultStateTopBar = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
-    <div className="flex justify-end w-full p-3 bg-gray-100">
+    <div className="flex justify-end w-full h-16 p-3 bg-gray-200 border-b border-slate-300">
       <Button onClick={() => setModalOpen(true)}>Trigger an incident</Button>
       <TriggerCrisisModal
         open={modalOpen}

@@ -22,7 +22,7 @@ class Api::IncidentsControllerTest < ActionDispatch::IntegrationTest
   test '#index renders all the incidents of the organization' do
     get incidents_path, xhr: true
     assert_response :success
-    body = response.parsed_body
+    body = response.parsed_body['incidents']
     assert_equal 11, body.size
     assert_equal 1,
                  body.select { |i| i['status'] == Incident::STATUS_OPEN }.size

@@ -9,7 +9,7 @@ Rails.application.routes.draw do
           }
   end
 
-  scope module: :api do
+  scope module: :api, constraints: lambda { |req| req.format == :json } do
     resources :incidents, only: %i[index create]
     namespace :incidents do
       resource :open, only: %i[show], controller: :open

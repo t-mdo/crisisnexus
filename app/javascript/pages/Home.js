@@ -13,7 +13,7 @@ const Home = () => {
 
   return (
     <div className="py-6 px-4">
-      <h2 className="text-3xl">Dashboard</h2>
+      <h2 className="mb-6 font-semibold text-3xl">Dashboard</h2>
       {loading && <Loader />}
       {success && <OpenCrisisDashboard />}
       {error && status === 404 && <ClosedCrisisDashboard />}
