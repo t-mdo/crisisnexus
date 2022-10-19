@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 const SideMenu = () => {
   return (
-    <div className="h-screen min-w-fit w-64 bg-violet-950">
+    <div className="h-screen min-w-fit w-64 py-14 bg-violet-950">
       <NavLink
         className={(isActive) =>
           classnames(

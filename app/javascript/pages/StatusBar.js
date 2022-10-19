@@ -16,8 +16,8 @@ const DefaultStateTopBar = () => {
   );
 };
 
-const TopBar = ({ incidentState }) => {
+const StatusBar = ({ incidentState }) => {
   return <DefaultStateTopBar />;
 };
 
-export default TopBar;
+export default StatusBar;

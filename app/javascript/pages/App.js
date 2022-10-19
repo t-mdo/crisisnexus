@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from 'pages/Home';
 import SideMenu from 'pages/SideMenu';
-import TopBar from 'pages/TopBar';
+import StatusBar from 'pages/StatusBar';
 
 const AppRoutes = () => (
   <Routes>
@@ -14,7 +14,7 @@ const App = () => (
     <div className="flex">
       <SideMenu />
       <div className="w-full">
-        <TopBar />
+        <StatusBar />
         <AppRoutes />
       </div>
     </div>
