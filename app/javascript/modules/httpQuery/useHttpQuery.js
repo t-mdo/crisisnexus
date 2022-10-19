@@ -36,9 +36,8 @@ const useHttpQuery = ({
       .catch((error) => {
         if (environment === 'development')
           console.log('HttpQuery: Fetch Error', error);
-        const errorMessages = error.messages;
         setState({
-          errorMessages,
+          ...error,
           loading: false,
           success: false,
           error: true,

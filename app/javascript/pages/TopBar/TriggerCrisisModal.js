@@ -14,8 +14,8 @@ import { Alert, ALERT_TYPE_ERROR } from 'components/Alert';
 const TriggerCrisisModal = ({ open, onClose }) => {
   const {
     loading,
+    data: postResponse,
     error: postError,
-    errorMessages: postErrorMessages,
     trigger: triggerPostIncidents,
   } = useHttpQuery({
     url: '/incidents',
@@ -53,7 +53,7 @@ const TriggerCrisisModal = ({ open, onClose }) => {
                     <li key={key}>{message}</li>
                   ))}
                 {postError &&
-                  postErrorMessages.map((message, index) => (
+                  postResponse.errors.map((message, index) => (
                     <li key={index}>{message}</li>
                   ))}
               </ul>
