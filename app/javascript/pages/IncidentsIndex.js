@@ -2,7 +2,12 @@ import dayjs from 'dayjs';
 import useHttpQuery from 'modules/httpQuery/useHttpQuery';
 import intersperse from 'modules/helpers/intersperse';
 import Loader from 'components/Loader';
-import StatusBadge from 'components/StatusBadge';
+import {
+  StatusBadge,
+  STATUS_TYPE_INFO,
+  STATUS_TYPE_ERROR,
+  STATUS_TYPE_SUCCESS,
+} from 'components/StatusBadge';
 import CalendarDayIcon from 'images/icons/regular/calendar-day.svg';
 import ClockIcon from 'images/icons/regular/clock.svg';
 import FireIcon from 'images/icons/regular/fire.svg';
@@ -12,10 +17,10 @@ import FileCheckIcon from 'images/icons/regular/file-check.svg';
 const IncidentRow = ({ incident }) => {
   const statusBadgeType =
     incident.status === 'open'
-      ? 'error'
+      ? STATUS_TYPE_ERROR
       : incident.status === 'closed'
-      ? 'info'
-      : 'success';
+      ? STATUS_TYPE_INFO
+      : STATUS_TYPE_SUCCESS;
   const statusBadgeIcon =
     incident.status === 'open'
       ? FireIcon

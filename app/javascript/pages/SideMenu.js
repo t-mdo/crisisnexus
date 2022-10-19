@@ -8,7 +8,7 @@ const MenuOption = ({ children, to, icon: Icon }) => (
     end
     className={({ isActive }) =>
       classnames(
-        'block text-white px-4 py-3 bg-violet-950 hover:bg-violet-800 text-lg w-full',
+        'block text-white px-4 py-3 bg-violet-950 hover:bg-violet-800 text-lg w-full transition duration-100',
         {
           'bg-violet-800': isActive,
         },
