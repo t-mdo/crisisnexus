@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import httpQuery from 'modules/httpQuery/httpQuery';
 
+const environment =
+  process.env.NODE_ENV === 'production' ? 'production' : 'development';
+
 const useHttpQuery = ({
   url,
   trigger,
@@ -31,6 +34,8 @@ const useHttpQuery = ({
         if (onSuccess) onSuccess(response);
       })
       .catch((error) => {
+        if (environment === 'development')
+          console.log('HttpQuery: Fetch Error', error);
         const errorMessages = error.messages;
         setState({
           errorMessages,

@@ -25,7 +25,7 @@ const httpQuery = async ({ url, method = 'GET', body = {}, params = {} }) => {
   const response = await fetch(getUrl({ url, params }), {
     method,
     headers,
-    body: method !== 'GET' && JSON.stringify(body),
+    body: ['GET', 'HEAD'].includes(method) ? null : JSON.stringify(body),
     credentials: 'include',
   });
 
