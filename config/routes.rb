@@ -11,6 +11,9 @@ Rails.application.routes.draw do
 
   scope module: :api do
     resources :incidents, only: %i[create]
+    namespace :incidents do
+      resource :open, only: %i[show], controller: :open
+    end
   end
 
   get '/registration', to: 'registrations#new'

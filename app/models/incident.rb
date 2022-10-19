@@ -20,7 +20,7 @@ class Incident < ApplicationRecord
   validates :status, inclusion: { in: statuses.keys }
 
   after_initialize :set_organization
-  after_initialize :set_local_id
+  before_create :set_local_id
   before_create :abort_if_organization_has_open_incident
 
   private
@@ -31,12 +31,13 @@ class Incident < ApplicationRecord
     throw :abort
   end
 
+  def set_organization
+    return if creator.blank?
+    self.organization ||= creator.organization
+  end
+
   def set_local_id
     return if organization.blank?
     self.local_id ||= organization.incidents.count + 1
-  end
-
-  def set_organization
-    self.organization ||= creator.organization
   end
 end
