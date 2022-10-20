@@ -1,15 +1,21 @@
 import { useContext } from 'react';
-import OpenIncidentContext from 'modules/contexts/openIncidentProvider';
+import OpenIncidentContext from 'modules/contexts/openIncident';
 import Alert from 'components/Alert';
 import Loader from 'components/Loader';
 
 const OpenIncidentDashboard = () => {};
 
-const ClosedIncidentDashboard = () => <p></p>;
+const ClosedIncidentDashboard = () => (
+  <h3 className="mb-3 font-semibold text-xl">Past incidents</h3>
+);
 
 const Home = () => {
-  const { openIncidentFetchDone, openIncidentFetchLoading, openIncident } =
-    useContext(OpenIncidentContext);
+  const {
+    openIncidentFetchDone,
+    openIncidentFetchLoading,
+    openIncidentFetchError,
+    openIncident,
+  } = useContext(OpenIncidentContext);
 
   return (
     <div className="py-6 px-4">
@@ -21,7 +27,7 @@ const Home = () => {
       {openIncidentFetchDone && !Boolean(openIncident) && (
         <ClosedIncidentDashboard />
       )}
-      {error && (
+      {openIncidentFetchError && (
         <Alert type="error">An error occured while loading the dashboard</Alert>
       )}
     </div>

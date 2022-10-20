@@ -10,6 +10,7 @@ export const OpenIncidentProvider = ({ children }) => {
   const [initialFetchDone, setInitialFetchDone] = useState(false);
   const {
     loading,
+    error,
     trigger: fetchOpenIncidents,
     data: { open_incident } = {},
   } = useHttpQuery({
@@ -38,8 +39,8 @@ export const OpenIncidentProvider = ({ children }) => {
     <OpenIncidentContext.Provider
       value={{
         openIncidentFetchDone,
+        openIncidentFetchError: error,
         openIncidentFetchLoading,
-        openIncidentPresent,
         openIncident,
       }}
     >
