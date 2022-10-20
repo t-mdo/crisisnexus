@@ -9,6 +9,7 @@ export const Button = ({
   children,
   loading,
   type = BUTTON_TYPE_PRIMARY,
+  className,
   ...props
 }) => (
   <button
@@ -24,6 +25,7 @@ export const Button = ({
         'bg-red-500 hover:bg-red-600 active:bg-red-700':
           type === BUTTON_TYPE_DANGER,
       },
+      className,
     )}
     {...props}
   >
