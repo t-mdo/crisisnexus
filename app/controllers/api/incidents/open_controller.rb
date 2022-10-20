@@ -3,7 +3,6 @@ class Api::Incidents::OpenController < ApiController
 
   def show
     @open_incident = @organization.incidents.status_open.first
-    return head :not_found unless @open_incident.present?
   end
 
   private

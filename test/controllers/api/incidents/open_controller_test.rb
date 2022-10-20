@@ -10,24 +10,32 @@ class Api::Incidents::OpenControllerTest < ActionDispatch::IntegrationTest
 
   test '#show renders data about currently open incident in organization' do
     get incidents_open_path(format: :json)
+    body = @response.parsed_body
+
     assert_response :success
-    assert_equal @incident.local_id, @response.parsed_body['local_id']
+    assert_equal @incident.local_id, body['open_incident']['local_id']
   end
 
-  test '#show renders 404 if there is an open incident open in another organization' do
+  test '#show renders null if there is only an open incident open in another organization' do
     account2 = create(:account)
     incident2 = create(:incident, :open, creator: account2)
 
     @incident.status_closed!
 
     get incidents_open_path(format: :json)
-    assert_response :not_found
+    body = @response.parsed_body
+
+    assert_response :success
+    assert_nil body['open_incident']
   end
 
-  test '#show renders 404 when there is no open incident' do
+  test '#show renders null when there is no open incident' do
     @incident.status_closed!
 
     get incidents_open_path(format: :json)
-    assert_response :not_found
+    body = @response.parsed_body
+
+    assert_response :success
+    assert_nil body['open_incident']
   end
 end

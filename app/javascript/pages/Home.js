@@ -7,7 +7,12 @@ const OpenCrisisDashboard = () => {};
 const ClosedCrisisDashboard = () => <p></p>;
 
 const Home = () => {
-  const { loading, success, error, data, status } = useHttpQuery({
+  const {
+    loading,
+    success,
+    error,
+    data: { open_incident } = {},
+  } = useHttpQuery({
     url: '/incidents/open',
   });
 
@@ -15,9 +20,9 @@ const Home = () => {
     <div className="py-6 px-4">
       <h2 className="mb-6 font-semibold text-3xl">Dashboard</h2>
       {loading && <Loader />}
-      {success && <OpenCrisisDashboard />}
-      {error && status === 404 && <ClosedCrisisDashboard />}
-      {error && status !== 404 && (
+      {success && Boolean(open_incident) && <OpenCrisisDashboard />}
+      {success && !Boolean(open_incident) && <ClosedCrisisDashboard />}
+      {error && (
         <Alert type="error">An error occured while loading the dashboard</Alert>
       )}
     </div>
