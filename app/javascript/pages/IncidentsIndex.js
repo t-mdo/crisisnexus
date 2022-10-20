@@ -13,6 +13,7 @@ import ClockIcon from 'images/icons/regular/clock.svg';
 import FireIcon from 'images/icons/solid/fire.svg';
 import CircleCheckIcon from 'images/icons/solid/circle-check.svg';
 import FileCheckIcon from 'images/icons/solid/file-check.svg';
+import ChevronRightIcon from 'images/icons/regular/chevron-right.svg';
 
 const IncidentRow = ({ incident }) => {
   const statusBadgeType =
@@ -40,24 +41,27 @@ const IncidentRow = ({ incident }) => {
       key={incident.id}
       role="button"
       onClick={() => {}}
-      className="p-4 hover:bg-gray-100"
+      className="flex justify-between p-4 hover:bg-gray-100"
     >
-      <div className="flex items-align mb-2">
-        <h4 className="flex items-center mr-4 text-sm text-gray-900 font-semibold">{`#CRISIS-${incident.local_id}: ${incident.name}`}</h4>
-        <StatusBadge type={statusBadgeType} icon={statusBadgeIcon}>
-          {incident.status}
-        </StatusBadge>
-      </div>
-      <div className="flex ml-2 text-gray-600 text-xs">
-        <div className="flex mr-5 items-center">
-          <CalendarDayIcon className="w-3 mr-2" />
-          {`${started_at_formatted} - ${ended_at_formatted}`}
+      <div>
+        <div className="flex mb-2">
+          <h4 className="flex items-center mr-4 text-sm text-gray-900 font-semibold">{`#CRISIS-${incident.local_id}: ${incident.name}`}</h4>
+          <StatusBadge type={statusBadgeType} icon={statusBadgeIcon}>
+            {incident.status}
+          </StatusBadge>
         </div>
-        <div className="flex items-center">
-          <ClockIcon className="w-3 mr-2" />
-          {duration_formatted}
+        <div className="flex ml-2 text-gray-600 text-xs">
+          <div className="flex mr-5 items-center">
+            <CalendarDayIcon className="w-3 mr-2" />
+            {`${started_at_formatted} - ${ended_at_formatted}`}
+          </div>
+          <div className="flex items-center">
+            <ClockIcon className="w-3 mr-2" />
+            {duration_formatted}
+          </div>
         </div>
       </div>
+      <ChevronRightIcon className="w-3 fill-gray-400" />
     </li>
   );
 };

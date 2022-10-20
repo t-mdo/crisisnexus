@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import useHttpQuery from 'modules/httpQuery/useHttpQuery';
 import {
   Modal,
@@ -12,6 +13,7 @@ import Button from 'components/Button';
 import { Alert, ALERT_TYPE_ERROR } from 'components/Alert';
 
 const TriggerCrisisModal = ({ open, onClose }) => {
+  const navigate = useNavigate();
   const {
     loading,
     data: postResponse,
@@ -24,6 +26,7 @@ const TriggerCrisisModal = ({ open, onClose }) => {
     onSuccess: () => {
       resetForm();
       onClose();
+      navigate('/');
     },
   });
 
