@@ -15,19 +15,19 @@ import CircleCheckIcon from 'images/icons/solid/circle-check.svg';
 import FileCheckIcon from 'images/icons/solid/file-check.svg';
 import ChevronRightIcon from 'images/icons/regular/chevron-right.svg';
 
+const getStatusBadgeType = (status) => {
+  if (status === 'open') return STATUS_TYPE_ERROR;
+  if (status === 'closed') return STATUS_TYPE_INFO;
+  return STATUS_TYPE_SUCCESS;
+};
+
+const getStatusBadgeIcon = (status) => {
+  if (status === 'open') return FireIcon;
+  if (status === 'closed') return CircleCheckIcon;
+  return FileCheckIcon;
+};
+
 const IncidentRow = ({ incident }) => {
-  const statusBadgeType =
-    incident.status === 'open'
-      ? STATUS_TYPE_ERROR
-      : incident.status === 'closed'
-      ? STATUS_TYPE_INFO
-      : STATUS_TYPE_SUCCESS;
-  const statusBadgeIcon =
-    incident.status === 'open'
-      ? FireIcon
-      : incident.status === 'closed'
-      ? CircleCheckIcon
-      : FileCheckIcon;
   const started_at_formatted = dayjs(incident.started_at).format('lll');
   const ended_at_formatted = incident.ended_at
     ? dayjs(incident.ended_at).format('lll')
@@ -45,7 +45,10 @@ const IncidentRow = ({ incident }) => {
       <div>
         <div className="flex mb-2">
           <h4 className="flex items-center mr-4 text-sm text-gray-900 font-semibold">{`#CRISIS-${incident.local_id}: ${incident.name}`}</h4>
-          <StatusBadge type={statusBadgeType} icon={statusBadgeIcon}>
+          <StatusBadge
+            type={getStatusBadgeType(incident.status)}
+            icon={getStatusBadgeIcon(incident.status)}
+          >
             {incident.status}
           </StatusBadge>
         </div>
