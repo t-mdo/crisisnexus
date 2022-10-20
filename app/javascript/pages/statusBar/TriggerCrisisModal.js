@@ -7,10 +7,10 @@ import {
   ModalTitle,
   ModalDescription,
 } from 'components/Modal';
-import { Input, TextArea } from 'components/form/Input';
-import Label from 'components/form/Label';
-import Button from 'components/Button';
-import { Alert, ALERT_TYPE_ERROR } from 'components/Alert';
+import { Input, TextArea } from 'components/core/form/Input';
+import Label from 'components/core/form/Label';
+import Button from 'components/core/Button';
+import { Alert, ALERT_TYPE_ERROR } from 'components/core/Alert';
 
 const TriggerCrisisModal = ({ open, onClose }) => {
   const navigate = useNavigate();

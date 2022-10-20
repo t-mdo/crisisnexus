@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, BUTTON_TYPE_DANGER } from 'components/Button';
-import TriggerCrisisModal from 'pages/TopBar/TriggerCrisisModal';
+import TriggerCrisisModal from 'pages/statusBar/TriggerCrisisModal';
 
 const DefaultStateTopBar = () => {
   const [modalOpen, setModalOpen] = useState(false);
