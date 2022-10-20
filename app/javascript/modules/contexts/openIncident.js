@@ -25,6 +25,7 @@ export const OpenIncidentProvider = ({ children }) => {
   });
 
   useEffect(() => {
+    fetchOpenIncidents();
     const interval = setInterval(() => {
       if (!loading) fetchOpenIncidents();
     }, POLLING_INTERVAL);

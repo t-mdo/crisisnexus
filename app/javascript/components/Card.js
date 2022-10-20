@@ -1,5 +1,12 @@
-const Card = ({ as: Element, children }) => (
-  <Element className="mb-7 bg-white rounded shadow border border-slate-200">
+import classnames from 'classnames';
+
+const Card = ({ as: Element = 'div', children, className }) => (
+  <Element
+    className={classnames(
+      'mb-7 bg-white rounded shadow border border-slate-200',
+      className,
+    )}
+  >
     {children}
   </Element>
 );

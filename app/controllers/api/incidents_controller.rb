@@ -1,6 +1,10 @@
 class Api::IncidentsController < ApiController
   def index
     @incidents = current_organization.incidents.order(local_id: :desc)
+    @incidents = @incidents.where(status: params[:status]) if params[
+      :status
+    ].present?
+    @incidents = @incidents.limit(params[:limit]) if params[:limit].present?
   end
 
   def create
