@@ -9,7 +9,7 @@ class Api::Incidents::OpenControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#show renders data about currently open incident in organization' do
-    get incidents_open_path, xhr: true
+    get incidents_open_path(format: :json)
     assert_response :success
     assert_equal @incident.local_id, @response.parsed_body['local_id']
   end
@@ -20,14 +20,14 @@ class Api::Incidents::OpenControllerTest < ActionDispatch::IntegrationTest
 
     @incident.status_closed!
 
-    get incidents_open_path, xhr: true
+    get incidents_open_path(format: :json)
     assert_response :not_found
   end
 
   test '#show renders 404 when there is no open incident' do
     @incident.status_closed!
 
-    get incidents_open_path, xhr: true
+    get incidents_open_path(format: :json)
     assert_response :not_found
   end
 end

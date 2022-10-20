@@ -20,7 +20,7 @@ class Api::IncidentsControllerTest < ActionDispatch::IntegrationTest
   ]
 
   test '#index renders all the incidents of the organization' do
-    get incidents_path, xhr: true
+    get incidents_path(format: :json)
     assert_response :success
     body = response.parsed_body['incidents']
     assert_equal 11, body.size
