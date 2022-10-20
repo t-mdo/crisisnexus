@@ -10,9 +10,9 @@ import {
 } from 'components/StatusBadge';
 import CalendarDayIcon from 'images/icons/regular/calendar-day.svg';
 import ClockIcon from 'images/icons/regular/clock.svg';
-import FireIcon from 'images/icons/regular/fire.svg';
-import CircleCheckIcon from 'images/icons/regular/circle-check.svg';
-import FileCheckIcon from 'images/icons/regular/file-check.svg';
+import FireIcon from 'images/icons/solid/fire.svg';
+import CircleCheckIcon from 'images/icons/solid/circle-check.svg';
+import FileCheckIcon from 'images/icons/solid/file-check.svg';
 
 const IncidentRow = ({ incident }) => {
   const statusBadgeType =
