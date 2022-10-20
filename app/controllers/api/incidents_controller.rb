@@ -1,6 +1,6 @@
 class Api::IncidentsController < ApiController
   def index
-    @incidents = current_organization.incidents.order(started_at: :desc)
+    @incidents = current_organization.incidents.order(local_id: :desc)
   end
 
   def create

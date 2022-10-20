@@ -38,7 +38,6 @@ const IncidentRow = ({ incident }) => {
 
   return (
     <li
-      key={incident.id}
       role="button"
       onClick={() => {}}
       className="flex justify-between p-4 hover:bg-gray-100"
@@ -76,7 +75,9 @@ const IncidentsIndex = () => {
       <h2 className="mb-6 font-semibold text-3xl">Incidents</h2>
       <ul className="mb-7 bg-white rounded shadow border border-slate-200">
         {intersperse(
-          data.incidents.map((incident) => <IncidentRow incident={incident} />),
+          data.incidents.map((incident) => (
+            <IncidentRow key={incident.local_id} incident={incident} />
+          )),
           <hr />,
         )}
       </ul>
