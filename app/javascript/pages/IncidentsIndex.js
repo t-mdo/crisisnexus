@@ -28,7 +28,9 @@ const IncidentRow = ({ incident }) => {
       ? CircleCheckIcon
       : FileCheckIcon;
   const started_at_formatted = dayjs(incident.started_at).format('lll');
-  const ended_at_formatted = dayjs(incident.ended_at).format('lll');
+  const ended_at_formatted = incident.ended_at
+    ? dayjs(incident.ended_at).format('lll')
+    : 'Ongoing';
   const duration_formatted = dayjs
     .duration({ seconds: incident.duration })
     .humanize();
