@@ -14,7 +14,7 @@ import Button from 'components/Button';
 import { Alert, ALERT_TYPE_ERROR } from 'components/Alert';
 
 const CloseIncidentModal = ({ open, onClose }) => {
-  const { openIncident } = useContext(OpenIncidentContext);
+  const { openIncident, setOpenIncident } = useContext(OpenIncidentContext);
 
   const {
     loading,
@@ -27,6 +27,7 @@ const CloseIncidentModal = ({ open, onClose }) => {
     method: 'PATCH',
     trigger: true,
     onSuccess: () => {
+      setOpenIncident(null);
       resetForm();
       onClose();
     },

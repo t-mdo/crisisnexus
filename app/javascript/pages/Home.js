@@ -20,10 +20,14 @@ const HotStateDashboard = ({ incident }) => {
             {incident.name}
           </span>
         </div>
-        <div className="mb-1 text-xs text-gray-400">Summary</div>
-        <p className="px-4 py-2 mb-8 bg-gray-100 border rounded">
-          {incident.summary}
-        </p>
+        {incident.summary && (
+          <>
+            <div className="mb-1 text-xs text-gray-400">Summary</div>
+            <p className="px-4 py-2 mb-8 bg-gray-100 border rounded">
+              {incident.summary}
+            </p>
+          </>
+        )}
         <div className="flex justify-end">
           <Button
             type={BUTTON_TYPE_SUCCESS}

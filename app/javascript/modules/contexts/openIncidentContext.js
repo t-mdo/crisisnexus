@@ -42,6 +42,7 @@ export const OpenIncidentProvider = ({ children }) => {
         openIncidentFetchError: error,
         openIncidentFetchLoading,
         openIncident,
+        setOpenIncident,
       }}
     >
       {children}

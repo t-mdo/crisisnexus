@@ -1,6 +1,8 @@
+import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import useHttpQuery from 'modules/httpQuery/useHttpQuery';
+import { OpenIncidentContext } from 'modules/contexts/openIncidentContext';
 import {
   Modal,
   ModalPanel,
@@ -14,6 +16,8 @@ import { Alert, ALERT_TYPE_ERROR } from 'components/Alert';
 
 const TriggerCrisisModal = ({ open, onClose }) => {
   const navigate = useNavigate();
+
+  const { setOpenIncident } = useContext(OpenIncidentContext);
   const {
     loading,
     data: postResponse,
@@ -23,7 +27,8 @@ const TriggerCrisisModal = ({ open, onClose }) => {
     url: '/incidents',
     method: 'POST',
     trigger: true,
-    onSuccess: () => {
+    onSuccess: ({ data: { incident } }) => {
+      setOpenIncident(incident);
       resetForm();
       onClose();
       navigate('/');
