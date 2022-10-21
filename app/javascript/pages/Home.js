@@ -47,10 +47,12 @@ const HotStateDashboard = ({ incident }) => {
     <>
       <h3 className="mb-3 font-semibold text-xl">Ongoing incident</h3>
       <Card className="px-8 py-6">
-        <div className="mb-1 text-sm text-gray-400 font-semibold">{`#CRISIS-${incident.local_id}`}</div>
-        <h4 className="mb-4 text-lg text-gray-900 font-semibold">
-          {incident.name}
-        </h4>
+        <div className="mb-4">
+          <span className="mr-2 text-sm text-gray-400 font-semibold">{`#CRISIS-${incident.local_id}:`}</span>
+          <span className="text-lg text-gray-900 font-semibold">
+            {incident.name}
+          </span>
+        </div>
         <div className="mb-1 text-xs text-gray-400">Summary</div>
         <p className="px-4 py-2 mb-8 bg-gray-100 border rounded">
           {incident.summary}
