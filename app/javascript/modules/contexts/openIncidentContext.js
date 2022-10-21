@@ -13,9 +13,13 @@ export const OpenIncidentProvider = ({ children }) => {
     error,
     trigger: fetchOpenIncidents,
   } = useHttpQuery({
-    url: '/incidents/open',
+    url: '/incidents?status=open',
     trigger: true,
-    onSuccess: ({ data: { open_incident } }) => {
+    onSuccess: ({
+      data: {
+        incidents: [open_incident],
+      },
+    }) => {
       setOpenIncident(open_incident);
       if (!initialFetchDone) {
         setInitialFetchDone(true);

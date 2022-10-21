@@ -1,5 +1,5 @@
 class Api::IncidentsController < ApiController
-  before_action :set_incident, only: %i[update]
+  before_action :set_incident, only: %i[show update]
 
   def index
     @incidents = current_organization.incidents.order(local_id: :desc)
@@ -7,6 +7,9 @@ class Api::IncidentsController < ApiController
       :status
     ].present?
     @incidents = @incidents.limit(params[:limit]) if params[:limit].present?
+  end
+
+  def show
   end
 
   def update

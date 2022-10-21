@@ -11,9 +11,9 @@ export const StatusBadge = ({
   icon: Icon,
   type = STATUS_TYPE_INFO,
 }) => (
-  <div
+  <span
     className={classnames(
-      'flex items-center px-2 py-1 border rounded capitalize text-xs',
+      'flex items-center w-fit px-2 py-1 border rounded capitalize text-xs',
       {
         'bg-blue-100 border-blue-400 text-blue-600': type === STATUS_TYPE_INFO,
         'bg-green-100 border-green-400 text-green-600':
@@ -36,7 +36,7 @@ export const StatusBadge = ({
       />
     )}
     {children}
-  </div>
+  </span>
 );
 
 export default StatusBadge;

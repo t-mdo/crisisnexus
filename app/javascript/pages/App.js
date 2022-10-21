@@ -4,11 +4,13 @@ import Home from 'pages/Home';
 import SideMenu from 'pages/SideMenu';
 import StatusBar from 'pages/StatusBar';
 import IncidentsIndex from 'pages/IncidentsIndex';
+import IncidentsShow from 'pages/IncidentsShow';
 
 const AppRoutes = () => (
   <Routes>
     <Route path="/" element={<Home />} />
     <Route path="/incidents" element={<IncidentsIndex />} />
+    <Route path="/incidents/:id" element={<IncidentsShow />} />
   </Routes>
 );
 

@@ -28,7 +28,7 @@ const HotStateDashboard = ({ incident }) => {
             </p>
           </>
         )}
-        <div className="flex justify-end">
+        <div className="flex justify-center">
           <Button
             type={BUTTON_TYPE_SUCCESS}
             onClick={() => setCloseIncidentModalOpen(true)}
@@ -66,7 +66,7 @@ const Home = () => {
   } = useContext(OpenIncidentContext);
 
   return (
-    <div className="py-6 px-4">
+    <div className="py-6 px-4 md:px-32">
       <h2 className="mb-6 font-semibold text-3xl">Dashboard</h2>
       {openIncidentFetchLoading && <Loader />}
       {openIncidentFetchDone && Boolean(openIncident) && (

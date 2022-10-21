@@ -10,10 +10,7 @@ Rails.application.routes.draw do
   end
 
   scope module: :api, constraints: lambda { |req| req.format == :json } do
-    resources :incidents, only: %i[index create update]
-    namespace :incidents do
-      resource :open, only: %i[show], controller: :open
-    end
+    resources :incidents, only: %i[index show create update]
   end
 
   get '/registration', to: 'registrations#new'
