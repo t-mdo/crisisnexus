@@ -20,7 +20,7 @@ export const Button = ({
           type === BUTTON_TYPE_PRIMARY,
         'bg-lime-400 hover:bg-lime-500 active:bg-lime-600':
           type === BUTTON_TYPE_SECONDARY,
-        'bg-green-500 hover:bg-green-600 active:bg-green-700':
+        'bg-green-600 hover:bg-green-700 active:bg-green-800':
           type === BUTTON_TYPE_SUCCESS,
         'bg-red-500 hover:bg-red-600 active:bg-red-700':
           type === BUTTON_TYPE_DANGER,

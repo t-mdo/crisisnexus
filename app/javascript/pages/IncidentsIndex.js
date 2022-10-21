@@ -10,7 +10,7 @@ const IncidentsIndex = () => {
   if (loading) return <Loader />;
   if (error) return <p>Something went wrong</p>;
   return (
-    <div className="max-h-[calc(100vh-64px)] py-6 px-4 flex-column overflow-y-auto">
+    <div className="max-h-[calc(100vh-64px)] py-6 px-4 overflow-y-auto">
       <h2 className="mb-6 font-semibold text-3xl">Incidents</h2>
       <Card as="ul">
         {intersperse(
