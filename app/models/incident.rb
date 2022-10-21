@@ -27,6 +27,8 @@ class Incident < ApplicationRecord
   after_initialize :set_organization
   before_create :set_local_id
   before_create :abort_if_organization_has_open_incident
+  before_update :set_ended_at,
+                if: -> { status_changed? && status == STATUS_CLOSED }
 
   def duration
     ended_at_or_now = ended_at || Time.now.utc
@@ -49,5 +51,9 @@ class Incident < ApplicationRecord
   def set_local_id
     return if organization.blank?
     self.local_id ||= organization.incidents.count + 1
+  end
+
+  def set_ended_at
+    self.ended_at = Time.now.utc
   end
 end
