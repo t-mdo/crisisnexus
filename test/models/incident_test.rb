@@ -22,4 +22,13 @@ class IncidentTest < ActiveSupport::TestCase
     assert_equal 1, incident.local_id
     assert_equal 2, incident2.local_id
   end
+
+  test 'should set ended_at when status is closed' do
+    incident = create(:incident, :open, creator: @reporter_account)
+    assert_equal incident.status, Incident::STATUS_OPEN
+    assert_nil incident.ended_at
+    incident.status_closed!
+    assert_equal incident.status, Incident::STATUS_CLOSED
+    assert_not_nil incident.ended_at
+  end
 end
