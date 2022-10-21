@@ -45,8 +45,11 @@ class Api::IncidentsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     body = response.parsed_body['incident']
 
+    @open_incident.reload
     assert_equal @open_incident.local_id, body['local_id']
+    assert_equal Incident::STATUS_CLOSED, @open_incident.status
     assert_equal Incident::STATUS_CLOSED, body['status']
+    assert_not_nil @open_incident.ended_at
     assert_not_nil body['ended_at']
   end
 

@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import OpenIncidentContext from 'modules/contexts/openIncident';
+import OpenIncidentContext from 'modules/contexts/openIncidentContext';
 import {
   Button,
   BUTTON_TYPE_DANGER,
@@ -13,7 +13,10 @@ const CoolStateStatusBar = () => {
 
   return (
     <div className="flex justify-end w-full h-16 p-3 bg-gray-200 border-b border-slate-300">
-      <Button type={BUTTON_TYPE_DANGER} onClick={() => setModalOpen(true)}>
+      <Button
+        type={BUTTON_TYPE_DANGER}
+        onClick={() => setTriggerIncidentModalOpen(true)}
+      >
         Trigger an incident
       </Button>
       <TriggerCrisisModal

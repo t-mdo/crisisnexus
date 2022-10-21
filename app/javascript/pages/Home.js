@@ -1,48 +1,15 @@
-import { useContext } from 'react';
-import useHttpQuery from 'modules/httpQuery/useHttpQuery';
-import OpenIncidentContext from 'modules/contexts/openIncident';
-import intersperse from 'modules/helpers/intersperse';
+import { useState, useContext } from 'react';
+import OpenIncidentContext from 'modules/contexts/openIncidentContext';
 import Alert from 'components/Alert';
 import Loader from 'components/Loader';
 import Card from 'components/Card';
 import Button, { BUTTON_TYPE_SUCCESS } from 'components/Button';
-import IncidentRow from 'pages/shared/IncidentRow';
-
-const PastIncidentsList = ({ queryLimit }) => {
-  const {
-    loading,
-    error,
-    success,
-    data: { incidents: pastIncidents } = {},
-  } = useHttpQuery({ url: `/incidents?status=closed&limit=${queryLimit}` });
-  const noPastIncidents = success && pastIncidents.length === 0;
-
-  return (
-    <>
-      <h3 className="mb-3 font-semibold text-xl">Past incidents</h3>
-      <Card as="ul">
-        {(() => {
-          if (loading) return <Loader />;
-          if (error) return <div>Something went wrong</div>;
-          if (noPastIncidents)
-            return (
-              <div className="px-6 py-3 text-lg text-center">
-                No past incidents
-              </div>
-            );
-          return intersperse(
-            pastIncidents.map((incident) => (
-              <IncidentRow key={incident.local_id} incident={incident} />
-            )),
-            <hr />,
-          );
-        })()}
-      </Card>
-    </>
-  );
-};
+import PastIncidentsList from 'pages/home/PastIncidentsList';
+import CloseIncidentModal from 'pages/home/CloseIncidentModal';
 
 const HotStateDashboard = ({ incident }) => {
+  const [closeIncidentModalOpen, setCloseIncidentModalOpen] = useState(false);
+
   return (
     <>
       <h3 className="mb-3 font-semibold text-xl">Ongoing incident</h3>
@@ -58,10 +25,19 @@ const HotStateDashboard = ({ incident }) => {
           {incident.summary}
         </p>
         <div className="flex justify-end">
-          <Button type={BUTTON_TYPE_SUCCESS}>Close the incident</Button>
+          <Button
+            type={BUTTON_TYPE_SUCCESS}
+            onClick={() => setCloseIncidentModalOpen(true)}
+          >
+            Close the incident
+          </Button>
         </div>
       </Card>
       <PastIncidentsList queryLimit={2} />
+      <CloseIncidentModal
+        open={closeIncidentModalOpen}
+        onClose={() => setCloseIncidentModalOpen(false)}
+      />
     </>
   );
 };

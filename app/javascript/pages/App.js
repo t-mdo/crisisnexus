@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { OpenIncidentProvider } from 'modules/contexts/openIncident';
+import { OpenIncidentProvider } from 'modules/contexts/openIncidentContext';
 import Home from 'pages/Home';
 import SideMenu from 'pages/SideMenu';
 import StatusBar from 'pages/StatusBar';
