@@ -50,7 +50,7 @@ class Api::IncidentsControllerTest < ActionDispatch::IntegrationTest
     assert_not_nil body['ended_at']
   end
 
-  test '#update renders error when no record was found' do
+  test '#update renders 404 not found when no record was found' do
     patch incident_path(
             100,
             params: {

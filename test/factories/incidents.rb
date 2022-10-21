@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :incident do
-    name { Faker::Quote.unique.famous_last_words }
+    name { Faker::Company.bs }
     summary { Faker::Lorem.paragraph_by_chars(number: 512) }
     association :creator, factory: :account
     organization { creator.organization }
