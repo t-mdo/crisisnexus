@@ -8,7 +8,7 @@ import {
   BUTTON_TYPE_SUCCESS,
   BUTTON_TYPE_PRIMARY,
 } from 'components/Button';
-import TriggerCrisisModal from 'pages/statusBar/TriggerCrisisModal';
+import TriggerIncidentModal from 'pages/statusBar/TriggerIncidentModal';
 
 const CoolStateStatusBar = () => {
   const [triggerIncidentModalOpen, setTriggerIncidentModalOpen] =
@@ -22,7 +22,7 @@ const CoolStateStatusBar = () => {
       >
         Trigger an incident
       </Button>
-      <TriggerCrisisModal
+      <TriggerIncidentModal
         open={triggerIncidentModalOpen}
         onClose={() => setTriggerIncidentModalOpen(false)}
       />

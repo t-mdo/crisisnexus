@@ -3,4 +3,5 @@ class Account < ApplicationRecord
 
   belongs_to :organization
   has_many :incidents, inverse_of: :creator
+  has_many :sms_notifications
 end

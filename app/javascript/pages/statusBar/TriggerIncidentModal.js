@@ -14,7 +14,7 @@ import Label from 'components/form/Label';
 import Button from 'components/Button';
 import { Alert, ALERT_TYPE_ERROR } from 'components/Alert';
 
-const TriggerCrisisModal = ({ open, onClose }) => {
+const TriggerIncidentModal = ({ open, onClose }) => {
   const navigate = useNavigate();
 
   const { setOpenIncident } = useContext(OpenIncidentContext);
@@ -98,4 +98,4 @@ const TriggerCrisisModal = ({ open, onClose }) => {
   );
 };
 
-export default TriggerCrisisModal;
+export default TriggerIncidentModal;

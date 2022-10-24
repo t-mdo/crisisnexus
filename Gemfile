@@ -17,6 +17,7 @@ gem 'bootsnap', require: false
 gem 'haml'
 gem 'inline_svg'
 gem 'sorcery'
+gem 'twilio-ruby'
 
 group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
