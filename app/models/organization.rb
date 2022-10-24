@@ -7,6 +7,7 @@ class Organization < ApplicationRecord
   private
 
   def war_room_url_is_valid
+    return if war_room_url.blank?
     return if war_room_url.match?(URI.regexp(%w[https http slack]))
 
     errors.add(:war_room_url, 'must be a valid URL')

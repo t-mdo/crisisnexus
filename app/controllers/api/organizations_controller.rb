@@ -12,7 +12,7 @@ class Api::OrganizationsController < ApiController
       return(
         render status: :unprocessable_entity,
                json: {
-                 errors: @incident.errors.full_messages,
+                 errors: current_organization.errors.full_messages,
                }
       )
     end
