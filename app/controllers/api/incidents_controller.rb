@@ -12,23 +12,40 @@ class Api::IncidentsController < ApiController
   def show
   end
 
-  def update
-    update_status if params[:status].present?
-  end
-
   def create
     attributes = params.require(:incident).permit(:name, :summary)
     @incident =
       Incident.create({ **attributes, creator: current_user }.compact_blank)
     if !@incident.persisted?
-      render json: {
-               errors: incident.errors.full_messages,
-             },
-             status: :unprocessable_entity
+      return(
+        render json: {
+                 errors: incident.errors.full_messages,
+               },
+               status: :unprocessable_entity
+      )
     end
+    send_sms_notifications
+  end
+
+  def update
+    update_status if params[:status].present?
   end
 
   private
+
+  def send_sms_notifications
+    body =
+      "Crisis started: \"#{@incident.name}\".\nPlease join the war room asap! Godspeed."
+    current_organization.accounts.each do |user|
+      SmsSender.call(phone_number: user.phone_number, body: body)
+    end
+    SmsNotification.create(
+      organization: current_organization,
+      account: current_user,
+      incident: @incident,
+      body: body,
+    )
+  end
 
   def update_status
     updated = @incident.update(status: params[:status])
