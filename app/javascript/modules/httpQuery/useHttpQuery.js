@@ -42,7 +42,7 @@ const useHttpQuery = ({
           success: false,
           error: true,
         });
-        if (onFailure) onFailure(message);
+        if (onFailure) onFailure(error);
       });
   };
 

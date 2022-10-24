@@ -72,9 +72,7 @@ const Home = () => {
       {openIncidentFetchDone && Boolean(openIncident) && (
         <HotStateDashboard incident={openIncident} />
       )}
-      {openIncidentFetchDone && !Boolean(openIncident) && (
-        <CoolStateDashboard />
-      )}
+      {openIncidentFetchDone && !openIncident && <CoolStateDashboard />}
       {openIncidentFetchError && (
         <Alert type="error">An error occured while loading the dashboard</Alert>
       )}

@@ -24,24 +24,22 @@ const MenuOption = ({ children, to, icon: Icon }) => (
   </NavLink>
 );
 
-const SideMenu = () => {
-  return (
-    <div className="flex flex-col justify-between h-screen min-w-fit w-64 py-14 bg-violet-950">
-      <div>
-        <MenuOption icon={HouseIcon} to="/">
-          Dashboard
-        </MenuOption>
-        <MenuOption icon={FireIcon} to="/incidents">
-          Incidents
-        </MenuOption>
-      </div>
-      <div>
-        <MenuOption icon={GearIcon} to="/settings">
-          Settings
-        </MenuOption>
-      </div>
+const SideMenu = () => (
+  <div className="flex flex-col justify-between h-screen min-w-fit w-64 py-14 bg-violet-950">
+    <div>
+      <MenuOption icon={HouseIcon} to="/">
+        Dashboard
+      </MenuOption>
+      <MenuOption icon={FireIcon} to="/incidents">
+        Incidents
+      </MenuOption>
     </div>
-  );
-};
+    <div>
+      <MenuOption icon={GearIcon} to="/settings">
+        Settings
+      </MenuOption>
+    </div>
+  </div>
+);
 
 export default SideMenu;

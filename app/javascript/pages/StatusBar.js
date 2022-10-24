@@ -62,16 +62,11 @@ const HotStateStatusBar = () => {
 };
 
 const StatusBar = () => {
-  const {
-    openIncidentFetchDone,
-    openIncidentFetchLoading,
-    openIncidentFetchError,
-    openIncident,
-  } = useContext(OpenIncidentContext);
+  const { openIncidentFetchDone, openIncident } =
+    useContext(OpenIncidentContext);
 
   if (!openIncidentFetchDone) return null;
-  if (Boolean(openIncident))
-    return <HotStateStatusBar incident={openIncident} />;
+  if (openIncident) return <HotStateStatusBar incident={openIncident} />;
   return <CoolStateStatusBar />;
 };
 
