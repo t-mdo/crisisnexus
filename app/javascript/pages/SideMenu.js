@@ -2,6 +2,7 @@ import classnames from 'classnames';
 import { NavLink } from 'react-router-dom';
 import HouseIcon from 'images/icons/regular/house-chimney.svg';
 import FireIcon from 'images/icons/regular/fire.svg';
+import GearIcon from 'images/icons/regular/gear.svg';
 
 const MenuOption = ({ children, to, icon: Icon }) => (
   <NavLink
@@ -25,13 +26,20 @@ const MenuOption = ({ children, to, icon: Icon }) => (
 
 const SideMenu = () => {
   return (
-    <div className="h-screen min-w-fit w-64 py-14 bg-violet-950">
-      <MenuOption icon={HouseIcon} to="/">
-        Dashboard
-      </MenuOption>
-      <MenuOption icon={FireIcon} to="/incidents">
-        Incidents
-      </MenuOption>
+    <div className="flex flex-col justify-between h-screen min-w-fit w-64 py-14 bg-violet-950">
+      <div>
+        <MenuOption icon={HouseIcon} to="/">
+          Dashboard
+        </MenuOption>
+        <MenuOption icon={FireIcon} to="/incidents">
+          Incidents
+        </MenuOption>
+      </div>
+      <div>
+        <MenuOption icon={GearIcon} to="/settings">
+          Settings
+        </MenuOption>
+      </div>
     </div>
   );
 };

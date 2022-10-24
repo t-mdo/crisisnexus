@@ -1,12 +1,11 @@
 class Api::OrganizationsController < ApiController
-  def update
-    update_war_room_url if params[:war_room_url].present?
+  def show
+    render json: current_organization.as_json(only: %i[name war_room_url])
   end
 
-  private
-
-  def update_war_room_url
-    updated = current_organization.update(war_room_url: params[:war_room_url])
+  def update
+    attributes = params.permit(:name, :war_room_url)
+    updated = current_organization.update(attributes)
 
     if !updated
       return(
@@ -16,5 +15,11 @@ class Api::OrganizationsController < ApiController
                }
       )
     end
+    head :ok
+  end
+
+  private
+
+  def update_war_room_url
   end
 end

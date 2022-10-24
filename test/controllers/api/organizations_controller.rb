@@ -36,4 +36,11 @@ class Api::OrganizationsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 'War room url must be a valid URL', body['errors'].first
     assert_nil @organization.reload.war_room_url
   end
+
+  test '#update updates organization name' do
+    patch organization_path(params: { name: 'New Name' }, format: :json)
+
+    assert_response :success
+    assert_equal 'New Name', @organization.reload.name
+  end
 end

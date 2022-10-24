@@ -5,12 +5,14 @@ import SideMenu from 'pages/SideMenu';
 import StatusBar from 'pages/StatusBar';
 import IncidentsIndex from 'pages/IncidentsIndex';
 import IncidentsShow from 'pages/IncidentsShow';
+import Settings from 'pages/Settings';
 
 const AppRoutes = () => (
   <Routes>
     <Route path="/" element={<Home />} />
     <Route path="/incidents" element={<IncidentsIndex />} />
     <Route path="/incidents/:id" element={<IncidentsShow />} />
+    <Route path="/settings" element={<Settings />} />
   </Routes>
 );
 
