@@ -31,6 +31,49 @@ class Api::IncidentsControllerTest < ActionDispatch::IntegrationTest
     body.each { |incident| assert_equal BODY_KEYS, incident.keys.sort }
   end
 
+  test '#index status open renders data about currently open incident in organization' do
+    get incidents_path(params: { status: Incident::STATUS_OPEN }, format: :json)
+    assert_response :success
+
+    body = @response.parsed_body['incidents']
+
+    assert_equal 1, body.size
+    assert_equal @open_incident.local_id, body.first['local_id']
+  end
+
+  test '#index status open renders null when there is no open incident' do
+    @open_incident.status_closed!
+
+    get incidents_path(params: { status: Incident::STATUS_OPEN }, format: :json)
+    body = @response.parsed_body['incidents']
+
+    assert_response :success
+    assert_equal 0, body.size
+  end
+
+  test '#index status open renders null if there is only an open incident open in another organization' do
+    account2 = create(:account)
+    incident2 = create(:incident, :open, creator: account2)
+
+    @open_incident.status_closed!
+
+    get incidents_path(params: { status: Incident::STATUS_OPEN }, format: :json)
+    assert_response :success
+
+    body = @response.parsed_body['incidents']
+
+    assert_equal 0, body.size
+  end
+
+  test '#index limit renders the specified number of incidents' do
+    get incidents_path(params: { limit: 3 }, format: :json)
+    assert_response :success
+
+    body = @response.parsed_body['incidents']
+
+    assert_equal 3, body.size
+  end
+
   test '#update updates open incident status to closed' do
     assert_equal Incident::STATUS_OPEN, @open_incident.status
     assert_nil @open_incident.ended_at
