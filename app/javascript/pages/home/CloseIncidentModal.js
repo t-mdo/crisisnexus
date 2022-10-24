@@ -23,7 +23,6 @@ const CloseIncidentModal = ({ open, onClose }) => {
     trigger: triggerIncidentPatch,
   } = useHttpQuery({
     url: `/incidents/${openIncident.local_id}`,
-    body: { status: 'closed' },
     method: 'PATCH',
     trigger: true,
     onSuccess: () => {
@@ -46,8 +45,9 @@ const CloseIncidentModal = ({ open, onClose }) => {
   });
   const formHasErrors = Object.keys(formErrors).length > 0;
 
-  const onSubmit = () => {
-    triggerIncidentPatch();
+  const onSubmit = (data) => {
+    const body = { incident: { ...data, status: 'closed' } };
+    triggerIncidentPatch({ body });
   };
 
   return (

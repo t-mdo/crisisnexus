@@ -28,7 +28,17 @@ class Api::IncidentsController < ApiController
   end
 
   def update
-    update_status if params[:status].present?
+    attributes = params.require(:incident).permit(:name, :summary, :status)
+    updated = @incident.update(attributes)
+
+    if !updated
+      return(
+        render status: :unprocessable_entity,
+               json: {
+                 errors: @incident.errors.full_messages,
+               }
+      )
+    end
   end
 
   private
@@ -45,19 +55,6 @@ class Api::IncidentsController < ApiController
       incident: @incident,
       body: body,
     )
-  end
-
-  def update_status
-    updated = @incident.update(status: params[:status])
-
-    if !updated
-      return(
-        render status: :unprocessable_entity,
-               json: {
-                 errors: @incident.errors.full_messages,
-               }
-      )
-    end
   end
 
   def set_incident

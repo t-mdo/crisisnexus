@@ -81,7 +81,9 @@ class Api::IncidentsControllerTest < ActionDispatch::IntegrationTest
     patch incident_path(
             @open_incident.local_id,
             params: {
-              status: Incident::STATUS_CLOSED,
+              incident: {
+                status: Incident::STATUS_CLOSED,
+              },
             },
             format: :json,
           )
