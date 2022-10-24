@@ -1,9 +1,12 @@
 import { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import OpenIncidentContext from 'modules/contexts/openIncidentContext';
+import OrganizationContext from 'modules/contexts/organizationContext';
 import {
   Button,
   BUTTON_TYPE_DANGER,
   BUTTON_TYPE_SUCCESS,
+  BUTTON_TYPE_PRIMARY,
 } from 'components/Button';
 import TriggerCrisisModal from 'pages/statusBar/TriggerCrisisModal';
 
@@ -27,13 +30,33 @@ const CoolStateStatusBar = () => {
   );
 };
 
-const HotStateStatusBar = ({ incident }) => {
+const HotStateStatusBar = () => {
+  const navigate = useNavigate();
+  const { organization } = useContext(OrganizationContext);
+
   return (
     <div className="flex justify-between items-center w-full h-16 p-3 bg-red-600 border-b border-slate-300">
       <div className="text-xl text-white font-semibold">
         Incident in progress
       </div>
-      <Button type={BUTTON_TYPE_SUCCESS}>Join the war room</Button>
+      {(() => {
+        if (!organization) return null;
+        if (organization.war_room_url) {
+          return (
+            <a target="_blank" href={organization.war_room_url}>
+              <Button type={BUTTON_TYPE_SUCCESS}>Join the War Room</Button>
+            </a>
+          );
+        }
+        return (
+          <Button
+            type={BUTTON_TYPE_PRIMARY}
+            onClick={() => navigate('/settings')}
+          >
+            Set up your crisis room
+          </Button>
+        );
+      })()}
     </div>
   );
 };
@@ -46,7 +69,8 @@ const StatusBar = () => {
     openIncident,
   } = useContext(OpenIncidentContext);
 
-  if (openIncidentFetchDone && Boolean(openIncident))
+  if (!openIncidentFetchDone) return null;
+  if (Boolean(openIncident))
     return <HotStateStatusBar incident={openIncident} />;
   return <CoolStateStatusBar />;
 };

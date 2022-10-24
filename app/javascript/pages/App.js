@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { OrganizationProvider } from 'modules/contexts/organizationContext';
 import { OpenIncidentProvider } from 'modules/contexts/openIncidentContext';
 import Home from 'pages/Home';
 import SideMenu from 'pages/SideMenu';
@@ -21,10 +22,12 @@ const App = () => (
     <div className="flex overflow-hidden h-screen">
       <SideMenu />
       <div className="w-full bg-gray-100">
-        <OpenIncidentProvider>
-          <StatusBar />
-          <AppRoutes />
-        </OpenIncidentProvider>
+        <OrganizationProvider>
+          <OpenIncidentProvider>
+            <StatusBar />
+            <AppRoutes />
+          </OpenIncidentProvider>
+        </OrganizationProvider>
       </div>
     </div>
   </BrowserRouter>
