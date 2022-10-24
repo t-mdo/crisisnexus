@@ -1,6 +1,7 @@
 class Organization < ApplicationRecord
   has_many :accounts
   has_many :incidents
+  has_many :sms_notifications
 
   validate :war_room_url_is_valid
 

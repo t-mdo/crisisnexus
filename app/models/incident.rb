@@ -7,6 +7,7 @@ class Incident < ApplicationRecord
 
   belongs_to :organization
   belongs_to :creator, class_name: 'Account', inverse_of: :incidents
+  has_many :sms_notifications
 
   enum :status,
        {

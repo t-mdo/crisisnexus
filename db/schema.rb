@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_22_170940) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_24_215616) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -54,7 +54,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_22_170940) do
     t.string "war_room_url"
   end
 
+  create_table "sms_notifications", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.bigint "account_id", null: false
+    t.bigint "incident_id", null: false
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_sms_notifications_on_account_id"
+    t.index ["incident_id"], name: "index_sms_notifications_on_incident_id"
+    t.index ["organization_id"], name: "index_sms_notifications_on_organization_id"
+  end
+
   add_foreign_key "accounts", "organizations"
   add_foreign_key "incidents", "accounts", column: "creator_id"
   add_foreign_key "incidents", "organizations"
+  add_foreign_key "sms_notifications", "accounts"
+  add_foreign_key "sms_notifications", "incidents"
+  add_foreign_key "sms_notifications", "organizations"
 end
