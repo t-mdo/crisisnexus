@@ -8,14 +8,11 @@ class Api::OrganizationsController < ApiController
     attributes = params.permit(:name, :war_room_url)
     updated = @organization.update(attributes)
 
-    if !updated
-      return(
-        render status: :unprocessable_entity,
-               json: {
-                 errors: @organization.errors.full_messages,
-               }
-      )
-    end
+    return if updated
+    render status: :unprocessable_entity,
+           json: {
+             errors: @organization.errors.full_messages,
+           }
   end
 
   private

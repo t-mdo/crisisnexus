@@ -16,7 +16,7 @@ class Api::IncidentsController < ApiController
     attributes = params.require(:incident).permit(:name, :summary)
     @incident =
       Incident.create({ **attributes, creator: current_account }.compact_blank)
-    if !@incident.persisted?
+    unless @incident.persisted?
       return(
         render json: {
                  errors: incident.errors.full_messages,
@@ -31,14 +31,11 @@ class Api::IncidentsController < ApiController
     attributes = params.require(:incident).permit(:name, :summary, :status)
     updated = @incident.update(attributes)
 
-    if !updated
-      return(
-        render status: :unprocessable_entity,
-               json: {
-                 errors: @incident.errors.full_messages,
-               }
-      )
-    end
+    return if updated
+    render status: :unprocessable_entity,
+           json: {
+             errors: @incident.errors.full_messages,
+           }
   end
 
   private
@@ -47,13 +44,13 @@ class Api::IncidentsController < ApiController
     body =
       "Crisis started: \"#{@incident.name}\".\nPlease join the war room asap! Godspeed."
     current_organization.accounts.each do |user|
-      SmsSender.call(phone_number: user.phone_number, body: body)
+      SmsSender.call(phone_number: user.phone_number, body:)
     end
     SmsNotification.create(
       organization: current_organization,
       account: current_account,
       incident: @incident,
-      body: body,
+      body:,
     )
   end
 

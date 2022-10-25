@@ -11,11 +11,9 @@ class SessionsController < ApplicationController
     end
 
     user = login(params[:email], params[:password])
-    if user.present?
-      redirect_to root_path, notice: 'Logged in!'
-    else
-      flash.now[:error] = 'Email or password was invalid'
-      render :new
-    end
+    return redirect_to root_path, notice: 'Logged in!' if user.present?
+
+    flash.now[:error] = 'Email or password was invalid'
+    render :new
   end
 end
