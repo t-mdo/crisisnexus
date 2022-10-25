@@ -7,7 +7,6 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.3",
-    "@prettier/plugin-ruby": "^3.2.2",
     "autoprefixer": "^10.4.12",
     "classnames": "^2.3.2",
     "dayjs": "^1.11.5",
