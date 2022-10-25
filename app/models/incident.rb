@@ -22,6 +22,7 @@ class Incident < ApplicationRecord
        default: STATUS_OPEN,
        prefix: true
 
+  validates :name, presence: true
   validates :status, inclusion: { in: statuses.keys }
   validates :ended_at,
             comparison: {
@@ -38,6 +39,11 @@ class Incident < ApplicationRecord
   def duration
     ended_at_or_now = ended_at || Time.now.utc
     ended_at_or_now - started_at
+  end
+
+  def sms_notification_body
+    return "Crisis \"#{name}\" closed by #{creator.email}." if status_closed?
+    "Crisis \"#{name}\" open.\nPlease join the war room asap! Godspeed."
   end
 
   private

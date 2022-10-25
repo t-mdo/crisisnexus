@@ -75,6 +75,42 @@ class Api::IncidentsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 3, body.size
   end
 
+  test '#create creates an incident' do
+    @open_incident.status_closed!
+
+    assert_difference 'Incident.count', 1 do
+      post incidents_path(params: { incident: { name: 'test' } }, format: :json)
+      assert_response :success
+    end
+
+    assert_equal 'test', Incident.last.name
+    assert_equal 'open', Incident.last.status
+  end
+
+  test '#create sends sms notification to organization users if incident is open' do
+    @open_incident.status_closed!
+
+    assert_difference 'SmsNotification.count', 1 do
+      post incidents_path(params: { incident: { name: 'test' } }, format: :json)
+      assert_response :success
+    end
+
+    incident = Incident.last
+    sms = SmsNotification.last
+    assert_equal @account.organization, sms.organization
+    assert_equal @account, sms.account
+    assert_equal incident, sms.incident
+    assert_equal "Crisis \"#{incident.name}\" open.\nPlease join the war room asap! Godspeed.",
+                 sms.body
+  end
+
+  test '#create renders 422 if an open incident is already under way' do
+    assert_difference 'Incident.count', 0 do
+      post incidents_path(params: { incident: { name: 'test' } }, format: :json)
+      assert_response :unprocessable_entity
+    end
+  end
+
   test '#update updates open incident status to closed' do
     assert_equal Incident::STATUS_OPEN, @open_incident.status
     assert_nil @open_incident.ended_at
@@ -98,6 +134,31 @@ class Api::IncidentsControllerTest < ActionDispatch::IntegrationTest
     assert_not_nil @open_incident.ended_at
     assert_equal @account.id, @open_incident.closer_id
     assert_not_nil body['ended_at']
+  end
+
+  test '#update sends sms notification to organization users if incident is closed' do
+    assert_equal Incident::STATUS_OPEN, @open_incident.status
+    assert_nil @open_incident.ended_at
+
+    assert_difference 'SmsNotification.count', 1 do
+      patch incident_path(
+              @open_incident.local_id,
+              params: {
+                incident: {
+                  status: Incident::STATUS_CLOSED,
+                },
+              },
+              format: :json,
+            )
+      assert_response :success
+    end
+
+    sms = SmsNotification.last
+    assert_equal @account.organization, sms.organization
+    assert_equal @account, sms.account
+    assert_equal @open_incident, sms.incident
+    assert_equal "Crisis \"#{@open_incident.name}\" closed by #{@account.email}.",
+                 sms.body
   end
 
   test '#update renders 404 not found when no record was found' do

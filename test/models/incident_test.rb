@@ -6,6 +6,21 @@ class IncidentTest < ActiveSupport::TestCase
     @reporter_account = create(:account, organization: @organization)
   end
 
+  test 'should have a name, a creator and an organization' do
+    incident = Incident.new
+    assert_not incident.valid?
+    assert_equal %i[creator name organization],
+                 incident.errors.messages.keys.sort
+
+    incident =
+      Incident.new(
+        name: 'test',
+        creator: @reporter_account,
+        organization: @organization,
+      )
+    assert incident.valid?
+  end
+
   test 'should set defaults attribute at creation' do
     incident =
       Incident.create!(name: 'test incident', creator: @reporter_account)
@@ -30,5 +45,20 @@ class IncidentTest < ActiveSupport::TestCase
     incident.status_closed!
     assert_equal incident.status, Incident::STATUS_CLOSED
     assert_not_nil incident.ended_at
+  end
+
+  test 'should not create an incident if there is already an open incident in the organization' do
+    open_incident = create(:incident, :open, creator: @reporter_account)
+
+    incident =
+      Incident.create(name: 'test incident', creator: @reporter_account)
+    assert_not incident.persisted?
+    assert_equal 'An incident is already ongoing',
+                 incident.errors.full_messages.first
+
+    open_incident.status_closed!
+    incident =
+      Incident.create(name: 'test incident', creator: @reporter_account)
+    assert incident.persisted?
   end
 end
