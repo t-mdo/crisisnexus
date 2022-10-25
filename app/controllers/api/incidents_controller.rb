@@ -15,7 +15,7 @@ class Api::IncidentsController < ApiController
   def create
     attributes = params.require(:incident).permit(:name, :summary)
     @incident =
-      Incident.create({ **attributes, creator: current_user }.compact_blank)
+      Incident.create({ **attributes, creator: current_account }.compact_blank)
     if !@incident.persisted?
       return(
         render json: {
@@ -51,7 +51,7 @@ class Api::IncidentsController < ApiController
     end
     SmsNotification.create(
       organization: current_organization,
-      account: current_user,
+      account: current_account,
       incident: @incident,
       body: body,
     )
