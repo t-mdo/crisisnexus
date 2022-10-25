@@ -100,6 +100,7 @@ class Api::IncidentsControllerTest < ActionDispatch::IntegrationTest
     assert_equal @account.organization, sms.organization
     assert_equal @account, sms.account
     assert_equal incident, sms.incident
+    assert sms.success
     assert_equal "Crisis \"#{incident.name}\" open.\nPlease join the war room asap! Godspeed",
                  sms.body
   end
@@ -157,6 +158,7 @@ class Api::IncidentsControllerTest < ActionDispatch::IntegrationTest
     assert_equal @account.organization, sms.organization
     assert_equal @account, sms.account
     assert_equal @open_incident, sms.incident
+    assert sms.success
     assert_equal "Crisis \"#{@open_incident.name}\" closed by #{@account.email}",
                  sms.body
   end
