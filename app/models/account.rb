@@ -2,7 +2,8 @@ class Account < ApplicationRecord
   authenticates_with_sorcery!
 
   belongs_to :organization, optional: true
-  has_many :incidents, inverse_of: :creator
+  has_many :created_incidents, class_name: 'Incident', inverse_of: :creator
+  has_many :closed_incidents, class_name: 'Incident', inverse_of: :closer
   has_many :sms_notifications
 
   validates :email,

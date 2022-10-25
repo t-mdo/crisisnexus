@@ -1,12 +1,16 @@
 class Incident < ApplicationRecord
-  STATUS_OPEN = 'open'
-  STATUS_CLOSED = 'closed'
-  STATUS_POSTMORTEM_PUBLISHED = 'postmortem_published'
+  STATUS_OPEN = 'open'.freeze
+  STATUS_CLOSED = 'closed'.freeze
+  STATUS_POSTMORTEM_PUBLISHED = 'postmortem_published'.freeze
 
   attribute :started_at, :datetime, default: Time.now.utc
 
   belongs_to :organization
-  belongs_to :creator, class_name: 'Account', inverse_of: :incidents
+  belongs_to :creator, class_name: 'Account', inverse_of: :created_incidents
+  belongs_to :closer,
+             class_name: 'Account',
+             inverse_of: :closed_incidents,
+             optional: true
   has_many :sms_notifications
 
   enum :status,

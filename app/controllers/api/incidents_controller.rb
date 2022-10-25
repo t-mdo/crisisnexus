@@ -24,11 +24,14 @@ class Api::IncidentsController < ApiController
                status: :unprocessable_entity
       )
     end
-    send_sms_notifications
   end
 
   def update
     attributes = params.require(:incident).permit(:name, :summary, :status)
+
+    if attributes[:status] == Incident::STATUS_CLOSED
+      attributes = { **attributes, closer: current_account }
+    end
     updated = @incident.update(attributes)
 
     return if updated
@@ -39,20 +42,6 @@ class Api::IncidentsController < ApiController
   end
 
   private
-
-  def send_sms_notifications
-    body =
-      "Crisis started: \"#{@incident.name}\".\nPlease join the war room asap! Godspeed."
-    current_organization.accounts.each do |user|
-      SmsSender.call(phone_number: user.phone_number, body:)
-    end
-    SmsNotification.create(
-      organization: current_organization,
-      account: current_account,
-      incident: @incident,
-      body:,
-    )
-  end
 
   def set_incident
     @incident = current_organization.incidents.find_by(local_id: params[:id])

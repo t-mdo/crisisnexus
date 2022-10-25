@@ -9,7 +9,8 @@ class Api::IncidentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   BODY_KEYS = %w[
-    creator_id
+    closer
+    creator
     duration
     ended_at
     local_id
@@ -17,7 +18,7 @@ class Api::IncidentsControllerTest < ActionDispatch::IntegrationTest
     started_at
     status
     summary
-  ]
+  ].freeze
 
   test '#index renders all the incidents of the organization' do
     get incidents_path(format: :json)
@@ -95,6 +96,7 @@ class Api::IncidentsControllerTest < ActionDispatch::IntegrationTest
     assert_equal Incident::STATUS_CLOSED, @open_incident.status
     assert_equal Incident::STATUS_CLOSED, body['status']
     assert_not_nil @open_incident.ended_at
+    assert_equal @account.id, @open_incident.closer_id
     assert_not_nil body['ended_at']
   end
 
