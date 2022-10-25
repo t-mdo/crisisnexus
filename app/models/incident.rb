@@ -42,8 +42,8 @@ class Incident < ApplicationRecord
   end
 
   def sms_notification_body
-    return "Crisis \"#{name}\" closed by #{creator.email}." if status_closed?
-    "Crisis \"#{name}\" open.\nPlease join the war room asap! Godspeed."
+    return "Crisis \"#{name}\" closed by #{creator.email}" if status_closed?
+    "Crisis \"#{name}\" open.\nPlease join the war room asap! Godspeed"
   end
 
   private
