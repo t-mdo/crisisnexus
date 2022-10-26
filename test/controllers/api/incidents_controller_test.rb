@@ -115,14 +115,14 @@ class Api::IncidentsControllerTest < ActionDispatch::IntegrationTest
     assert_nil @open_incident.ended_at
 
     patch incident_path(
-            @open_incident.local_id,
-            params: {
-              incident: {
-                status: Incident::STATUS_CLOSED,
-              },
-            },
-            format: :json,
-          )
+      @open_incident.local_id,
+      params: {
+        incident: {
+          status: Incident::STATUS_CLOSED
+        }
+      },
+      format: :json
+    )
     assert_response :success
     body = response.parsed_body['incident']
 
@@ -144,14 +144,14 @@ class Api::IncidentsControllerTest < ActionDispatch::IntegrationTest
 
     assert_difference 'SmsNotification.count', 4 do
       patch incident_path(
-              @open_incident.local_id,
-              params: {
-                incident: {
-                  status: Incident::STATUS_CLOSED,
-                },
-              },
-              format: :json,
-            )
+        @open_incident.local_id,
+        params: {
+          incident: {
+            status: Incident::STATUS_CLOSED
+          }
+        },
+        format: :json
+      )
       assert_response :success
     end
 
@@ -160,12 +160,12 @@ class Api::IncidentsControllerTest < ActionDispatch::IntegrationTest
 
   test '#update renders 404 not found when no record was found' do
     patch incident_path(
-            100,
-            params: {
-              status: Incident::STATUS_CLOSED,
-            },
-            format: :json,
-          )
+      100,
+      params: {
+        status: Incident::STATUS_CLOSED
+      },
+      format: :json
+    )
     assert_response :not_found
 
     assert_no_incident_sms_notification
@@ -174,18 +174,15 @@ class Api::IncidentsControllerTest < ActionDispatch::IntegrationTest
   private
 
   def assert_incident_sms_notications(incident:)
-    from_phone_number = '18644796982'
-
     incident.organization.accounts.each do |account|
-      assert_requested :post, TWILIO_API_MESSAGES_URL,
-        body: {'Body'=>incident.sms_notification_body, 'From'=>from_phone_number, 'To'=>account.phone_number}, times: 1
-      sms_notification = SmsNotification.find_by!(incident: incident, account: account)
+      assert_sms_notification_request(body: incident.sms_notification_body, to: account.phone_number)
+      sms_notification = SmsNotification.find_by!(incident:, account:)
       assert sms_notification.success
       assert_equal incident.sms_notification_body, sms_notification.body
     end
   end
 
   def assert_no_incident_sms_notification
-    assert_not_requested :post, TWILIO_API_MESSAGES_URL
+    assert_no_sms_notification_request
   end
 end
