@@ -87,8 +87,9 @@ class Api::IncidentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#create sends sms notifications to organization users if incident is open' do
+    create_list(:account, 3, organization: @account.organization)
 
-    assert_difference 'SmsNotification.count', 1 do
+    assert_difference 'SmsNotification.count', 4 do
       post incidents_path(params: { incident: { name: 'test' } }, format: :json)
       assert_response :success
     end
@@ -135,12 +136,13 @@ class Api::IncidentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#update sends sms notification to organization users if incident is closed' do
+    create_list(:account, 3, organization: @account.organization)
     @open_incident = create(:incident, :open, creator: @account)
 
     assert_equal Incident::STATUS_OPEN, @open_incident.status
     assert_nil @open_incident.ended_at
 
-    assert_difference 'SmsNotification.count', 1 do
+    assert_difference 'SmsNotification.count', 4 do
       patch incident_path(
               @open_incident.local_id,
               params: {
