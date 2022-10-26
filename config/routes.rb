@@ -5,17 +5,17 @@ Rails.application.routes.draw do
           to: redirect(subdomain: 'www'),
           via: :all,
           constraints: {
-            subdomain: '',
+            subdomain: ''
           }
   end
 
-  scope module: :api, constraints: lambda { |req| req.format == :json } do
+  scope module: :api, constraints: ->(req) { req.format == :json } do
     resources :incidents, only: %i[index show create update]
     resource :organization, only: %i[show update]
   end
 
-  get '/registration', to: 'registrations#new'
-  resource :registration, only: %i[create]
+  resource :lead, only: %i[new create]
+
   get '/login', to: 'sessions#new'
   resource :sessions, only: %i[create]
 
@@ -27,5 +27,5 @@ Rails.application.routes.draw do
   root 'root#index'
   get '*path',
       to: 'root#index',
-      constraints: lambda { |req| req.format == :html }
+      constraints: ->(req) { req.format == :html }
 end
