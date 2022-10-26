@@ -1,4 +1,4 @@
-class RegistrationsController < ApplicationController
+class LeadsController < ApplicationController
   layout 'landing'
 
   def new; end
