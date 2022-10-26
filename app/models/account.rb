@@ -10,7 +10,7 @@ class Account < ApplicationRecord
             presence: true,
             uniqueness: true,
             format: {
-              with: URI::MailTo::EMAIL_REGEXP,
+              with: URI::MailTo::EMAIL_REGEXP
             }
   validates :phone_number, phone: { possible: true, allow_blank: true }
 end

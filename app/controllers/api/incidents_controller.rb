@@ -10,8 +10,7 @@ class Api::IncidentsController < ApiController
     @incidents = @incidents.limit(params[:limit]) if params[:limit].present?
   end
 
-  def show
-  end
+  def show; end
 
   def create
     attributes = params.require(:incident).permit(:name, :summary)
@@ -19,8 +18,9 @@ class Api::IncidentsController < ApiController
       Incident.create({ **attributes, creator: current_account }.compact_blank)
     @incident_saved = @incident.persisted?
     return if @incident_saved
+
     render json: {
-             errors: @incident.errors.full_messages,
+             errors: @incident.errors.full_messages
            },
            status: :unprocessable_entity
   end
@@ -33,9 +33,10 @@ class Api::IncidentsController < ApiController
     @incident_saved = @incident.save
 
     return if @incident_saved
+
     render status: :unprocessable_entity,
            json: {
-             errors: @incident.errors.full_messages,
+             errors: @incident.errors.full_messages
            }
   end
 
@@ -48,6 +49,7 @@ class Api::IncidentsController < ApiController
 
   def send_sms_notifications
     return unless @incident_saved
+
     IncidentBatchSmsSender.call(incident: @incident)
   end
 end
