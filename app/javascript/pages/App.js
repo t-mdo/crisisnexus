@@ -1,7 +1,15 @@
+import { useContext } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { OrganizationProvider } from 'modules/contexts/organizationContext';
-import { AccountProvider } from 'modules/contexts/accountContext';
+import {
+  OrganizationProvider,
+  OrganizationContext,
+} from 'modules/contexts/organizationContext';
+import {
+  AccountProvider,
+  AccountContext,
+} from 'modules/contexts/accountContext';
 import { OpenIncidentProvider } from 'modules/contexts/openIncidentContext';
+import Onboarding from 'pages/Onboarding';
 import Home from 'pages/Home';
 import SideMenu from 'pages/SideMenu';
 import StatusBar from 'pages/StatusBar';
@@ -20,21 +28,55 @@ const AppRoutes = () => (
   </Routes>
 );
 
+const AppView = () => {
+  const {
+    loading: accountFetchLoading,
+    success: accountFetchSuccess,
+    account,
+    setAccount,
+  } = useContext(AccountContext);
+  const {
+    loading: organizationFetchLoading,
+    organization,
+    setOrganization,
+  } = useContext(OrganizationContext);
+
+  const fetchingInProgress = accountFetchLoading || organizationFetchLoading;
+  const onboardingNotCompleted =
+    accountFetchSuccess && !account.onboarding_completed;
+
+  if (fetchingInProgress) return null;
+  if (onboardingNotCompleted)
+    return (
+      <div className="overflow-hidden h-screen">
+        <Onboarding
+          account={account}
+          setAccount={setAccount}
+          organization={organization}
+          setOrganization={setOrganization}
+        />
+      </div>
+    );
+  return (
+    <OpenIncidentProvider>
+      <div className="flex overflow-hidden h-screen">
+        <SideMenu />
+        <div className="w-full bg-gray-100">
+          <StatusBar />
+          <AppRoutes />
+        </div>
+      </div>
+    </OpenIncidentProvider>
+  );
+};
+
 const App = () => (
   <BrowserRouter>
-    <div className="flex overflow-hidden h-screen">
-      <SideMenu />
-      <div className="w-full bg-gray-100">
-        <OrganizationProvider>
-          <AccountProvider>
-            <OpenIncidentProvider>
-              <StatusBar />
-              <AppRoutes />
-            </OpenIncidentProvider>
-          </AccountProvider>
-        </OrganizationProvider>
-      </div>
-    </div>
+    <OrganizationProvider>
+      <AccountProvider>
+        <AppView />
+      </AccountProvider>
+    </OrganizationProvider>
   </BrowserRouter>
 );
 

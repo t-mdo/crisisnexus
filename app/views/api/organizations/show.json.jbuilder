@@ -1,7 +1,6 @@
 json.organization do
   if @organization.present?
-    json.name @organization.name
-    json.war_room_url @organization.war_room_url
+    json.partial! 'api/organizations/organization', organization: @organization
   else
     json.null!
   end
