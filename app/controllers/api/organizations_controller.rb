@@ -9,14 +9,10 @@ class Api::OrganizationsController < ApiController
     updated = @organization.update(attributes)
 
     return if updated
+
     render status: :unprocessable_entity,
            json: {
-             errors: @organization.errors.full_messages,
+             errors: @organization.errors.full_messages
            }
-  end
-
-  private
-
-  def update_war_room_url
   end
 end

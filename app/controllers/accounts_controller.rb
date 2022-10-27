@@ -1,12 +1,13 @@
 class AccountsController < ApplicationController
   layout 'landing'
 
-  before_action :set_account_params, only: %i[create]
+  before_action :set_account_for_creation, only: %i[create]
+  before_action :set_organization_for_creation, only: %i[create]
 
   def new; end
 
   def create
-    @account = Account.create(@account_params)
+    @account.save
     if @account.persisted?
       auto_login(@account)
       return redirect_to root_path
@@ -16,7 +17,12 @@ class AccountsController < ApplicationController
 
   private
 
-  def set_account_params
-    @account_params = params.permit(:email, :password)
+  def set_account_for_creation
+    account_params = params.permit(:email, :password)
+    @account = Account.new(account_params)
+  end
+
+  def set_organization_for_creation
+    @account.organization = Organization.find_organization_from_email(@account.email)
   end
 end
