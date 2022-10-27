@@ -1,8 +1,7 @@
 class SessionsController < ApplicationController
   layout 'landing'
 
-  def new
-  end
+  def new; end
 
   def create
     if params[:email].blank? || params[:password].blank?
@@ -15,5 +14,10 @@ class SessionsController < ApplicationController
 
     flash.now[:error] = 'Email or password was invalid'
     render :new
+  end
+
+  def destroy
+    logout
+    redirect_to welcome_path, flash: { success: 'Logged out' }
   end
 end

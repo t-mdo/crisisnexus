@@ -12,12 +12,14 @@ Rails.application.routes.draw do
   scope module: :api, constraints: ->(req) { req.format == :json } do
     resources :incidents, only: %i[index show create update]
     resource :organization, only: %i[show update]
+    resource :current_account, only: %i[show]
   end
 
   resource :lead, only: %i[new create]
   resource :account, only: %i[new create]
   get '/login', to: 'sessions#new'
-  resource :sessions, only: %i[create]
+  get '/logout', to: 'sessions#destroy'
+  resource :session, only: %i[create destroy]
 
   # Only static pages for lp
   get '/welcome', to: 'landing#index'

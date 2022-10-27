@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import HouseIcon from 'images/icons/regular/house-chimney.svg';
 import FireIcon from 'images/icons/regular/fire.svg';
 import GearIcon from 'images/icons/regular/gear.svg';
+import UserIcon from 'images/icons/regular/user.svg';
 
 const MenuOption = ({ children, to, icon: Icon }) => (
   <NavLink
@@ -25,7 +26,7 @@ const MenuOption = ({ children, to, icon: Icon }) => (
 );
 
 const SideMenu = () => (
-  <div className="flex flex-col justify-between h-screen min-w-fit w-64 py-14 bg-violet-950">
+  <div className="flex flex-col justify-between h-screen min-w-fit w-64 pt-14 pb-4 bg-violet-950">
     <div>
       <MenuOption icon={HouseIcon} to="/">
         Dashboard
@@ -37,6 +38,9 @@ const SideMenu = () => (
     <div>
       <MenuOption icon={GearIcon} to="/settings">
         Settings
+      </MenuOption>
+      <MenuOption icon={UserIcon} to="/account">
+        Account
       </MenuOption>
     </div>
   </div>

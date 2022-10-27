@@ -3,7 +3,7 @@ require_relative '../config/environment'
 require 'rails/test_help'
 require 'minitest/reporters'
 require 'webmock/minitest'
-Dir[Rails.root.join("test", "test_helpers", "**", "*.rb")].each { |file| require file }
+Dir[Rails.root.join('test', 'test_helpers', '**', '*.rb')].each { |file| require file }
 
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
@@ -14,8 +14,8 @@ class ActiveSupport::TestCase
   protected
 
   def login_user(user)
-    post sessions_path, params: { email: user.email, password: 'password' }
+    post session_path, params: { email: user.email, password: 'password' }
   end
 end
 
-require 'database_cleaner_support.rb'
+require 'database_cleaner_support'

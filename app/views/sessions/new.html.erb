@@ -2,7 +2,7 @@
   <h2 class="text-2xl lg:text-3xl font-bold text-center mb-4 md:mb-8 xl:mb-12">Login</h2>
   <div class="text-gray-800 px-4 md:px-8 flex justify-center">
     <div class="p-6 w-96 rounded-lg border border-gray-200 shadow-md">
-      <%= form_tag sessions_path, class: 'my-4 max-w-md' do %>
+      <%= form_tag session_path, class: 'my-4 max-w-md' do %>
         <%= label_tag :email, 'Email Address' %><br />
         <%= text_field_tag :email,
           params[:email],
