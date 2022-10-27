@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   end
 
   resource :lead, only: %i[new create]
-
+  resource :account, only: %i[new create]
   get '/login', to: 'sessions#new'
   resource :sessions, only: %i[create]
 
