@@ -7,8 +7,10 @@ class AccountsController < ApplicationController
 
   def create
     @account = Account.create(@account_params)
-    return redirect_to root_path if @account.persisted?
-
+    if @account.persisted?
+      auto_login(@account)
+      return redirect_to root_path
+    end
     redirect_to new_account_path, flash: { error: @account.errors.full_messages.first }
   end
 
