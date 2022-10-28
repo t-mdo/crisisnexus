@@ -10,8 +10,8 @@ import {
 } from 'components/Modal';
 import { Input, TextArea } from 'components/form/Input';
 import Label from 'components/form/Label';
+import ErrorFeedback from 'components/form/ErrorFeedback';
 import Button from 'components/Button';
-import { Alert, ALERT_TYPE_ERROR } from 'components/Alert';
 
 const CloseIncidentModal = ({ open, onClose }) => {
   const { openIncident, setOpenIncident } = useContext(OpenIncidentContext);
@@ -43,7 +43,6 @@ const CloseIncidentModal = ({ open, onClose }) => {
       summary: openIncident.summary,
     },
   });
-  const formHasErrors = Object.keys(formErrors).length > 0;
 
   const onSubmit = (data) => {
     const body = { incident: { ...data, status: 'closed' } };
@@ -55,20 +54,10 @@ const CloseIncidentModal = ({ open, onClose }) => {
       <ModalPanel className="w-full">
         <ModalTitle onClose={onClose}>Close the incident</ModalTitle>
         <ModalDescription>
-          {(formHasErrors || patchError) && (
-            <Alert className="mb-4" type={ALERT_TYPE_ERROR}>
-              <ul>
-                {formHasErrors &&
-                  Object.entries(formErrors).map(([key, { message }]) => (
-                    <li key={key}>{message}</li>
-                  ))}
-                {patchError &&
-                  patchResponse.errors.map((message, index) => (
-                    <li key={index}>{message}</li>
-                  ))}
-              </ul>
-            </Alert>
-          )}
+          <ErrorFeedback
+            formErrors={Object.values(formErrors).map((error) => error.message)}
+            queryErrors={patchError && patchResponse.errors}
+          />
           <p className="mb-8 text-gray-500">
             Let's take time to review everything before closing
           </p>

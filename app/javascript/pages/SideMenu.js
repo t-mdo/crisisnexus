@@ -37,7 +37,7 @@ const SideMenu = () => (
     </div>
     <div>
       <MenuOption icon={GearIcon} to="/settings">
-        Settings
+        Org Settings
       </MenuOption>
       <MenuOption icon={UserIcon} to="/account">
         Account

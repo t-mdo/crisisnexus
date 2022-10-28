@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form';
 import useHttpQuery from 'modules/httpQuery/useHttpQuery';
-import { Alert, ALERT_TYPE_ERROR } from 'components/Alert';
 import { Input } from 'components/form/Input';
 import Label from 'components/form/Label';
+import ErrorFeedback from 'components/form/ErrorFeedback';
 import Button from 'components/Button';
 
 function capitalize(str) {
@@ -33,7 +33,6 @@ const OnboardingStepOrganization = ({ account, setOrganization }) => {
     handleSubmit,
     formState: { errors: formErrors },
   } = useForm({ defaultValues: { name: defaultName } });
-  const formHasErrors = Object.keys(formErrors).length > 0;
 
   const onSubmit = (organization) => {
     triggerPostOrganization({ body: { organization } });
@@ -45,46 +44,41 @@ const OnboardingStepOrganization = ({ account, setOrganization }) => {
         Organization creation
       </p>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {(formHasErrors || postError) && (
-          <Alert className="mb-4" type={ALERT_TYPE_ERROR}>
-            <ul>
-              {formHasErrors &&
-                Object.entries(formErrors).map(([key, { message }]) => (
-                  <li key={key}>{message}</li>
-                ))}
-              {postError &&
-                postResponse.errors.map((message, index) => (
-                  <li key={index}>{message}</li>
-                ))}
-            </ul>
-          </Alert>
-        )}
-        <Label>Organization domain</Label>
-        <Input className="mb-4" type="text" value={identifier} disabled />
-        <Label>Organization name</Label>
-        <Input
-          {...register('name', {
-            required: 'Organization name is required',
-          })}
-          type="text"
-          className="w-1/2 mb-6"
-          placeholder="Aperture Science, Black Messa, etc."
-          aria-required="true"
-          aria-invalid={formErrors?.name ? 'true' : 'false'}
+        <ErrorFeedback
+          formErrors={Object.values(formErrors).map((error) => error.message)}
+          queryErrors={postError && postResponse.errors}
         />
-        <Label>War Room URL</Label>
-        <Input
-          {...register('war_room_url')}
-          type="text"
-          className="w-3/4 mb-6"
-          placeholder="https://meet.google.com/dss-dsss-dss OR https://zoom.us/j/1234567890"
-          aria-required="true"
-          aria-invalid={formErrors?.name ? 'true' : 'false'}
-        />
-        <div className="w-full flex justify-end">
-          <Button loading={postLoading} role="submit">
-            Next step
-          </Button>
+        <div className="mb-6">
+          <Label>Organization domain</Label>
+          <Input className="mb-4" type="text" value={identifier} disabled />
+          <Label>Organization name</Label>
+          <Input
+            {...register('name', {
+              required: 'Organization name is required',
+            })}
+            type="text"
+            className="w-1/2 mb-6"
+            placeholder="Aperture Science, Black Messa, etc."
+            aria-required="true"
+            aria-invalid={formErrors?.name ? 'true' : 'false'}
+          />
+          <Label>War Room URL</Label>
+          <p className="text-xs text-gray-400 mb-1">
+            You will be able to change it later
+          </p>
+          <Input
+            {...register('war_room_url')}
+            type="text"
+            className="w-3/4"
+            placeholder="https://meet.google.com/dss-dsss-dss OR https://zoom.us/j/1234567890"
+            aria-required="true"
+            aria-invalid={formErrors?.name ? 'true' : 'false'}
+          />
+          <div className="w-full flex justify-end">
+            <Button loading={postLoading} role="submit">
+              Next step
+            </Button>
+          </div>
         </div>
       </form>
     </div>

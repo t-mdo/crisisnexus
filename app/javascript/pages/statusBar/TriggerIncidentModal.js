@@ -11,8 +11,8 @@ import {
 } from 'components/Modal';
 import { Input, TextArea } from 'components/form/Input';
 import Label from 'components/form/Label';
+import ErrorFeedback from 'components/form/ErrorFeedback';
 import Button from 'components/Button';
-import { Alert, ALERT_TYPE_ERROR } from 'components/Alert';
 
 const TriggerIncidentModal = ({ open, onClose }) => {
   const navigate = useNavigate();
@@ -41,7 +41,6 @@ const TriggerIncidentModal = ({ open, onClose }) => {
     formState: { errors: formErrors },
     reset: resetForm,
   } = useForm();
-  const formHasErrors = Object.keys(formErrors).length > 0;
 
   const onSubmit = (data) => {
     const payload = { incident: data };
@@ -53,20 +52,10 @@ const TriggerIncidentModal = ({ open, onClose }) => {
       <ModalPanel className="w-full">
         <ModalTitle onClose={onClose}>Trigger an incident</ModalTitle>
         <ModalDescription>
-          {(formHasErrors || postError) && (
-            <Alert className="mb-4" type={ALERT_TYPE_ERROR}>
-              <ul>
-                {formHasErrors &&
-                  Object.entries(formErrors).map(([key, { message }]) => (
-                    <li key={key}>{message}</li>
-                  ))}
-                {postError &&
-                  postResponse.errors.map((message, index) => (
-                    <li key={index}>{message}</li>
-                  ))}
-              </ul>
-            </Alert>
-          )}
+          <ErrorFeedback
+            formErrors={Object.values(formErrors).map((error) => error.message)}
+            queryErrors={postError && postResponse.errors}
+          />
           <form onSubmit={handleSubmit(onSubmit)}>
             <Label>What's happening?</Label>
             <Input

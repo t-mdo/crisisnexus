@@ -5,9 +5,10 @@ import useHttpQuery from 'modules/httpQuery/useHttpQuery';
 import Card from 'components/Card';
 import { Input } from 'components/form/Input';
 import Label from 'components/form/Label';
+import ErrorFeedback from 'components/form/ErrorFeedback';
 import Button from 'components/Button';
 import Loader from 'components/Loader';
-import { Alert, ALERT_TYPE_ERROR, ALERT_TYPE_SUCCESS } from 'components/Alert';
+import { Alert, ALERT_TYPE_SUCCESS } from 'components/Alert';
 
 const Settings = ({ organization, setOrganization }) => {
   const {
@@ -40,8 +41,6 @@ const Settings = ({ organization, setOrganization }) => {
     triggerOrganizationPatch({ body: { war_room_url: warRoom } });
   };
 
-  const formHasErrors = Object.keys(formErrors).length > 0;
-
   return (
     <div className="py-6 px-4 md:px-32">
       <h2 className="mb-6 font-semibold text-2xl">Organization settings</h2>
@@ -52,20 +51,10 @@ const Settings = ({ organization, setOrganization }) => {
               Changed applied
             </Alert>
           )}
-          {(formHasErrors || patchError) && (
-            <Alert className="mb-4" type={ALERT_TYPE_ERROR}>
-              <ul>
-                {formHasErrors &&
-                  Object.entries(formErrors).map(([key, { message }]) => (
-                    <li key={key}>{message}</li>
-                  ))}
-                {patchError &&
-                  patchResponse.errors.map((message, index) => (
-                    <li key={index}>{message}</li>
-                  ))}
-              </ul>
-            </Alert>
-          )}
+          <ErrorFeedback
+            formErrors={Object.values(formErrors).map((error) => error.message)}
+            queryErrors={patchError && patchResponse.errors}
+          />
           <Label>Organization name</Label>
           <Input
             {...register('name', {
