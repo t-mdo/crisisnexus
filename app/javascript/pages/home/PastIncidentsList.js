@@ -23,7 +23,7 @@ const PastIncidentsList = ({ queryLimit }) => {
           if (noPastIncidents)
             return (
               <div className="px-6 py-3 text-lg text-center">
-                No past incidents
+                Nothing to show for now
               </div>
             );
           return intersperse(
