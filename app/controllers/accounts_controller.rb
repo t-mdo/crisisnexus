@@ -3,6 +3,7 @@ class AccountsController < ApplicationController
 
   before_action :set_account_for_creation, only: %i[create]
   before_action :set_organization_for_creation, only: %i[create]
+  before_action :set_account_for_activation, only: %i[activate]
 
   def new; end
 
@@ -15,6 +16,11 @@ class AccountsController < ApplicationController
     redirect_to new_account_path, flash: { error: @account.errors.full_messages.first }
   end
 
+  def activate
+    @account.activate!
+    redirect_to root_path, flash: { success: 'Your account was activated successfully' }
+  end
+
   private
 
   def set_account_for_creation
@@ -24,5 +30,10 @@ class AccountsController < ApplicationController
 
   def set_organization_for_creation
     @account.organization = Organization.find_organization_from_email(@account.email)
+  end
+
+  def set_account_for_activation
+    @account = Account.load_from_activation_token(params[:id])
+    render redirect_to root_path, flash: { error: 'The activation of your account failed' } if @account.blank?
   end
 end

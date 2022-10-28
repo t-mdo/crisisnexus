@@ -16,7 +16,11 @@ Rails.application.routes.draw do
   end
 
   resource :lead, only: %i[new create]
-  resource :account, only: %i[new create]
+  resource :account, only: %i[new create] do
+    member do
+      get :activate
+    end
+  end
   get '/login', to: 'sessions#new'
   get '/logout', to: 'sessions#destroy'
   resource :session, only: %i[create destroy]

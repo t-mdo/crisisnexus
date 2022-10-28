@@ -351,7 +351,7 @@ Rails.application.config.sorcery.configure do |config|
     # User activation mailer class.
     # Default: `nil`
     #
-    # user.user_activation_mailer =
+    user.user_activation_mailer = AccountMailer
 
     # When true, sorcery will not automatically
     # send the activation details email, and allow you to
