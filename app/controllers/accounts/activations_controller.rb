@@ -11,7 +11,8 @@ class Accounts::ActivationsController < ApplicationController
 
   def new
     @email = flash[:email]
-    redirect_to root_path if current_account.present?
+    return redirect_to root_path if current_account.present?
+
     redirect_to welcome_path if @email.blank?
   end
 
