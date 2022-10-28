@@ -11,7 +11,6 @@ class SessionsController < ApplicationController
     login(params[:email], params[:password]) do |user, failure|
       return redirect_to root_path, notice: 'Logged in!' if user.present? && failure.blank?
 
-      binding.pry
       case failure
       when :invalid_login
         redirect_to login_path, flash: { error: 'No account for this email' }
