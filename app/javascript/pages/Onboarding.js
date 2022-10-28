@@ -2,18 +2,11 @@ import Card from 'components/Card';
 import OnboardingStepOrganization from 'pages/onboarding/OnboardingStepOrganization';
 import OnboardingStepPhoneNumber from 'pages/onboarding/OnboardingStepPhoneNumber';
 
-const OnboardingStepEnd = () => {};
-
 const Step = (props) => {
   if (!props.organization) {
     return <OnboardingStepOrganization {...props} />;
   }
-  if (!props.account.phone_number) {
-    return <OnboardingStepPhoneNumber {...props} />;
-  }
-  if (props.invitationStepPassed) {
-    return <OnboardingStepEnd {...props} />;
-  }
+  return <OnboardingStepPhoneNumber {...props} />;
 };
 
 const Onboarding = ({ account, setAccount, organization, setOrganization }) => {
