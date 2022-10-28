@@ -19,7 +19,7 @@ class Api::CurrentAccountsControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
     body = response.parsed_body
     assert_nil @account.phone_number
-    assert_equal 'Phone number is invalid', body.first
+    assert_equal 'Phone number is invalid. Please write it to the format +14123456789', body['errors'].first
   end
 
   test '#update does not update email' do
