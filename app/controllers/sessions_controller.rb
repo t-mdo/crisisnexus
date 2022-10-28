@@ -5,15 +5,24 @@ class SessionsController < ApplicationController
 
   def create
     if params[:email].blank? || params[:password].blank?
-      flash.now[:error] = 'Please enter your email and password'
-      return render :new
+      return redirect_to login_path, flash: { error: 'Please enter your email and password' }
     end
 
-    user = login(params[:email], params[:password])
-    return redirect_to root_path, notice: 'Logged in!' if user.present?
+    login(params[:email], params[:password]) do |user, failure|
+      return redirect_to root_path, notice: 'Logged in!' if user.present? && failure.blank?
 
-    flash.now[:error] = 'Email or password was invalid'
-    render :new
+      binding.pry
+      case failure
+      when :invalid_login
+        redirect_to login_path, flash: { error: 'No account for this email' }
+      when :inactive
+        redirect_to login_path, flash: { error: 'You need to activate your account first. Check out your emails' }
+      when :invalid_password
+        redirect_to login_path, flash: { error: 'Invalid password' }
+      else
+        redirect_to login_path, flash: { error: 'Something went wrong' }
+      end
+    end
   end
 
   def destroy
