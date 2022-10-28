@@ -4,12 +4,14 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-    <h1>Welcome to CrisisNexus</h1>
+    <h2>CrisisNexus - Activate your account</h2>
     <p>
       You have successfully signed up. To verify your account, please click on the link below:
+      <br />
+      <%= link_to @url, @url %>
     </p>
-    <p></p>
-    <%= link_to @url, @url %>
+    <p>If you didn't register an account on <%= link_to('CrisisNexus', root_url, target: "_blank", rel: "nofollow") %> with this email, don't click the link. It may give somebody unauthorized access to your company's data on the platform.</p>
+    <p>Any questions? Contact us at <%= mail_to('tmo@crisisnexus.com') %></p>
   </body>
 </html>
 

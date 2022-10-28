@@ -6,7 +6,7 @@ ActionMailer::Base.smtp_settings = {
   password: Rails.application.credentials.sendgrid_api_key,
   domain: 'crisisnexus.com',
   address: 'smtp.sendgrid.net',
-  port: 587,
+  port: 465,
   authentication: :plain,
   enable_starttls_auto: true
 }

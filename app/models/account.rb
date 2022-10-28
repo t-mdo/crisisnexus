@@ -12,5 +12,7 @@ class Account < ApplicationRecord
             format: {
               with: URI::MailTo::EMAIL_REGEXP
             }
-  validates :phone_number, phone: { possible: true, allow_blank: true }
+  validates :phone_number,
+            phone: { possible: true, allow_blank: true,
+                     message: 'is invalid. Please write it to the format +14123456789' }
 end
