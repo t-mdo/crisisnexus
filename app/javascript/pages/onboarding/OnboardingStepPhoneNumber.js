@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form';
 import useHttpQuery from 'modules/httpQuery/useHttpQuery';
-import { Alert, ALERT_TYPE_ERROR } from 'components/Alert';
 import { Input } from 'components/form/Input';
 import Label from 'components/form/Label';
+import ErrorFeedback from 'components/form/ErrorFeedback';
 import Button from 'components/Button';
 
 const OnboardingStepPhoneNumber = ({ setAccount }) => {
@@ -31,15 +31,7 @@ const OnboardingStepPhoneNumber = ({ setAccount }) => {
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {patchError && (
-          <Alert className="mb-4" type={ALERT_TYPE_ERROR}>
-            <ul>
-              {patchResponse.errors.map((message, index) => (
-                <li key={index}>{message}</li>
-              ))}
-            </ul>
-          </Alert>
-        )}
+        <ErrorFeedback queryError={patchError && patchResponse.error} />
         <div className="mb-6 w-3/4">
           <Label>Phone number</Label>
           <Input

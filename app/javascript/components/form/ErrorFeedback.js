@@ -4,7 +4,6 @@ const ErrorFeedback = ({ formErrors, queryErrors }) => {
   const formHasErrors = formErrors && formErrors.length > 0;
   const queryHasErrors = queryErrors && queryErrors.length > 0;
 
-  console.log(formErrors, queryErrors);
   if (!formHasErrors && !queryErrors) return null;
   return (
     <Alert className="mb-4" type={ALERT_TYPE_ERROR}>
