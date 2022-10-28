@@ -48,7 +48,7 @@ const Settings = ({ organization, setOrganization }) => {
         <form onSubmit={handleSubmit(onSubmit)}>
           {patchSuccess && (
             <Alert className="mb-4" type={ALERT_TYPE_SUCCESS}>
-              Changed applied
+              Changes applied
             </Alert>
           )}
           <ErrorFeedback
