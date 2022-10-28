@@ -5,7 +5,8 @@
   'error' => 'bg-red-200 border border-red-600 rounded text-red-600 px-2 py-3 text-center mb-8 mx-8'
 } %>
 
-<% flash.each do |type, msg| %>
+<% alert_flashes = flash.select { |type| flash_classes.keys.include?(type) } %>
+<% alert_flashes.each do |type, msg| %>
   <div class="<%= flash_classes[type] %>">
     <%= msg %>
   </div>

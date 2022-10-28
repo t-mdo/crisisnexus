@@ -6,7 +6,7 @@ class AccountMailer < ApplicationMailer
   #
   def activation_needed_email(account)
     @account = account
-    @url = activate_account_url(id: @account.activation_token)
+    @url = account_activation_url(key: @account.activation_token)
 
     mail to: @account.email, subject: 'Activate your CrisisNexus account'
   end

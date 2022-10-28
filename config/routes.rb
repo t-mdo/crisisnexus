@@ -17,8 +17,8 @@ Rails.application.routes.draw do
 
   resource :lead, only: %i[new create]
   resource :account, only: %i[new create] do
-    member do
-      get :activate
+    scope module: :accounts do
+      resource :activation, only: %i[new show]
     end
   end
   get '/login', to: 'sessions#new'
