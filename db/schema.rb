@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_28_113747) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_30_224041) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -43,9 +43,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_28_113747) do
     t.datetime "updated_at", null: false
     t.bigint "organization_id", null: false
     t.bigint "closer_id"
+    t.bigint "incident_manager_id", null: false
+    t.bigint "incident_manager_sidekick_id", null: false
+    t.bigint "scribe_id", null: false
+    t.bigint "communication_manager_id", null: false
     t.index ["closer_id"], name: "index_incidents_on_closer_id"
+    t.index ["communication_manager_id"], name: "index_incidents_on_communication_manager_id"
     t.index ["creator_id"], name: "index_incidents_on_creator_id"
+    t.index ["incident_manager_id"], name: "index_incidents_on_incident_manager_id"
+    t.index ["incident_manager_sidekick_id"], name: "index_incidents_on_incident_manager_sidekick_id"
     t.index ["organization_id"], name: "index_incidents_on_organization_id"
+    t.index ["scribe_id"], name: "index_incidents_on_scribe_id"
   end
 
   create_table "leads", force: :cascade do |t|
@@ -80,7 +88,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_28_113747) do
 
   add_foreign_key "accounts", "organizations"
   add_foreign_key "incidents", "accounts", column: "closer_id"
+  add_foreign_key "incidents", "accounts", column: "communication_manager_id"
   add_foreign_key "incidents", "accounts", column: "creator_id"
+  add_foreign_key "incidents", "accounts", column: "incident_manager_id"
+  add_foreign_key "incidents", "accounts", column: "incident_manager_sidekick_id"
+  add_foreign_key "incidents", "accounts", column: "scribe_id"
   add_foreign_key "incidents", "organizations"
   add_foreign_key "sms_notifications", "accounts"
   add_foreign_key "sms_notifications", "incidents"

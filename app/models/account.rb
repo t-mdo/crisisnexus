@@ -5,8 +5,16 @@ class Account < ApplicationRecord
     %w[outlook gmail aol aim yahoo hotmail icloud protonmail zoho yandex titan gmx hubspot].freeze
 
   belongs_to :organization, optional: true
+
   has_many :created_incidents, class_name: 'Incident', inverse_of: :creator
   has_many :closed_incidents, class_name: 'Incident', inverse_of: :closer
+  has_many :managed_incidents, class_name: 'Incident', inverse_of: :incident_manager
+  has_many :sidekicked_incidents, class_name: 'Incident', inverse_of: :incident_manager_sidekick
+  has_many :scribed_incidents, class_name: 'Incident', inverse_of: :scribe
+  has_many :communication_managed_incidents,
+           class_name: 'Incident',
+           inverse_of: :communication_manager
+
   has_many :sms_notifications
 
   validates :email,

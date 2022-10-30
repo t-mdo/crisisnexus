@@ -6,18 +6,30 @@ class Incident < ApplicationRecord
   attribute :started_at, :datetime, default: Time.now.utc
 
   belongs_to :organization
+
   belongs_to :creator, class_name: 'Account', inverse_of: :created_incidents
   belongs_to :closer,
              class_name: 'Account',
              inverse_of: :closed_incidents,
              optional: true
+  belongs_to :incident_manager,
+             class_name: 'Account',
+             inverse_of: :managed_incidents,
+             optional: true
+  belongs_to :incident_manager_sidekick,
+             class_name: 'Account',
+             inverse_of: :sidekicked_incidents,
+             optional: true
+  belongs_to :scribe, class_name: 'Account', inverse_of: :scribed_incidents, optional: true
+  belongs_to :communication_manager, class_name: 'Account', inverse_of: :communication_managed_incidents
+
   has_many :sms_notifications
 
   enum :status,
        {
          open: STATUS_OPEN,
          closed: STATUS_CLOSED,
-         postmortem_published: STATUS_POSTMORTEM_PUBLISHED,
+         postmortem_published: STATUS_POSTMORTEM_PUBLISHED
        },
        default: STATUS_OPEN,
        prefix: true
@@ -26,7 +38,7 @@ class Incident < ApplicationRecord
   validates :status, inclusion: { in: statuses.keys }
   validates :ended_at,
             comparison: {
-              greater_than: :started_at,
+              greater_than: :started_at
             },
             allow_nil: true
 
@@ -43,6 +55,7 @@ class Incident < ApplicationRecord
 
   def sms_notification_body
     return "Crisis \"#{name}\" closed by #{creator.email}" if status_closed?
+
     "Crisis \"#{name}\" open.\nPlease join the war room asap! Godspeed"
   end
 
@@ -50,17 +63,20 @@ class Incident < ApplicationRecord
 
   def abort_if_organization_has_open_incident
     return unless organization.incidents.status_open.any?
+
     errors.add(:base, 'An incident is already ongoing')
     throw :abort
   end
 
   def set_organization
     return if creator.blank?
+
     self.organization ||= creator.organization
   end
 
   def set_local_id
     return if organization.blank?
+
     self.local_id ||= organization.incidents.count + 1
   end
 
