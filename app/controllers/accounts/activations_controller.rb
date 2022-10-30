@@ -20,6 +20,6 @@ class Accounts::ActivationsController < ApplicationController
 
   def set_account
     @account = Account.load_from_activation_token(params[:key])
-    render redirect_to root_path, flash: { error: 'The activation of your account failed' } if @account.blank?
+    redirect_to root_path, flash: { error: 'The activation of your account failed' } if @account.blank?
   end
 end
