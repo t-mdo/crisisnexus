@@ -1,10 +1,14 @@
 class TestsController < ApplicationController
   before_action :raise_if_not_test_env
-  before_action :set_account, only: %i[login]
+  before_action :set_account, only: %i[get_login login]
 
   def login
     auto_login(@account)
-    head :ok
+    if request.post?
+      head :ok
+    else
+      redirect_to params[:redirect_to] || root_path
+    end
   end
 
   private

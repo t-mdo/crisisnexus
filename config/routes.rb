@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   get '/pricing', to: 'landing#pricing'
   get '/contact', to: 'landing#contact'
 
-  post '/tests/login', to: 'tests#login' if Rails.env.test?
+  match '/tests/login', to: 'tests#login', via: %i[get post] if Rails.env.test?
 
   root 'root#index'
   get '*path',

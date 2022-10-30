@@ -21,6 +21,10 @@ class ActiveSupport::TestCase
   def login_user(user)
     post tests_login_path(params: { account: user })
   end
+
+  def login_as(account:, path: '/')
+    visit tests_login_path(params: { account:, redirect_to: path })
+  end
 end
 
 require 'database_cleaner_support'
