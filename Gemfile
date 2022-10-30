@@ -34,6 +34,7 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'cuprite'
   gem 'database_cleaner'
   gem 'minitest-reporters'
   gem 'selenium-webdriver'

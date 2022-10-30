@@ -1,13 +1,5 @@
-const environment =
-  process.env.NODE_ENV === 'production' ? 'production' : 'development';
-
-const URLS = {
-  development: 'http://dev.crisisnexus.com:3000',
-  production: 'https://www.crisisnexus.com',
-};
-
 const getUrl = ({ url, params }) => {
-  const urlObj = new URL(url, URLS[environment]);
+  const urlObj = new URL(url, window.location.origin);
 
   Object.entries(params).forEach(([key, value]) => {
     urlObj.searchParams.append(key, value);

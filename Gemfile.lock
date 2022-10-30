@@ -92,6 +92,9 @@ GEM
     crass (1.0.6)
     cssbundling-rails (1.1.1)
       railties (>= 6.0.0)
+    cuprite (0.14.2)
+      capybara (~> 3.0)
+      ferrum (~> 0.12.0)
     database_cleaner (2.0.1)
       database_cleaner-active_record (~> 2.0.0)
     database_cleaner-active_record (2.0.1)
@@ -113,6 +116,11 @@ GEM
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.1)
+    ferrum (0.12)
+      addressable (~> 2.5)
+      concurrent-ruby (~> 1.1)
+      webrick (~> 1.7)
+      websocket-driver (>= 0.6, < 0.8)
     globalid (1.0.0)
       activesupport (>= 5.0)
     haml (6.0.4)
@@ -288,6 +296,7 @@ GEM
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
+    webrick (1.7.0)
     websocket (1.2.9)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
@@ -304,6 +313,7 @@ DEPENDENCIES
   bootsnap
   capybara
   cssbundling-rails
+  cuprite
   database_cleaner
   debug
   factory_bot_rails

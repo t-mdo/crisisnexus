@@ -4,5 +4,6 @@ FactoryBot.define do
     phone_number { "+336#{Faker::Number.number(digits: 8)}" }
     organization
     activation_state { 'active' }
+    onboarding_completed { true }
   end
 end

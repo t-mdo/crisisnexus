@@ -9,6 +9,11 @@ class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
 
   Minitest::Reporters.use!
+  WebMock.disable_net_connect!(
+    allow_localhost: true,
+    allow: 'chromedriver.storage.googleapis.com'
+  )
+
   parallelize(workers: :number_of_processors)
 
   protected
