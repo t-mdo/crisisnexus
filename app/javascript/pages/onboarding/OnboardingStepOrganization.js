@@ -74,11 +74,11 @@ const OnboardingStepOrganization = ({ account, setOrganization }) => {
             aria-required="true"
             aria-invalid={formErrors?.name ? 'true' : 'false'}
           />
-          <div className="w-full flex justify-end">
-            <Button loading={postLoading} role="submit">
-              Next step
-            </Button>
-          </div>
+        </div>
+        <div className="w-full flex justify-end">
+          <Button loading={postLoading} role="submit">
+            Next step
+          </Button>
         </div>
       </form>
     </div>
