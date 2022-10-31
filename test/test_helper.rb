@@ -18,7 +18,7 @@ class ActiveSupport::TestCase
 
   protected
 
-  def login_account(_account)
+  def login_account(account)
     post tests_login_path(params: { account: })
   end
 

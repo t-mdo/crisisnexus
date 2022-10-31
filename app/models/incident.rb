@@ -21,7 +21,10 @@ class Incident < ApplicationRecord
              inverse_of: :sidekicked_incidents,
              optional: true
   belongs_to :scribe, class_name: 'Account', inverse_of: :scribed_incidents, optional: true
-  belongs_to :communication_manager, class_name: 'Account', inverse_of: :communication_managed_incidents
+  belongs_to :communication_manager,
+             class_name: 'Account',
+             inverse_of: :communication_managed_incidents,
+             optional: true
 
   has_many :sms_notifications
 

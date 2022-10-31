@@ -43,10 +43,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_30_233814) do
     t.datetime "updated_at", null: false
     t.bigint "organization_id", null: false
     t.bigint "closer_id"
-    t.bigint "incident_manager_id", null: false
-    t.bigint "incident_manager_sidekick_id", null: false
-    t.bigint "scribe_id", null: false
-    t.bigint "communication_manager_id", null: false
+    t.bigint "incident_manager_id"
+    t.bigint "incident_manager_sidekick_id"
+    t.bigint "scribe_id"
+    t.bigint "communication_manager_id"
     t.index ["closer_id"], name: "index_incidents_on_closer_id"
     t.index ["communication_manager_id"], name: "index_incidents_on_communication_manager_id"
     t.index ["creator_id"], name: "index_incidents_on_creator_id"
@@ -73,8 +73,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_30_233814) do
   end
 
   create_table "role_enrollments", force: :cascade do |t|
-    t.bigint "role_id"
-    t.bigint "account_id"
+    t.bigint "role_id", null: false
+    t.bigint "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_role_enrollments_on_account_id"

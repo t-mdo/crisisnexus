@@ -6,8 +6,8 @@ class CreateRoles < ActiveRecord::Migration[7.0]
     end
 
     create_table :role_enrollments do |t|
-      t.belongs_to :role, foreign_key: true
-      t.belongs_to :account, foreign_key: true
+      t.belongs_to :role, null: false, foreign_key: true
+      t.belongs_to :account, null: false, foreign_key: true
       t.timestamps
     end
 
