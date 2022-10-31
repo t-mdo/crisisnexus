@@ -13,7 +13,12 @@ Rails.application.routes.draw do
     resources :incidents, only: %i[index show create update]
     resource :organization, only: %i[show create update]
     resource :current_account, only: %i[show update]
-    resource :role_enrollments, only: %i[create destroy]
+    resources :roles do
+      scope module: :roles do
+        resources :enrollments, only: %i[index create]
+      end
+    end
+    resources :role_enrollments, only: %i[destroy]
   end
 
   resource :lead, only: %i[new create]
