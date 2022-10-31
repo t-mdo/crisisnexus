@@ -7,7 +7,7 @@ class IncidentBatchSmsSenderTest < ActionDispatch::IntegrationTest
     @account = create(:account)
     @organization = @account.organization
     @incident = create(:incident, :open, creator: @account)
-    login_user(@account)
+    login_account(@account)
   end
 
   test 'sends sms to all accounts in the organization' do

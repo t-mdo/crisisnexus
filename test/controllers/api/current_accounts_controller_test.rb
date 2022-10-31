@@ -3,7 +3,7 @@ require 'test_helper'
 class Api::CurrentAccountsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @account = create(:account, phone_number: nil)
-    login_user(@account)
+    login_account(@account)
   end
 
   test '#update updates current account phone number' do

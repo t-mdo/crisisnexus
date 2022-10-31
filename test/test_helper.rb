@@ -18,8 +18,8 @@ class ActiveSupport::TestCase
 
   protected
 
-  def login_user(user)
-    post tests_login_path(params: { account: user })
+  def login_account(_account)
+    post tests_login_path(params: { account: })
   end
 
   def login_as(account:, path: '/')

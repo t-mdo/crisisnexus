@@ -8,7 +8,7 @@ class Api::IncidentsControllerTest < ActionDispatch::IntegrationTest
 
     @account = create(:account)
     create_list(:incident, 10, :closed, creator: @account)
-    login_user(@account)
+    login_account(@account)
   end
 
   BODY_KEYS = %w[

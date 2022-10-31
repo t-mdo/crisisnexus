@@ -4,7 +4,7 @@ class Api::OrganizationsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @account = create(:account)
     @organization = @account.organization
-    login_user(@account)
+    login_account(@account)
   end
 
   test '#create creates a new organization' do
