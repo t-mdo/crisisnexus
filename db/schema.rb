@@ -75,9 +75,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_30_233814) do
   create_table "role_enrollments", force: :cascade do |t|
     t.bigint "role_id", null: false
     t.bigint "account_id", null: false
+    t.bigint "organization_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_role_enrollments_on_account_id"
+    t.index ["organization_id"], name: "index_role_enrollments_on_organization_id"
     t.index ["role_id", "account_id"], name: "index_role_enrollments_on_role_id_and_account_id", unique: true
     t.index ["role_id"], name: "index_role_enrollments_on_role_id"
   end
@@ -111,6 +113,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_30_233814) do
   add_foreign_key "incidents", "accounts", column: "scribe_id"
   add_foreign_key "incidents", "organizations"
   add_foreign_key "role_enrollments", "accounts"
+  add_foreign_key "role_enrollments", "organizations"
   add_foreign_key "role_enrollments", "roles"
   add_foreign_key "sms_notifications", "accounts"
   add_foreign_key "sms_notifications", "incidents"
