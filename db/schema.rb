@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_30_224041) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_30_233814) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -72,6 +72,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_30_224041) do
     t.index ["identifier"], name: "index_organizations_on_identifier", unique: true
   end
 
+  create_table "role_enrollments", force: :cascade do |t|
+    t.bigint "role_id"
+    t.bigint "account_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_role_enrollments_on_account_id"
+    t.index ["role_id", "account_id"], name: "index_role_enrollments_on_role_id_and_account_id", unique: true
+    t.index ["role_id"], name: "index_role_enrollments_on_role_id"
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "sms_notifications", force: :cascade do |t|
     t.bigint "organization_id", null: false
     t.bigint "account_id", null: false
@@ -94,6 +110,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_30_224041) do
   add_foreign_key "incidents", "accounts", column: "incident_manager_sidekick_id"
   add_foreign_key "incidents", "accounts", column: "scribe_id"
   add_foreign_key "incidents", "organizations"
+  add_foreign_key "role_enrollments", "accounts"
+  add_foreign_key "role_enrollments", "roles"
   add_foreign_key "sms_notifications", "accounts"
   add_foreign_key "sms_notifications", "incidents"
   add_foreign_key "sms_notifications", "organizations"
