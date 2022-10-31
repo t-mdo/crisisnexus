@@ -35,5 +35,6 @@ esbuild
     ],
   })
   .then((result) => {
-    console.log('watching...');
+    console.log('build succeeded');
+    if (WATCH) console.log('watching...');
   });
