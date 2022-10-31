@@ -6,6 +6,12 @@ class RoleEnrollmentTest < ActiveSupport::TestCase
     @account = create(:account)
   end
 
+  test 'organization is set to account organization' do
+    @role_enrollment = RoleEnrollment.new(account: @account, role: @role)
+    assert_equal @account.organization, @role_enrollment.organization
+    @role_enrollment.save!
+  end
+
   test 'account cannot have multiple enrollments for the same role' do
     persisted = RoleEnrollment.create(account: @account, role: @role)
     assert persisted
