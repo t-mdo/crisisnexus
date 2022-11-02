@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import HouseIcon from 'images/icons/regular/house-chimney.svg';
 import FireIcon from 'images/icons/regular/fire.svg';
 import GearIcon from 'images/icons/regular/gear.svg';
+import UsersGearIcon from 'images/icons/regular/users-gear.svg';
 import UserIcon from 'images/icons/regular/user.svg';
 
 const MenuOption = ({ children, to, icon: Icon }) => (
@@ -34,11 +35,14 @@ const SideMenu = () => (
       <MenuOption icon={FireIcon} to="/incidents">
         Incidents
       </MenuOption>
+      <MenuOption icon={UsersGearIcon} to="/roles">
+        Roles
+      </MenuOption>
+      <MenuOption icon={GearIcon} to="/settings">
+        Organization
+      </MenuOption>
     </div>
     <div>
-      <MenuOption icon={GearIcon} to="/settings">
-        Org Settings
-      </MenuOption>
       <MenuOption icon={UserIcon} to="/account">
         Account
       </MenuOption>

@@ -3,7 +3,7 @@ class Api::Roles::EnrollmentsController < ApiController
   before_action :set_account_id, only: %i[create]
 
   def index
-    @role_enrollments = current_organization.role_enrollments.where(role: @role)
+    @role_enrollments = current_organization.role_enrollments.where(role: @role).order(:created_at).includes(:account)
   end
 
   def create

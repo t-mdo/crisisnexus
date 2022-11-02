@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   end
 
   scope module: :api, constraints: ->(req) { req.format == :json } do
+    resources :accounts, only: %i[index]
     resources :incidents, only: %i[index show create update]
     resource :organization, only: %i[show create update]
     resource :current_account, only: %i[show update]

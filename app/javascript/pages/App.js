@@ -15,6 +15,8 @@ import SideMenu from 'pages/SideMenu';
 import StatusBar from 'pages/StatusBar';
 import IncidentsIndex from 'pages/IncidentsIndex';
 import IncidentsShow from 'pages/IncidentsShow';
+import RolesIndex from 'pages/RolesIndex';
+import RolesShow from 'pages/RolesShow';
 import Settings from 'pages/Settings';
 import Account from 'pages/Account';
 
@@ -23,6 +25,8 @@ const AppRoutes = () => (
     <Route path="/" element={<Home />} />
     <Route path="/incidents" element={<IncidentsIndex />} />
     <Route path="/incidents/:id" element={<IncidentsShow />} />
+    <Route path="/roles" element={<RolesIndex />} />
+    <Route path="/roles/:name" element={<RolesShow />} />
     <Route path="/settings" element={<Settings />} />
     <Route path="/account" element={<Account />} />
   </Routes>

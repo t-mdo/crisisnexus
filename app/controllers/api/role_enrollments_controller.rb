@@ -9,7 +9,7 @@ class Api::RoleEnrollmentsController < ApiController
   private
 
   def set_role_enrollment
-    @role_enrollment = RoleEnrollment.find(params[:id])
+    @role_enrollment = current_organization.role_enrollments.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     render status: :not_found, json: { errors: ['Role enrollment not found'] }
   end
