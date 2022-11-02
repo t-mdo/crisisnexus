@@ -45,10 +45,17 @@ const EnrollmentRow = ({ enrollment: { id, account }, onDelete }) => {
 };
 
 const EnrollmentsEmptyState = ({
+  roleName,
   addingNewEnrollment,
   onAccountSelect,
   enrollments,
 }) => {
+  if (roleName === ROLES.NAMES.SCRIBE)
+    return (
+      <div className="p-4 text-gray-400 bg-gray-200">
+        No enrollments for scribe role
+      </div>
+    );
   if (addingNewEnrollment)
     return (
       <NewEnrollmentForm
@@ -123,7 +130,8 @@ const Roles = () => {
       </div>
       <Card className="px-8 py-4">
         <Link className="flex items-center mb-16 text-violet-600 flex justify-end">
-          Learn more about the {ROLES.DISPLAY_NAMES[name.toUpperCase()]} role
+          Learn more about the{' '}
+          {ROLES.DISPLAY_NAMES[name.toUpperCase()].toLowerCase()} role
           <ChevronRightIcon className="w-3 ml-2 fill-violet-600" />
         </Link>
         <div className="flex items-center mb-4">
@@ -140,6 +148,7 @@ const Roles = () => {
           <ul className="border rounded">
             {!hasMembersEnrolled && (
               <EnrollmentsEmptyState
+                roleName={name}
                 addingNewEnrollment={addingNewEnrollment}
                 onAccountSelect={onAccountSelect}
                 enrollments={role_enrollments}
