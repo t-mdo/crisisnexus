@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_30_233814) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_03_131137) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -78,6 +78,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_30_233814) do
     t.bigint "organization_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "last_exercised_at"
     t.index ["account_id"], name: "index_role_enrollments_on_account_id"
     t.index ["organization_id"], name: "index_role_enrollments_on_organization_id"
     t.index ["role_id", "account_id"], name: "index_role_enrollments_on_role_id_and_account_id", unique: true

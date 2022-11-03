@@ -14,7 +14,7 @@ class Account < ApplicationRecord
   has_many :communication_managed_incidents,
            class_name: 'Incident',
            inverse_of: :communication_manager
-  has_many :role_enrollments
+  has_many :role_enrollments, dependent: :destroy
   has_many :roles, through: :role_enrollments
 
   has_many :sms_notifications

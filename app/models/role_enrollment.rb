@@ -7,6 +7,10 @@ class RoleEnrollment < ApplicationRecord
 
   after_initialize :set_organization
 
+  def set_exercised_at
+    update(last_exercised_at: Time.now.utc)
+  end
+
   private
 
   def set_organization

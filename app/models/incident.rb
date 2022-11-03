@@ -51,6 +51,26 @@ class Incident < ApplicationRecord
   before_update :set_ended_at,
                 if: -> { status_changed? && status == STATUS_CLOSED }
 
+  class << self
+    def open(creator:, **attributes)
+      role_designator = RoleDesignator.new(organization: creator.organization)
+      incident_manager_enrollment = role_designator.designate_enrollment_for_incident_manager_role
+      communication_manager_enrollment = role_designator.designate_enrollment_for_communication_manager_role
+      incident = create(
+        **attributes,
+        creator:,
+        incident_manager: incident_manager_enrollment&.account,
+        communication_manager: communication_manager_enrollment&.account
+      )
+      return incident unless incident.persisted?
+
+      incident_manager_enrollment&.set_exercised_at
+      communication_manager_enrollment&.set_exercised_at
+      IncidentBatchSmsSender.call(incident:)
+      incident
+    end
+  end
+
   def duration
     ended_at_or_now = ended_at || Time.now.utc
     ended_at_or_now - started_at
