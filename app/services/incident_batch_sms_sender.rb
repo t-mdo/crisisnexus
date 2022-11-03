@@ -11,7 +11,7 @@ class IncidentBatchSmsSender < ApplicationService
       result =
         SmsSender.call(
           phone_number: account.phone_number,
-          body: @incident.sms_notification_body,
+          body: @incident.sms_notification_body
         )
       SmsNotification.create(
         organization: account.organization,
@@ -19,7 +19,7 @@ class IncidentBatchSmsSender < ApplicationService
         incident: @incident,
         body: @incident.sms_notification_body,
         success: result[:success],
-        error_message: result[:error_message],
+        error_message: result[:error_message]
       )
     end
   end

@@ -14,11 +14,11 @@ class Api::IncidentsController < ApiController
 
   def create
     attributes = params.require(:incident).permit(:name, :summary)
-    incident = Incident.open(**attributes, creator: current_account)
-    return if incident.persisted?
+    @incident = Incident.open(**attributes, creator: current_account)
+    return if @incident.persisted?
 
     render json: {
-             errors: incident.errors.full_messages
+             errors: @incident.errors.full_messages
            },
            status: :unprocessable_entity
   end
@@ -26,11 +26,8 @@ class Api::IncidentsController < ApiController
   def update
     attributes = params.require(:incident).permit(:name, :summary, :status)
 
-    @incident.assign_attributes(attributes)
-    @incident.closer = current_account
-    @incident_saved = @incident.save
-
-    return if @incident_saved
+    @incident.close(**attributes, closer: current_account) if attributes[:status] == Incident::STATUS_CLOSED
+    return if @incident.save
 
     render status: :unprocessable_entity,
            json: {

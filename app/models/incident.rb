@@ -71,6 +71,16 @@ class Incident < ApplicationRecord
     end
   end
 
+  def close(closer:, **attributes)
+    assign_attributes(**attributes)
+    self.closer = closer
+    self.status = STATUS_CLOSED
+    return false unless save
+
+    IncidentBatchSmsSender.call(incident: self)
+    true
+  end
+
   def duration
     ended_at_or_now = ended_at || Time.now.utc
     ended_at_or_now - started_at
