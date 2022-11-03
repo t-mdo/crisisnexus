@@ -16,5 +16,17 @@ class Role < ApplicationRecord
     def scribe
       find_by!(name: :scribe)
     end
+
+    def enrolled_as_incident_manager?
+      exists?(name: :incident_manager)
+    end
+
+    def enrolled_as_communication_manager?
+      exists?(name: :communication_manager)
+    end
+
+    def enrolled_as_scribe?
+      exists?(name: :scribe)
+    end
   end
 end

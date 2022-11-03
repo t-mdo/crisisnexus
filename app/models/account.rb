@@ -30,6 +30,14 @@ class Account < ApplicationRecord
             phone: { possible: true, allow_blank: true,
                      message: 'is invalid. Please write it to the format +14123456789' }
 
+  def can_manage_incident?
+    roles.enrolled_as_incident_manager?
+  end
+
+  def can_manage_communication?
+    roles.enrolled_as_communication_manager?
+  end
+
   private
 
   def email_domain_is_not_from_a_global_provider

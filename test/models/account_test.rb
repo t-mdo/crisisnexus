@@ -34,4 +34,22 @@ class AccountTest < ActiveSupport::TestCase
     account = Account.new(email: 't@t.com', phone_number: '+33637799194')
     assert account.valid?
   end
+
+  test 'can_manage_incident?' do
+    account = create(:account)
+    assert_not account.can_manage_incident?
+    assert_not account.can_manage_communication?
+    create(:role_enrollment, account:, role: Role.incident_manager)
+    assert account.can_manage_incident?
+    assert_not account.can_manage_communication?
+  end
+
+  test 'can_manage_communication?' do
+    account = create(:account)
+    assert_not account.can_manage_communication?
+    assert_not account.can_manage_incident?
+    create(:role_enrollment, account:, role: Role.communication_manager)
+    assert account.can_manage_communication?
+    assert_not account.can_manage_incident?
+  end
 end
