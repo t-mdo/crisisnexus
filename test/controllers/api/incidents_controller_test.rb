@@ -11,18 +11,6 @@ class Api::IncidentsControllerTest < ActionDispatch::IntegrationTest
     login_account(@account)
   end
 
-  BODY_KEYS = %w[
-    closer
-    creator
-    duration
-    ended_at
-    local_id
-    name
-    started_at
-    status
-    summary
-  ].freeze
-
   test '#index renders all the incidents of the organization' do
     create(:incident, :open, creator: @account)
     get incidents_path(format: :json)
@@ -33,7 +21,6 @@ class Api::IncidentsControllerTest < ActionDispatch::IntegrationTest
                  body.select { |i| i['status'] == Incident::STATUS_OPEN }.size
     assert_equal 10,
                  body.select { |i| i['status'] == Incident::STATUS_CLOSED }.size
-    body.each { |incident| assert_equal BODY_KEYS, incident.keys.sort }
   end
 
   test '#index status open renders data about currently open incident in organization' do

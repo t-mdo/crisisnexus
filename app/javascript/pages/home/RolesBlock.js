@@ -1,15 +1,30 @@
 import { useContext } from 'react';
 import classnames from 'classnames';
 import accountContext from 'modules/contexts/accountContext';
+import openIncidentContext from 'modules/contexts/openIncidentContext';
+import useHttpQuery from 'modules/httpQuery/useHttpQuery';
+import { ROLES } from 'modules/constants';
 import UserPilotIcon from 'images/icons/regular/user-pilot.svg';
 import UserHeadsetIcon from 'images/icons/regular/user-headset.svg';
 import UserPenIcon from 'images/icons/regular/user-pen.svg';
 
-const RoleBlock = ({ icon, displayName, roleHolder, canRole }) => {
+const RoleBlock = ({ icon, name, displayName, roleHolder, canRole }) => {
+  const { setOpenIncident } = useContext(openIncidentContext);
   const Element = canRole ? 'button' : 'div';
+  const { trigger: putTrigger } = useHttpQuery({
+    url: `/open_incident/roles/${name}`,
+    method: 'PUT',
+    trigger: true,
+    onSuccess: ({ data: { incident } }) => setOpenIncident(incident),
+  });
+
+  const onBlockClick = () => {
+    putTrigger();
+  };
 
   return (
     <Element
+      onClick={canRole && onBlockClick}
       className={classnames(
         'flex flex-col items-center border-gray-400 border rounded px-5 py-4 w-48 text-center overflow-hidden',
         {
@@ -24,17 +39,18 @@ const RoleBlock = ({ icon, displayName, roleHolder, canRole }) => {
         <span className="mb-2 font-semibold text-gray-900">{displayName}</span>
       </div>
       {roleHolder ? (
-        <span className="pb-2 w-full text-gray-900 overflow-hidden text-ellipsis">
-          {roleHolder}
-        </span>
+        <>
+          <span className="w-full text-gray-900 overflow-hidden text-ellipsis">
+            {roleHolder}
+          </span>
+          {canRole && <span className="font-medium">Assume the role</span>}
+        </>
       ) : (
         <>
           <span className="text-gray-900 italic">
             No {displayName.toLowerCase()} appointed
           </span>
-          {canRole && (
-            <span className="font-medium text-green-600">Take the role</span>
-          )}
+          {canRole && <span className="font-medium">Assume the role</span>}
         </>
       )}
     </Element>
@@ -44,24 +60,26 @@ const RoleBlock = ({ icon, displayName, roleHolder, canRole }) => {
 const RolesBlock = ({ incident }) => {
   const { account } = useContext(accountContext);
 
-  console.log(account);
   return (
     <div className="flex gap-8 flex-wrap justify-evenly mb-6">
       <RoleBlock
         icon={<UserPilotIcon className="w-5 mb-1" />}
-        displayName="Incident manager"
+        name={ROLES.NAMES.INCIDENT_MANAGER}
+        displayName={ROLES.DISPLAY_NAMES.INCIDENT_MANAGER}
         roleHolder={incident.incident_manager?.email}
-        canRole={account.can_manage_incidents}
+        canRole={account.can_manage_incident}
       />
       <RoleBlock
         icon={<UserHeadsetIcon className="w-5 mb-1" />}
-        displayName="Communication manager"
+        name={ROLES.NAMES.COMMUNICATION_MANAGER}
+        displayName={ROLES.DISPLAY_NAMES.COMMUNICATION_MANAGER}
         roleHolder={incident.communication_manager?.email}
         canRole={account.can_manage_communication}
       />
       <RoleBlock
         icon={<UserPenIcon className="w-6 mb-1" />}
-        displayName="Scribe"
+        name={ROLES.NAMES.SCRIBE}
+        displayName={ROLES.DISPLAY_NAMES.SCRIBE}
         roleHolder={incident.scribe?.email}
         canRole
       />

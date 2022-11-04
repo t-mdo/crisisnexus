@@ -1,1 +1,1 @@
-json.incident { json.partial! 'api/incidents/incident', incident: @incident }
+json.incident { json.partial! 'api/models/incident', incident: @incident }

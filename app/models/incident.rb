@@ -44,6 +44,7 @@ class Incident < ApplicationRecord
               greater_than: :started_at
             },
             allow_nil: true
+  validate :is_enrolled_to_assume_role?
 
   after_initialize :set_organization
   before_create :set_local_id
@@ -99,6 +100,19 @@ class Incident < ApplicationRecord
 
     errors.add(:base, 'An incident is already ongoing')
     throw :abort
+  end
+
+  def is_enrolled_to_assume_role?
+    if incident_manager_changed? &&
+       incident_manager.present? &&
+       incident_manager.role_enrollments.find_by(role: Role.incident_manager).nil?
+      errors.add(:incident_manager, 'role cannot be assumed by this account as it is not enrolled')
+    end
+    if communication_manager_changed? &&
+       communication_manager.present? &&
+       communication_manager.role_enrollments.find_by(role: Role.communication_manager).nil?
+      errors.add(:communication_manager, 'role cannot be assumed by this account as it is not enrolled')
+    end
   end
 
   def set_organization
