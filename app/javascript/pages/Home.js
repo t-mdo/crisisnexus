@@ -6,6 +6,7 @@ import Card from 'components/Card';
 import Button, { BUTTON_TYPE_SUCCESS } from 'components/Button';
 import PastIncidentsList from 'pages/home/PastIncidentsList';
 import CloseIncidentModal from 'pages/home/CloseIncidentModal';
+import RolesBlock from 'pages/home/RolesBlock';
 
 const HotStateDashboard = ({ incident }) => {
   const [closeIncidentModalOpen, setCloseIncidentModalOpen] = useState(false);
@@ -15,20 +16,18 @@ const HotStateDashboard = ({ incident }) => {
       <h3 className="mb-3 font-semibold text-xl">Ongoing incident</h3>
       <Card className="px-8 py-6">
         <div className="mb-4">
-          <span className="mr-2 text-gray-400 font-semibold">{`#CRISIS-${incident.local_id}: `}</span>
-          <span className="text-lg text-gray-900 font-semibold">
+          <span className="text-lg text-gray-400 font-semibold">{`#CRISIS-${incident.local_id}: `}</span>
+          <span className="text-xl text-gray-900 font-semibold">
             {incident.name}
           </span>
         </div>
-        {incident.summary && (
-          <>
-            <div className="mb-1 text-xs text-gray-400">Summary</div>
-            <p className="px-4 py-2 mb-8 bg-gray-100 border rounded">
-              {incident.summary}
-            </p>
-          </>
+        {incident.summary ? (
+          <p className="px-2 py-2 mb-8">{incident.summary}</p>
+        ) : (
+          <p className="px-2 py-2 mb-8 bg-gray-100">No summary provided</p>
         )}
-        <div className="flex justify-center">
+        <RolesBlock incident={incident} />
+        <div className="flex justify-end">
           <Button
             type={BUTTON_TYPE_SUCCESS}
             onClick={() => setCloseIncidentModalOpen(true)}
@@ -37,7 +36,6 @@ const HotStateDashboard = ({ incident }) => {
           </Button>
         </div>
       </Card>
-      <PastIncidentsList queryLimit={2} />
       <CloseIncidentModal
         open={closeIncidentModalOpen}
         onClose={() => setCloseIncidentModalOpen(false)}
