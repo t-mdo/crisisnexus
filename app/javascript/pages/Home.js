@@ -24,7 +24,7 @@ const HotStateDashboard = ({ incident }) => {
         {incident.summary ? (
           <p className="px-2 py-2 mb-8">{incident.summary}</p>
         ) : (
-          <p className="px-2 py-2 mb-8 bg-gray-100">No summary provided</p>
+          <p className="px-2 py-2 mb-8 italic">No summary provided</p>
         )}
         <RolesBlock incident={incident} />
         <div className="flex justify-end">
