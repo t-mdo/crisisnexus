@@ -6,7 +6,7 @@ class IncidentBatchSmsSender < ApplicationService
   end
 
   def call
-    accounts_to_notify = @incident.organization.accounts
+    accounts_to_notify = @incident.organization.accounts.where.not(phone_number: nil)
     accounts_to_notify.each do |account|
       result =
         SmsSender.call(
