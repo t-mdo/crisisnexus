@@ -25,12 +25,12 @@ const RoleBlock = ({ icon, name, displayName, roleHolder, canAssumeRole }) => {
   return (
     <Element
       id={`role-block-${name}`}
-      onClick={canAssumeRole && onBlockClick}
+      onClick={canAssumeRole ? onBlockClick : null}
       className={classnames(
         'flex flex-col items-center border-gray-400 border rounded px-5 py-4 w-48 text-center overflow-hidden',
         {
           'bg-gray-100': !canAssumeRole,
-          'shadow hover:shadow-none active:shadow-inner transition duration-100':
+          'shadow-md hover:shadow-none active:shadow-inner-md transition duration-100':
             canAssumeRole,
         },
       )}
