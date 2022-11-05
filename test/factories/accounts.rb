@@ -5,5 +5,17 @@ FactoryBot.define do
     organization
     activation_state { 'active' }
     onboarding_completed { true }
+
+    trait :enrolled_as_incident_manager do
+      after(:create) do |account|
+        create(:role_enrollment, :incident_manager, account:)
+      end
+    end
+
+    trait :enrolled_as_communication_manager do
+      after(:create) do |account|
+        create(:role_enrollment, :communication_manager, account:)
+      end
+    end
   end
 end

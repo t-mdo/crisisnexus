@@ -1,5 +1,6 @@
 import { useState, useContext } from 'react';
 import OpenIncidentContext from 'modules/contexts/openIncidentContext';
+import FullView from 'components/FullView';
 import Alert from 'components/Alert';
 import Loader from 'components/Loader';
 import Card from 'components/Card';
@@ -64,7 +65,7 @@ const Home = () => {
   } = useContext(OpenIncidentContext);
 
   return (
-    <div className="py-6 px-4 md:px-32">
+    <FullView className="py-6 px-4 md:px-32">
       <h2 className="mb-6 font-semibold text-3xl">Dashboard</h2>
       {openIncidentFetchLoading && <Loader />}
       {openIncidentFetchDone && Boolean(openIncident) && (
@@ -74,7 +75,7 @@ const Home = () => {
       {openIncidentFetchError && (
         <Alert type="error">An error occured while loading the dashboard</Alert>
       )}
-    </div>
+    </FullView>
   );
 };
 

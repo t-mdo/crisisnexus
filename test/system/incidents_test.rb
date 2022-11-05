@@ -7,10 +7,12 @@ class IncidentsTest < ApplicationSystemTestCase
     stub_sms_notification_requests
 
     @account = create(:account)
-    login_as(account: @account)
+    @organization = @account.organization
   end
 
   test 'triggers and closes an incident' do
+    login_as(account: @account)
+
     assert_text 'No incident in progress'
 
     click_on 'Trigger an incident'
@@ -44,5 +46,47 @@ class IncidentsTest < ApplicationSystemTestCase
     assert_text 'No incident in progress'
     assert_text '#CRISIS-1: We are down'
     assert_text 'Closed'
+  end
+
+  test 'assigns and re-assigns roles during the incident lifespan' do
+    default_im_account = create(:account, :enrolled_as_incident_manager, email: 'im@crisisnexus.com',
+                                                                         organization: @organization)
+    default_cm_account = create(:account, :enrolled_as_communication_manager, email: 'cm@crisisnexus.com',
+                                                                              organization: @organization)
+    Incident.open(name: 'We are down', summary: 'The root page cannot be loaded anymore', creator: @account)
+
+    login_as(account: @account)
+    incident_manager_block = find('div#role-block-incident_manager')
+    incident_manager_block.assert_text "Incident manager\nim@crisisnexus.com"
+    communication_manager_block = find('div#role-block-communication_manager')
+    communication_manager_block.assert_text "Communication manager\ncm@crisisnexus.com"
+    scribe_block = find('button#role-block-scribe')
+    scribe_block.assert_text "Scribe\nNo scribe appointed\nAssume the role"
+
+    click_on 'Roles'
+    find_all('a', text: 'Details').first.click
+    assert_text 'Roles - Incident manager'
+    assert_selector 'li', count: 1
+    enrollment = find 'li', text: 'im@crisisnexus.com'
+    enrollment.find('button').click
+    assert_no_selector 'li', text: 'im@crisisnexus.com'
+    assert_text 'No members enrolled yet'
+    click_on 'add_enrollment'
+    fill_in "New member's email", with: @account.email[0..2]
+    option = find 'li[role="option"]', text: @account.email
+    option.click
+    assert_selector 'li', text: @account.email
+
+    click_on 'Dashboard'
+    refresh
+    incident_manager_block = find('button#role-block-incident_manager')
+    incident_manager_block.click
+    incident_manager_block = find('div#role-block-incident_manager')
+    incident_manager_block.assert_text "Incident manager\n#{@account.email}"
+
+    scribe_block = find('button#role-block-scribe')
+    scribe_block.click
+    scribe_block = find('div#role-block-scribe')
+    scribe_block.assert_text "Scribe\n#{@account.email}"
   end
 end

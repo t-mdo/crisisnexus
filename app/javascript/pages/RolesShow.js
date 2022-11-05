@@ -36,7 +36,7 @@ const EnrollmentRow = ({ enrollment: { id, account }, onDelete }) => {
         <h4 className="flex items-center mr-4 text-sm text-gray-900 font-semibold">
           {account.email}
         </h4>
-        <IconButton>
+        <IconButton name="remove_enrollment">
           <UserMinusIcon className="w-5 fill-red-500" onClick={triggerDelete} />
         </IconButton>
       </div>
@@ -137,6 +137,7 @@ const Roles = () => {
         <div className="flex items-center mb-4">
           <h3 className="font-semibold text-xl mr-4">Enrolled members</h3>
           <IconButton
+            name="add_enrollment"
             onClick={() => setAddingNewEnrollment(!addingNewEnrollment)}
           >
             <UserPlusIcon className="w-5 fill-blue-500" />

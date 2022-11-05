@@ -24,6 +24,7 @@ const RoleBlock = ({ icon, name, displayName, roleHolder, canAssumeRole }) => {
 
   return (
     <Element
+      id={`role-block-${name}`}
       onClick={canAssumeRole && onBlockClick}
       className={classnames(
         'flex flex-col items-center border-gray-400 border rounded px-5 py-4 w-48 text-center overflow-hidden',
