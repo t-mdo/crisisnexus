@@ -19,6 +19,8 @@ class Account < ApplicationRecord
 
   has_many :sms_notifications
 
+  has_many :minutes, inverse_of: :recorded_by
+
   validates :email,
             presence: true,
             uniqueness: true,

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_03_223453) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_06_183238) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -61,6 +61,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_223453) do
     t.string "conversion_source"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "minutes", force: :cascade do |t|
+    t.text "who"
+    t.text "what"
+    t.bigint "incident_id", null: false
+    t.bigint "recorded_by_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["incident_id"], name: "index_minutes_on_incident_id"
+    t.index ["recorded_by_id"], name: "index_minutes_on_recorded_by_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -114,6 +125,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_223453) do
   add_foreign_key "incidents", "accounts", column: "incident_manager_sidekick_id"
   add_foreign_key "incidents", "accounts", column: "scribe_id"
   add_foreign_key "incidents", "organizations"
+  add_foreign_key "minutes", "accounts", column: "recorded_by_id"
+  add_foreign_key "minutes", "incidents"
   add_foreign_key "role_enrollments", "accounts"
   add_foreign_key "role_enrollments", "organizations"
   add_foreign_key "role_enrollments", "roles"

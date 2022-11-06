@@ -28,6 +28,8 @@ class Incident < ApplicationRecord
 
   has_many :sms_notifications
 
+  has_many :minutes
+
   enum :status,
        {
          open: STATUS_OPEN,

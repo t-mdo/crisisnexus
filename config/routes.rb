@@ -11,7 +11,11 @@ Rails.application.routes.draw do
 
   scope module: :api, constraints: ->(req) { req.format == :json } do
     resources :accounts, only: %i[index]
-    resources :incidents, only: %i[index show create update]
+    resources :incidents, only: %i[index show create update] do
+      scope module: :incidents do
+        resources :minutes, only: %i[index create]
+      end
+    end
     resource :open_incident, only: %i[] do
       scope module: :open_incidents do
         resources :roles, only: %i[update]
