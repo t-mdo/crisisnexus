@@ -12,21 +12,21 @@ json.closer do
 end
 json.incident_manager do
   if incident.incident_manager.present?
-    json.email incident.incident_manager.email
+    json.partial! 'api/models/account', account: incident.incident_manager
   else
     json.null!
   end
 end
 json.communication_manager do
   if incident.communication_manager.present?
-    json.email incident.communication_manager.email
+    json.partial! 'api/models/account', account: incident.communication_manager
   else
     json.null!
   end
 end
 json.scribe do
   if incident.scribe.present?
-    json.email incident.scribe.email
+    json.partial! 'api/models/account', account: incident.scribe
   else
     json.null!
   end

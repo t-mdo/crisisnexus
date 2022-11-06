@@ -1,5 +1,6 @@
 import { useState, useContext } from 'react';
 import OpenIncidentContext from 'modules/contexts/openIncidentContext';
+import AccountContext from 'modules/contexts/accountContext';
 import FullView from 'components/FullView';
 import Alert from 'components/Alert';
 import Loader from 'components/Loader';
@@ -10,11 +11,14 @@ import CloseIncidentModal from 'pages/home/CloseIncidentModal';
 import RolesBlock from 'pages/home/RolesBlock';
 
 const HotStateDashboard = ({ incident }) => {
+  const { account } = useContext(AccountContext);
   const [closeIncidentModalOpen, setCloseIncidentModalOpen] = useState(false);
+
+  const isScribe = incident?.scribe?.id === account.id;
 
   return (
     <>
-      <h3 className="mb-3 font-semibold text-xl">Open incident</h3>
+      <h2 className="mb-3 font-semibold text-xl">Open incident</h2>
       <Card className="px-8 py-6">
         <div className="mb-4">
           <span className="text-lg text-gray-400 font-semibold">{`#CRISIS-${incident.local_id}: `}</span>
@@ -28,7 +32,12 @@ const HotStateDashboard = ({ incident }) => {
           <p className="px-2 py-2 mb-8 italic">No summary provided</p>
         )}
         <RolesBlock incident={incident} />
-        <div className="flex justify-end">
+        <div className="flex justify-between pt-16">
+          {isScribe ? (
+            <Button href="/incident/scribe">Start scribing</Button>
+          ) : (
+            <div />
+          )}
           <Button
             type={BUTTON_TYPE_SUCCESS}
             onClick={() => setCloseIncidentModalOpen(true)}
