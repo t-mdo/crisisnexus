@@ -10,6 +10,7 @@ import {
 } from 'modules/contexts/accountContext';
 import { OpenIncidentProvider } from 'modules/contexts/openIncidentContext';
 import Onboarding from 'pages/Onboarding';
+import NoRouteMatch from 'pages/NoRouteMatch';
 import Home from 'pages/Home';
 import SideMenu from 'pages/SideMenu';
 import StatusBar from 'pages/StatusBar';
@@ -29,6 +30,7 @@ const AppRoutes = () => (
     <Route path="/roles/:name" element={<RolesShow />} />
     <Route path="/settings" element={<Settings />} />
     <Route path="/account" element={<Account />} />
+    <Route path="/*" element={<NoRouteMatch />} />
   </Routes>
 );
 
