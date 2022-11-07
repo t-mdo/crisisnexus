@@ -59,7 +59,7 @@ const HotStateDashboard = ({ incident }) => {
 const CoolStateDashboard = () => {
   return (
     <>
-      <Card className="flex items-center justify-center px-8 py-4">
+      <Card className="flex items-center justify-center px-8 py-4 mb-12">
         <p className="text-lg">No incident in progress</p>
       </Card>
       <PastIncidentsList queryLimit={5} />

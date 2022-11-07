@@ -73,10 +73,11 @@ const MinutesForm = () => {
 
   return (
     <FullView className="flex flex-col py-6 px-4 md:px-32">
-      <h2 className="mb-6 font-semibold text-3xl">Incident scribe</h2>
+      <h2 className="mb-6 font-semibold text-3xl">
+        CRISIS-#{incidentId} Minutes
+      </h2>
       <Card className="flex flex-col justify-between px-8 py-6 h-full overflow-hidden">
         <div className="flex flex-col overflow-y-auto">
-          <h3 className="mb-3 text-xl">Notes scribed</h3>
           <div className="flex w-full px-3">
             <span className="w-1/6 font-medium">Who</span>
             <span className="w-4/6 font-medium">What</span>
@@ -84,33 +85,36 @@ const MinutesForm = () => {
           </div>
           <ScribedMinutes loading={loadingFetch} minutes={minutes} />
         </div>
-        <form className="flex mt-6 mb-1" onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            name="who"
-            className="w-1/6 rounded-r-none"
-            placeholder="Who"
-            onFocus={({ target }) => target.select()}
-            {...register('who', {
-              required: 'Who is required',
-              keepDirty: true,
-            })}
-          />
-          <Input
-            name="what"
-            className="w-4/6 rounded-none"
-            placeholder="Said or Did What"
-            onKeyDown={(e) => {
-              if (e.key !== 'Tab') return;
-              e.preventDefault();
-              setFocus('who');
-            }}
-            {...register('what', { required: 'What is required' })}
-          />
-          <Button className="w-1/6 rounded-l-none min-w-fit">Submit</Button>
-        </form>
-        <p className="text-xs text-gray-400">
-          Pro tip: use tab to go back and forth between fields
-        </p>
+        <div>
+          <form className="flex mt-6 mb-1" onSubmit={handleSubmit(onSubmit)}>
+            <Input
+              name="who"
+              className="w-1/6 rounded-r-none"
+              placeholder="Who"
+              onFocus={({ target }) => target.select()}
+              {...register('who', {
+                required: 'Who is required',
+                keepDirty: true,
+              })}
+            />
+            <Input
+              name="what"
+              className="w-4/6 rounded-none"
+              placeholder="Said or Did What"
+              onKeyDown={(e) => {
+                if (e.key !== 'Tab') return;
+                e.preventDefault();
+                setFocus('who');
+              }}
+              {...register('what', { required: 'What is required' })}
+            />
+            <Button className="w-1/6 rounded-l-none min-w-fit">Submit</Button>
+          </form>
+          <p className="text-xs text-gray-400">
+            Pro tip: use tab to go back and forth between fields and enter to
+            submit
+          </p>
+        </div>
       </Card>
     </FullView>
   );
