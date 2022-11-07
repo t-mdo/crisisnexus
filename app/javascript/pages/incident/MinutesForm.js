@@ -74,7 +74,7 @@ const MinutesForm = () => {
   return (
     <FullView className="flex flex-col py-6 px-4 md:px-32">
       <h2 className="mb-6 font-semibold text-3xl">
-        CRISIS-#{incidentId} Minutes
+        #CRISIS-{incidentId} Minutes
       </h2>
       <Card className="flex flex-col justify-between px-8 py-6 h-full overflow-hidden">
         <div className="flex flex-col overflow-y-auto">

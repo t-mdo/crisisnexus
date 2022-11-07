@@ -89,4 +89,28 @@ class IncidentsTest < ApplicationSystemTestCase
     scribe_block = find('div#role-block-scribe')
     scribe_block.assert_text "Scribe\n#{@account.email}"
   end
+
+  test 'assigns scribe role and scribe minutes' do
+    create(:account, :enrolled_as_incident_manager, organization: @organization)
+    create(:account, :enrolled_as_communication_manager, organization: @organization)
+    Incident.open(name: 'We are down', summary: 'The root page cannot be loaded anymore', creator: @account)
+    Incident.first.minutes.create(who: 'Jean-Claude', what: "1 + 1 = 11. Et ça c'est beau", recorded_by: @account)
+
+    login_as(account: @account)
+    assert_no_button 'Start scribing'
+    assert_text 'No scribe appointed'
+    assert_text 'Assume the role'
+    click_on 'Assume the role'
+    within '#role-block-scribe' do
+      assert_text @account.email
+    end
+    click_on 'Start scribing'
+    assert_text '#CRISIS-1 Minutes'
+    assert_text 'Jean-Claude'
+    assert_text "1 + 1 = 11. Et ça c'est beau"
+    fill_in 'Who', with: 'Jean-Claude'
+    fill_in 'Said or Did What', with: "J'adore l'eau. Dans 20/30 ans il y en aura plus"
+    click_on 'Submit'
+    assert_text "J'adore l'eau. Dans 20/30 ans il y en aura plus"
+  end
 end
