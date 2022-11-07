@@ -1,4 +1,4 @@
-class Api::Incidents::MinutesController < ApplicationController
+class Api::Incidents::MinutesController < ApiController
   before_action :set_incident
 
   def index

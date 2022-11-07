@@ -34,7 +34,9 @@ const HotStateDashboard = ({ incident }) => {
         <RolesBlock incident={incident} />
         <div className="flex justify-between pt-16">
           {isScribe ? (
-            <Button href="/incident/scribe">Start scribing</Button>
+            <Button href={`/incidents/${incident.local_id}/minutes`}>
+              Start scribing
+            </Button>
           ) : (
             <div />
           )}

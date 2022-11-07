@@ -7,7 +7,7 @@ const ErrorFeedback = ({ formErrors, queryErrors }) => {
   if (!formHasErrors && !queryErrors) return null;
   return (
     <Alert className="mb-4" type={ALERT_TYPE_ERROR}>
-      <ul>
+      <ul className="text-left">
         {formHasErrors &&
           formErrors.map((message, i) => <li key={i}>{message}</li>)}
         {queryHasErrors &&

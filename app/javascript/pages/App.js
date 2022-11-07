@@ -20,14 +20,14 @@ import RolesIndex from 'pages/RolesIndex';
 import RolesShow from 'pages/RolesShow';
 import Settings from 'pages/Settings';
 import Account from 'pages/Account';
-import IncidentScribe from 'pages/incident/Scribe';
+import IncidentMinutesForm from 'pages/incident/MinutesForm';
 
 const AppRoutes = () => (
   <Routes>
     <Route path="/" element={<Home />} />
-    <Route path="/incident/scribe" element={<IncidentScribe />} />
     <Route path="/incidents" element={<IncidentsIndex />} />
     <Route path="/incidents/:id" element={<IncidentsShow />} />
+    <Route path="/incidents/:id/minutes" element={<IncidentMinutesForm />} />
     <Route path="/roles" element={<RolesIndex />} />
     <Route path="/roles/:name" element={<RolesShow />} />
     <Route path="/settings" element={<Settings />} />
