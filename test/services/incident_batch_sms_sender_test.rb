@@ -41,13 +41,9 @@ class IncidentBatchSmsSenderTest < ActionDispatch::IntegrationTest
   test 'does not send sms and logs the error if phone number is blank' do
     @account.update!(phone_number: nil)
 
-    assert_difference 'SmsNotification.count', 1 do
+    assert_difference 'SmsNotification.count', 0 do
       IncidentBatchSmsSender.call(incident: @incident)
     end
-
-    sms = @account.sms_notifications.last
-    assert_not sms.success
-    assert_equal 'Phone number is blank', sms.error_message
   end
 
   test 'does not send sms and logs the error if twilio respond in error' do
