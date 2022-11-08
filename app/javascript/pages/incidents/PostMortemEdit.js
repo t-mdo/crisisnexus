@@ -14,15 +14,15 @@ const PostMortemEdit = () => {
   const { register, handleSubmit, setFocus, watch } = useForm();
 
   const { success, trigger: triggerPost } = useHttpQuery({
-    url: `/api/incidents/${incident.local_id}/post_mortem`,
-    method: 'POST',
+    url: `/api/incidents/${incident.local_id}/postmortem`,
+    method: 'PUT',
     trigger: true,
   });
 
   const [nextStepActionsFieldIndex, setNextStepActionsFieldIndex] = useState(1);
 
   const newestNSAField = watch(
-    `nextStepActions.${nextStepActionsFieldIndex}.name`,
+    `next_step_actions.${nextStepActionsFieldIndex}.name`,
   );
   useEffect(() => {
     if (newestNSAField) {
@@ -32,15 +32,15 @@ const PostMortemEdit = () => {
 
   const previousNSAField =
     nextStepActionsFieldIndex > 0 &&
-    watch(`nextStepActions.${nextStepActionsFieldIndex - 1}.name`);
+    watch(`next_step_actions.${nextStepActionsFieldIndex - 1}.name`);
   useEffect(() => {
     if (previousNSAField === false || previousNSAField) return;
 
     setNextStepActionsFieldIndex(nextStepActionsFieldIndex - 1);
   }, [previousNSAField]);
 
-  const onSubmit = (post_mortem) => {
-    triggerPost({ body: { post_mortem } });
+  const onSubmit = (postmortem) => {
+    triggerPost({ body: { postmortem } });
   };
 
   return (
@@ -53,19 +53,19 @@ const PostMortemEdit = () => {
             <Input
               placeholder="One sentence anybody at the company can understand"
               className="w-full mb-4"
-              {...register('osSummary')}
+              {...register('summary')}
             />
             <Label>Who was impacted, and how many of them were?</Label>
             <Input
               placeholder="5 employees, 500 partners, 50k users, etc."
               className="w-2/3 mb-4"
-              {...register('impact.who')}
+              {...register('impact_who')}
             />
             <Label>What was the impact?</Label>
             <Input
               placeholder="Blank page, couldn't open their documents, create an event, etc."
               className="w-5/6 mb-4"
-              {...register('impact.what')}
+              {...register('impact_what')}
             />
             <Label>
               When did the incident start and end *for impacted users*?
@@ -74,9 +74,12 @@ const PostMortemEdit = () => {
               <Input
                 type="datetime-local"
                 className="mr-2"
-                {...register('when.start')}
+                {...register('incident_impact_started_at')}
               />
-              <Input type="datetime-local" {...register('when.end')} />
+              <Input
+                type="datetime-local"
+                {...register('incident_impact_ended_at')}
+              />
             </div>
           </div>
           <div className="mb-16">
@@ -87,7 +90,7 @@ const PostMortemEdit = () => {
               className="w-full mb-4"
               rows="8"
               placeholder="12/24 09:00: Jean-Claude tripped on a wire and the server went down.&#10;12/24 09:30: Jean-Claude fixed the wire and the server came back up."
-              {...register('timelineFreeText')}
+              {...register('timeline_text')}
             />
             <Label subtitle="What prevented a worse outcome">
               Where we got lucky
@@ -96,7 +99,7 @@ const PostMortemEdit = () => {
               className="w-full mb-4"
               rows="2"
               placeholder="The n+1 query could have down the whole database but it only affected the creation of documents."
-              {...register('luckyFreeText')}
+              {...register('lucky_text')}
             />
             <Label subtitle="What made the outcome worst than it could have been">
               Where we got unlucky
@@ -105,7 +108,7 @@ const PostMortemEdit = () => {
               className="w-full mb-4"
               rows="2"
               placeholder="The master branch was broken and we had to fix it before deploying the fix."
-              {...register('unluckyFreeText')}
+              {...register('unlucky_text')}
             />
             <div className="flex justify-between">
               <Label className="mb-0">Five whys</Label>
@@ -121,7 +124,7 @@ const PostMortemEdit = () => {
               className="w-full"
               rows="10"
               placeholder="1. Why did users got an error when creating a document?&#10;1.1. Because an exception was raised in the backend on document creation. Why?&#10;1.2. Because we shipped a new feature that didn’t work well with document creation. Why?&#10;1.3. Because we didn’t know this feature existed, and our tests suites didn’t warn us that we broke it. Why?&#10;1.4 Because we have no tests on the document creation feature.&#10;Outcome -> We need to add tests for that feature in our tests suite.&#10;&#10;2. Why did the error stayed on production for one full day.&#10;2.1 Because we didn’t know about the problem until a customer called our CEO. Why?&#10;2.2 Because we don’t have any monitoring on that feature. Why?&#10;…"
-              {...register('fiveWhysFreeText')}
+              {...register('five_whys_text')}
             />
           </div>
           <div className="mb-16">
@@ -135,9 +138,9 @@ const PostMortemEdit = () => {
                   onKeyDown={(e) => {
                     if (e.key !== 'Enter') return;
                     e.preventDefault();
-                    setFocus(`nextStepActions.${index + 1}.name`);
+                    setFocus(`next_step_actions.${index + 1}.name`);
                   }}
-                  {...register(`nextStepActions.${index}.name`)}
+                  {...register(`next_step_actions.${index}.name`)}
                 />
               </div>
             ))}
