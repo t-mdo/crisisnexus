@@ -105,7 +105,8 @@ class IncidentsTest < ApplicationSystemTestCase
       assert_text @account.email
     end
     click_on 'Start scribing'
-    assert_text '#CRISIS-1 Minutes'
+    assert_text '#CRISIS-1: We are down'
+    assert_text 'Minutes'
     assert_text 'Jean-Claude'
     assert_text "1 + 1 = 11. Et ça c'est beau"
     fill_in 'Who', with: 'Jean-Claude'
