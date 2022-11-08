@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_08_231403) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_08_232249) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -72,6 +72,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_08_231403) do
     t.datetime "updated_at", null: false
     t.index ["incident_id"], name: "index_minutes_on_incident_id"
     t.index ["recorded_by_id"], name: "index_minutes_on_recorded_by_id"
+  end
+
+  create_table "next_step_actions", force: :cascade do |t|
+    t.text "name"
+    t.bigint "postmortem_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["postmortem_id"], name: "index_next_step_actions_on_postmortem_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -145,6 +153,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_08_231403) do
   add_foreign_key "incidents", "organizations"
   add_foreign_key "minutes", "accounts", column: "recorded_by_id"
   add_foreign_key "minutes", "incidents"
+  add_foreign_key "next_step_actions", "postmortems"
   add_foreign_key "postmortems", "accounts", column: "assigned_to_id"
   add_foreign_key "postmortems", "incidents"
   add_foreign_key "role_enrollments", "accounts"
