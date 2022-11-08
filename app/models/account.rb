@@ -16,10 +16,9 @@ class Account < ApplicationRecord
            inverse_of: :communication_manager
   has_many :role_enrollments, dependent: :destroy
   has_many :roles, through: :role_enrollments
-
-  has_many :sms_notifications
-
   has_many :minutes, inverse_of: :recorded_by
+  has_many :postmortem, inverse_of: :assigned_to
+  has_many :sms_notifications
 
   validates :email,
             presence: true,

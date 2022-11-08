@@ -25,10 +25,9 @@ class Incident < ApplicationRecord
              class_name: 'Account',
              inverse_of: :communication_managed_incidents,
              optional: true
-
-  has_many :sms_notifications
-
   has_many :minutes
+  has_many :sms_notifications
+  has_one :postmortem
 
   enum :status,
        {
