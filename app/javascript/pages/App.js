@@ -15,19 +15,26 @@ import Home from 'pages/Home';
 import SideMenu from 'pages/SideMenu';
 import StatusBar from 'pages/StatusBar';
 import IncidentsIndex from 'pages/IncidentsIndex';
-import IncidentsShow from 'pages/IncidentsShow';
+import IncidentsRoot from 'pages/IncidentsRoot';
+import IncidentsShow from 'pages/incidents/IncidentsShow';
+import IncidentsMinutesForm from 'pages/incidents/MinutesForm';
+import IncidentsPostMortemShow from 'pages/incidents/PostMortemShow';
+import IncidentsPostMortemEdit from 'pages/incidents/PostMortemEdit';
 import RolesIndex from 'pages/RolesIndex';
 import RolesShow from 'pages/RolesShow';
 import Settings from 'pages/Settings';
 import Account from 'pages/Account';
-import IncidentMinutesForm from 'pages/incident/MinutesForm';
 
 const AppRoutes = () => (
   <Routes>
     <Route path="/" element={<Home />} />
     <Route path="/incidents" element={<IncidentsIndex />} />
-    <Route path="/incidents/:id" element={<IncidentsShow />} />
-    <Route path="/incidents/:id/minutes" element={<IncidentMinutesForm />} />
+    <Route path="/incidents/:id" element={<IncidentsRoot />}>
+      <Route index element={<IncidentsShow />} />
+      <Route path="minutes" element={<IncidentsMinutesForm />} />
+      <Route path="postmortem" element={<IncidentsPostMortemShow />} />
+      <Route path="postmortem/edit" element={<IncidentsPostMortemEdit />} />
+    </Route>
     <Route path="/roles" element={<RolesIndex />} />
     <Route path="/roles/:name" element={<RolesShow />} />
     <Route path="/settings" element={<Settings />} />

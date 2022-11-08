@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import dayjs from 'dayjs';
 import useHttpQuery from 'modules/httpQuery/useHttpQuery';
-import FullView from 'components/FullView';
 import Card from 'components/Card';
 import { Input } from 'components/form/Input';
 import { Button } from 'components/Button';
@@ -72,10 +71,8 @@ const MinutesForm = () => {
   };
 
   return (
-    <FullView className="flex flex-col py-6 px-4 md:px-32">
-      <h2 className="mb-6 font-semibold text-3xl">
-        #CRISIS-{incidentId} Minutes
-      </h2>
+    <div className="flex flex-col h-full py-6 px-4 md:px-32">
+      <h3 className="mb-4 font-semibold text-2xl">Minutes</h3>
       <Card className="flex flex-col justify-between px-8 py-6 h-full overflow-hidden">
         <div className="flex flex-col overflow-y-auto">
           <div className="flex w-full px-3">
@@ -116,7 +113,7 @@ const MinutesForm = () => {
           </p>
         </div>
       </Card>
-    </FullView>
+    </div>
   );
 };
 
