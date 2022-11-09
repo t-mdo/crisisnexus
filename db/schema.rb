@@ -75,7 +75,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_08_232249) do
   end
 
   create_table "next_step_actions", force: :cascade do |t|
-    t.text "name"
+    t.text "name", null: false
     t.bigint "postmortem_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
