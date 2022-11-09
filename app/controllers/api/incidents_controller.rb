@@ -1,6 +1,5 @@
 class Api::IncidentsController < ApiController
   before_action :set_incident, only: %i[show update]
-  after_action :send_sms_notifications, only: %i[create update]
 
   def index
     @incidents = current_organization.incidents.order(local_id: :desc)
@@ -40,11 +39,5 @@ class Api::IncidentsController < ApiController
   def set_incident
     @incident = current_organization.incidents.find_by(local_id: params[:id])
     head :not_found if @incident.nil?
-  end
-
-  def send_sms_notifications
-    return unless @incident_saved
-
-    IncidentBatchSmsSender.call(incident: @incident)
   end
 end
