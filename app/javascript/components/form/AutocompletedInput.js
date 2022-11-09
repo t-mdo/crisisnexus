@@ -6,15 +6,14 @@ import CheckIcon from 'images/icons/regular/check.svg';
 import ChevronUp from 'images/icons/regular/chevron-up.svg';
 import ChevronDown from 'images/icons/regular/chevron-down.svg';
 
-export const AutocompletedInputOption = ({ display, value }) => (
+export const AutocompletedInputOption = ({ item }) => (
   <Combobox.Option
-    key={value}
     className={({ active }) =>
-      `relative cursor-default select-none py-2 pl-10 pr-4 ${
+      `relative w-full py-2 pl-12 cursor-default select-none ${
         active ? 'bg-violet-600 text-white' : 'text-gray-900'
       }`
     }
-    value={value}
+    value={item}
   >
     {({ selected, active }) => (
       <>
@@ -23,7 +22,7 @@ export const AutocompletedInputOption = ({ display, value }) => (
             selected ? 'font-medium' : 'font-normal'
           }`}
         >
-          {display}
+          {item.display}
         </span>
         {selected ? (
           <span
@@ -40,13 +39,13 @@ export const AutocompletedInputOption = ({ display, value }) => (
 );
 
 export const AutocompletedInput = forwardRef(
-  ({ onSelect, onChange, value, options, className, ...props }, ref) => (
+  ({ onSelect, onChange, options, className, ...props }, ref) => (
     <Combobox onChange={onSelect}>
-      <div className="relative w-full">
+      <div className={classnames('relative', className)}>
         <Combobox.Input
           ref={ref}
-          className={classnames(inputComponentStyle, className)}
-          displayValue={value}
+          className={classnames(inputComponentStyle, 'w-full')}
+          displayValue={(item) => item?.display}
           onChange={onChange}
           {...props}
         />
@@ -56,13 +55,9 @@ export const AutocompletedInput = forwardRef(
             <ChevronDown className="w-2 h-fit fill-gray-400" />
           </div>
         </Combobox.Button>
-        <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-          {options.map(({ display, value }) => (
-            <AutocompletedInputOption
-              key={value}
-              display={display}
-              value={value}
-            />
+        <Combobox.Options className="absolute mt-1 py-1 w-full max-h-60 overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+          {options.map((option) => (
+            <AutocompletedInputOption key={option.value} item={option} />
           ))}
         </Combobox.Options>
       </div>

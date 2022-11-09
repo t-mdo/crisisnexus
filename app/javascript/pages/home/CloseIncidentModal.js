@@ -1,7 +1,8 @@
-import { useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import useHttpQuery from 'modules/httpQuery/useHttpQuery';
 import OpenIncidentContext from 'modules/contexts/openIncidentContext';
+import { AutocompletedInput } from 'components/form/AutocompletedInput';
 import {
   Modal,
   ModalPanel,
@@ -13,8 +14,128 @@ import Label from 'components/form/Label';
 import ErrorFeedback from 'components/form/ErrorFeedback';
 import Button from 'components/Button';
 
+const IncidentUpdateForm = ({
+  closureFormData,
+  setClosureFormData,
+  goToNextStep,
+}) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors: formErrors },
+  } = useForm({
+    defaultValues: closureFormData.incident,
+  });
+
+  const onSubmit = (incident) => {
+    setClosureFormData((data) => ({ ...data, incident }));
+    goToNextStep();
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <ErrorFeedback
+        formErrors={Object.values(formErrors).map((error) => error.message)}
+        className="mb-4"
+      />
+      <p className="mb-4 text-sm text-gray-400">
+        Let's take time to review everything before closing
+      </p>
+      <Label>Title</Label>
+      <Input
+        {...register('name', {
+          required: 'A short description is required',
+        })}
+        type="text"
+        className="w-3/4 mb-4"
+        placeholder="Short description (Blank page, 500 errors, blank pages, etc.)"
+        aria-required="true"
+        aria-invalid={formErrors?.name ? 'true' : 'false'}
+      />
+      <Label>Summary</Label>
+      <TextArea
+        {...register('summary')}
+        type="text"
+        className="w-full h-32 mb-12"
+        placeholder="Longer summary to describe the incident in details"
+      />
+      <div className="flex justify-end w-full">
+        <Button role="submit">Next step</Button>
+      </div>
+    </form>
+  );
+};
+
+const PostmortemForm = ({
+  closureFormData,
+  setClosureFormData,
+  closeIncident,
+}) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors: formErrors },
+    watch,
+    setValue,
+  } = useForm({ defaultValues: closureFormData.postmortem });
+
+  const { data: { accounts } = {}, trigger: triggerFetch } = useHttpQuery({
+    url: '/accounts',
+    trigger: true,
+  });
+
+  const assignedTo = watch('assigned_to');
+  useEffect(() => {
+    const params = assignedTo ? { q: assignedTo, limit: 4 } : {};
+    triggerFetch({ params });
+  }, [assignedTo]);
+
+  const onSubmit = (postmortem) => {
+    setClosureFormData((data) => ({ ...data, postmortem }));
+    closeIncident();
+  };
+
+  const autocompleteOptions =
+    accounts?.map((account) => ({
+      display: account.email,
+      value: account.id,
+    })) || [];
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div>
+        <ErrorFeedback
+          formErrors={Object.values(formErrors).map((error) => error.message)}
+          className="mb-4"
+        />
+        <Label>Who's owning the postmortem?</Label>
+        <AutocompletedInput
+          options={autocompleteOptions}
+          onSelect={(account_id) => {
+            setValue('assigned_to', account_id);
+          }}
+          placeholder="New member's email"
+          className="w-2/3"
+          {...register('assigned_to')}
+        />
+      </div>
+      <div className="mt-48 flex justify-end w-full">
+        <Button role="submit">Next step</Button>
+      </div>
+    </form>
+  );
+};
+
 const CloseIncidentModal = ({ open, onClose }) => {
   const { openIncident, setOpenIncident } = useContext(OpenIncidentContext);
+  const [formStep, setFormStep] = useState('incident');
+  const [closureFormData, setClosureFormData] = useState({
+    incident: {
+      name: openIncident.name,
+      summary: openIncident.summary,
+    },
+    postmortem: {},
+  });
 
   const {
     loading,
@@ -27,65 +148,29 @@ const CloseIncidentModal = ({ open, onClose }) => {
     trigger: true,
     onSuccess: () => {
       setOpenIncident(null);
-      resetForm();
       onClose();
     },
   });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors: formErrors },
-    reset: resetForm,
-  } = useForm({
-    defaultValues: {
-      name: openIncident.name,
-      summary: openIncident.summary,
-    },
-  });
-
-  const onSubmit = (data) => {
-    const body = { incident: { ...data, status: 'closed' } };
-    triggerIncidentPatch({ body });
-  };
-
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal open={true} onClose={onClose}>
       <ModalPanel className="w-full">
         <ModalTitle onClose={onClose}>Close the incident</ModalTitle>
         <ModalDescription>
-          <ErrorFeedback
-            formErrors={Object.values(formErrors).map((error) => error.message)}
-            queryErrors={patchError && patchResponse.errors}
-          />
-          <p className="mb-8 text-gray-500">
-            Let's take time to review everything before closing
-          </p>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Label>Title</Label>
-            <Input
-              {...register('name', {
-                required: 'A short description is required',
-              })}
-              type="text"
-              className="w-3/4 mb-6"
-              placeholder="Short description (Blank page, 500 errors, blank pages, etc.)"
-              aria-required="true"
-              aria-invalid={formErrors?.name ? 'true' : 'false'}
+          {formStep === 'incident' && (
+            <IncidentUpdateForm
+              closureFormData={closureFormData}
+              setClosureFormData={setClosureFormData}
+              goToNextStep={() => setFormStep('postmortem')}
             />
-            <Label>Summary</Label>
-            <TextArea
-              {...register('summary')}
-              type="text"
-              className="w-full h-32 mb-12"
-              placeholder="Longer summary to describe the incident in details"
+          )}
+          {formStep === 'postmortem' && (
+            <PostmortemForm
+              closureFormData={closureFormData}
+              setClosureFormData={setClosureFormData}
+              closeIncident={() => {}}
             />
-            <div className="w-full flex justify-end">
-              <Button loading={loading} role="submit">
-                Close the crisis
-              </Button>
-            </div>
-          </form>
+          )}
         </ModalDescription>
       </ModalPanel>
     </Modal>

@@ -16,7 +16,7 @@ export const Modal = ({ children, ...props }) => {
 export const ModalPanel = ({ children, className }) => (
   <Dialog.Panel
     className={classnames(
-      'mx-auto max-w-sm md:max-w-2xl py-4 px-8 rounded bg-white modal-container shadow-lg z-50 overflow-y-auto',
+      'flex flex-col mx-auto max-w-sm md:max-w-2xl py-4 px-8 rounded bg-white modal-container shadow-lg z-50 overflow-y-auto',
       className,
     )}
   >

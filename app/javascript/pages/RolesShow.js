@@ -116,8 +116,8 @@ const Roles = () => {
 
   const hasMembersEnrolled = role_enrollments?.length > 0;
 
-  const onAccountSelect = (account_id) => {
-    triggerPost({ body: { enrollment: { account_id } } });
+  const onAccountSelect = ({ value }) => {
+    triggerPost({ body: { enrollment: { account_id: value } } });
   };
 
   return (
