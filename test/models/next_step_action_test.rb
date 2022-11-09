@@ -1,7 +1,9 @@
-require "test_helper"
+require 'test_helper'
 
 class NextStepActionTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test 'name is required' do
+    action = NextStepAction.new
+    refute action.valid?
+    assert_equal ["can't be blank"], action.errors[:name]
+  end
 end
