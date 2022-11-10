@@ -118,7 +118,7 @@ const PostmortemForm = ({
           onSelect={(account_id) => {
             setValue('assigned_to', account_id);
           }}
-          placeholder="New member's email"
+          placeholder="Postmortem owner email"
           className="w-2/3"
           {...register('assigned_to', {
             required: 'You need to assign an owner to the postmortem',

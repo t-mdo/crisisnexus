@@ -32,20 +32,27 @@ class IncidentsTest < ApplicationSystemTestCase
     assert_text '#CRISIS-1: We are down'
     assert_text 'The root page cannot be loaded anymore'
 
-    click_on 'Close the incident'
+    assert_difference 'Incident.status_open.count', -1 do
+      assert_difference 'Postmortem.count', 1 do
+        click_on 'Close the incident'
 
-    within '.modal-container' do
-      name_input = find 'input[name="name"]'
-      assert_equal 'We are down', name_input.value
-      summary_input = find 'textarea[name="summary"]'
-      assert_equal 'The root page cannot be loaded anymore', summary_input.value
-      fill_in 'summary', with: 'The root page cannot be loaded anymore. It was the cat that unplugged the servers'
-      click_on 'Close the crisis'
+        within '.modal-container' do
+          name_input = find 'input[name="name"]'
+          assert_equal 'We are down', name_input.value
+          summary_input = find 'textarea[name="summary"]'
+          assert_equal 'The root page cannot be loaded anymore', summary_input.value
+          fill_in 'summary', with: 'The root page cannot be loaded anymore. It was the cat that unplugged the servers'
+          click_on 'Next step'
+          fill_in 'Postmortem owner email', with: @account.email
+          find('li[role="option"]', text: @account.email).click
+          click_on 'Close incident'
+        end
+
+        assert_text 'No incident in progress'
+        assert_text '#CRISIS-1: We are down'
+        assert_text 'Closed'
+      end
     end
-
-    assert_text 'No incident in progress'
-    assert_text '#CRISIS-1: We are down'
-    assert_text 'Closed'
   end
 
   test 'assigns and re-assigns roles during the incident lifespan' do
