@@ -1,4 +1,6 @@
+import { useContext } from 'react';
 import classnames from 'classnames';
+import openIncidentContext from 'modules/contexts/openIncidentContext';
 import { NavLink } from 'react-router-dom';
 import HouseIcon from 'images/icons/regular/house-chimney.svg';
 import FireIcon from 'images/icons/regular/fire.svg';
@@ -6,14 +8,17 @@ import GearIcon from 'images/icons/regular/gear.svg';
 import UsersGearIcon from 'images/icons/regular/users-gear.svg';
 import UserIcon from 'images/icons/regular/user.svg';
 
-const MenuOption = ({ children, to, icon: Icon }) => (
+const MenuOption = ({ children, to, icon: Icon, incidentInProgress }) => (
   <NavLink
     end
     className={({ isActive }) =>
       classnames(
-        'block text-white px-4 py-3 bg-violet-950 hover:bg-violet-800 text-lg w-full transition duration-100',
+        'block text-white px-4 py-3 text-lg w-full transition duration-100',
         {
-          'bg-violet-800': isActive,
+          'bg-stone-800 hover:bg-stone-700': !isActive && !incidentInProgress,
+          'bg-red-800 hover:bg-red-700': !isActive && incidentInProgress,
+          'bg-stone-600': isActive && !incidentInProgress,
+          'bg-red-600': isActive && incidentInProgress,
         },
       )
     }
@@ -26,28 +31,64 @@ const MenuOption = ({ children, to, icon: Icon }) => (
   </NavLink>
 );
 
-const SideMenu = () => (
-  <div className="flex flex-col justify-between h-screen min-w-fit w-64 pt-14 pb-4 bg-violet-950">
-    <div>
-      <MenuOption icon={HouseIcon} to="/">
-        Dashboard
-      </MenuOption>
-      <MenuOption icon={FireIcon} to="/incidents">
-        Incidents
-      </MenuOption>
-      <MenuOption icon={UsersGearIcon} to="/roles">
-        Roles
-      </MenuOption>
-      <MenuOption icon={GearIcon} to="/settings">
-        Organization
-      </MenuOption>
+const SideMenu = () => {
+  const { openIncident, openIncidentFetchDone } =
+    useContext(openIncidentContext);
+
+  const incidentInProgress = openIncidentFetchDone && openIncident;
+
+  return (
+    <div
+      className={classnames(
+        'flex flex-col justify-between h-screen min-w-fit w-64 pb-4',
+        {
+          'bg-red-800': incidentInProgress,
+          'bg-stone-800': !incidentInProgress,
+        },
+      )}
+    >
+      <div>
+        <h1 className="ml-2 my-5 text-3xl text-white">CrisisNexus</h1>
+        <MenuOption
+          incidentInProgress={incidentInProgress}
+          icon={HouseIcon}
+          to="/"
+        >
+          Dashboard
+        </MenuOption>
+        <MenuOption
+          incidentInProgress={incidentInProgress}
+          icon={FireIcon}
+          to="/incidents"
+        >
+          Incidents
+        </MenuOption>
+        <MenuOption
+          incidentInProgress={incidentInProgress}
+          icon={UsersGearIcon}
+          to="/roles"
+        >
+          Roles
+        </MenuOption>
+        <MenuOption
+          incidentInProgress={incidentInProgress}
+          icon={GearIcon}
+          to="/settings"
+        >
+          Organization
+        </MenuOption>
+      </div>
+      <div>
+        <MenuOption
+          incidentInProgress={incidentInProgress}
+          icon={UserIcon}
+          to="/account"
+        >
+          Account
+        </MenuOption>
+      </div>
     </div>
-    <div>
-      <MenuOption icon={UserIcon} to="/account">
-        Account
-      </MenuOption>
-    </div>
-  </div>
-);
+  );
+};
 
 export default SideMenu;

@@ -15,7 +15,7 @@ const CoolStateStatusBar = () => {
     useState(false);
 
   return (
-    <div className="flex justify-end w-full h-16 p-3 bg-gray-200 border-b border-slate-300">
+    <div className="flex justify-end w-full h-16 p-3 bg-stone-200 border-b border-slate-300">
       <Button
         type={BUTTON_TYPE_DANGER}
         onClick={() => setTriggerIncidentModalOpen(true)}
