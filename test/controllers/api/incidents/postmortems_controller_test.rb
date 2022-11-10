@@ -9,7 +9,7 @@ class Api::Incidents::PostmortemControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#show renders postmortem' do
-    get incident_postmortem_path(@incident, format: :json)
+    get incident_postmortem_path(@incident.local_id, format: :json)
     assert_response :success
 
     body = response.parsed_body
@@ -24,7 +24,6 @@ class Api::Incidents::PostmortemControllerTest < ActionDispatch::IntegrationTest
     assert_equal @account.id, body['postmortem']['assigned_to']['id']
     assert_equal @postmortem.created_at.to_i, Time.parse(body['postmortem']['created_at']).to_i
     assert_equal @postmortem.updated_at.to_i, Time.parse(body['postmortem']['updated_at']).to_i
-    binding.pry
   end
 
   test '#update updates postmortem' do
@@ -42,7 +41,7 @@ class Api::Incidents::PostmortemControllerTest < ActionDispatch::IntegrationTest
         next_step_actions_attributes: [{ name: 'action1' }, { name: 'action2' }]
       } }
 
-    put incident_postmortem_path(@incident, params:, format: :json)
+    put incident_postmortem_path(@incident.local_id, params:, format: :json)
     assert_response :success
 
     @postmortem.reload
@@ -57,11 +56,17 @@ class Api::Incidents::PostmortemControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#update overwrites next step actions' do
-    put incident_postmortem_path(@incident, params: { postmortem: { next_step_actions_attributes: [{ name: '1' }] } },
-                                            format: :json)
+    put incident_postmortem_path(
+      @incident.local_id,
+      params: { postmortem: { next_step_actions_attributes: [{ name: '1' }] } },
+      format: :json
+    )
     assert_response :success
-    put incident_postmortem_path(@incident, params: { postmortem: { next_step_actions_attributes: [{ name: '2' }] } },
-                                            format: :json)
+    put incident_postmortem_path(
+      @incident.local_id,
+      params: { postmortem: { next_step_actions_attributes: [{ name: '2' }] } },
+      format: :json
+    )
     assert_response :success
     assert_equal 1, @postmortem.reload.next_step_actions.size
   end
