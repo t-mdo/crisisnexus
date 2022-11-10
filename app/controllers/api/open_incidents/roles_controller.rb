@@ -14,7 +14,7 @@ class Api::OpenIncidents::RolesController < ApiController
   private
 
   def set_incident
-    @incident = Incident.status_open.first
+    @incident = current_organization.incidents.status_open.first
     return if @incident.present?
 
     render json: {

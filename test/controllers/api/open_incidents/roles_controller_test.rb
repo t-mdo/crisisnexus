@@ -27,6 +27,16 @@ class Api::OpenIncidents::RolesControllerTest < ActionDispatch::IntegrationTest
     assert_nil incident.reload.incident_manager
   end
 
+  test '#update incident scope is limited to organization' do
+    incident = create(:incident, status: :open, creator: create(:account))
+
+    put open_incident_role_path(Role.incident_manager.name, format: :json)
+    assert_response :not_found
+
+    body = response.parsed_body
+    assert_equal 'No open incident', body['errors'].first
+  end
+
   test '#update set doesnt give the role to current account if not enrolled' do
     former_incident_manager_account = create(:account, organization: @account.organization)
     create(:role_enrollment, account: former_incident_manager_account, role: Role.incident_manager)
