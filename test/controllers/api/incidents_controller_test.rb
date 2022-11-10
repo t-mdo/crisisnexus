@@ -95,69 +95,6 @@ class Api::IncidentsControllerTest < ActionDispatch::IntegrationTest
     assert_no_incident_sms_notification
   end
 
-  test '#update updates open incident status to closed' do
-    @open_incident = create(:incident, :open, creator: @account)
-
-    assert_equal Incident::STATUS_OPEN, @open_incident.status
-    assert_nil @open_incident.ended_at
-
-    patch incident_path(
-      @open_incident.local_id,
-      params: {
-        incident: {
-          status: Incident::STATUS_CLOSED
-        }
-      },
-      format: :json
-    )
-    assert_response :success
-    body = response.parsed_body['incident']
-
-    @open_incident.reload
-    assert_equal @open_incident.local_id, body['local_id']
-    assert_equal Incident::STATUS_CLOSED, @open_incident.status
-    assert_equal Incident::STATUS_CLOSED, body['status']
-    assert_not_nil @open_incident.ended_at
-    assert_equal @account.id, @open_incident.closer_id
-    assert_not_nil body['ended_at']
-  end
-
-  test '#update sends sms notification to organization users if incident is closed' do
-    create_list(:account, 3, organization: @account.organization)
-    @open_incident = create(:incident, :open, creator: @account)
-
-    assert_equal Incident::STATUS_OPEN, @open_incident.status
-    assert_nil @open_incident.ended_at
-
-    assert_difference 'SmsNotification.count', 4 do
-      patch incident_path(
-        @open_incident.local_id,
-        params: {
-          incident: {
-            status: Incident::STATUS_CLOSED
-          }
-        },
-        format: :json
-      )
-      assert_response :success
-    end
-
-    assert_incident_sms_notications(incident: @open_incident.reload)
-  end
-
-  test '#update renders 404 not found when no record was found' do
-    patch incident_path(
-      100,
-      params: {
-        status: Incident::STATUS_CLOSED
-      },
-      format: :json
-    )
-    assert_response :not_found
-
-    assert_no_incident_sms_notification
-  end
-
   private
 
   def assert_incident_sms_notications(incident:)
