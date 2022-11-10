@@ -64,7 +64,6 @@ const IncidentsShow = () => {
         ) : (
           postmortem && (
             <>
-              {console.log(postmortem)}
               <div className="mb-2 text-ellipsis">
                 <span className="text-sm text-gray-500">Owner:</span>{' '}
                 {postmortem.assigned_to.email}
