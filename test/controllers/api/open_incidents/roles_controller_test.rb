@@ -16,7 +16,7 @@ class Api::OpenIncidents::RolesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#update renders 404 if passed role name is invalid' do
-    incident = create(:incident, status: :open)
+    incident = create(:incident, status: :open, organization: @account.organization)
 
     assert_nil incident.reload.incident_manager
 
