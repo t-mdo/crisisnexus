@@ -9,6 +9,7 @@ json.unlucky_text postmortem.unlucky_text
 json.five_whys_text postmortem.five_whys_text
 json.created_at postmortem.created_at
 json.updated_at postmortem.updated_at
+json.is_touched postmortem.touched?
 json.assigned_to do
   json.partial! 'api/models/account', account: postmortem.assigned_to
 end

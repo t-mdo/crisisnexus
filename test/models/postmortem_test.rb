@@ -1,7 +1,10 @@
-require "test_helper"
+require 'test_helper'
 
 class PostmortemTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test 'touched?' do
+    postmortem = create(:postmortem)
+    assert_not postmortem.touched?
+    postmortem.update!(summary: 'summary')
+    assert postmortem.touched?
+  end
 end

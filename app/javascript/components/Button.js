@@ -19,7 +19,7 @@ export const Button = ({
     <Element
       to={href}
       className={classnames(
-        'py-2 px-4 focus-visible:ring ring-violet-300 text-white font-semibold rounded-lg transition duration-100',
+        'block py-2 px-4 focus-visible:ring ring-violet-300 text-white font-semibold rounded-lg transition duration-100',
         {
           'bg-violet-500 hover:bg-violet-600 active:bg-violet-700 disabled:hover:bg-violet-500 disabled:active:big-violet-500':
             type === BUTTON_TYPE_PRIMARY,

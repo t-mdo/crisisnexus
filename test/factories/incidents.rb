@@ -17,6 +17,9 @@ FactoryBot.define do
     trait :closed do
       status { :closed }
       closer { creator }
+      after(:create) do |incident|
+        create(:postmortem, incident:, assigned_to: incident.creator)
+      end
     end
 
     trait :postmortem_published do

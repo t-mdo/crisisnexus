@@ -121,4 +121,54 @@ class IncidentsTest < ApplicationSystemTestCase
     click_on 'Submit'
     assert_text "J'adore l'eau. Dans 20/30 ans il y en aura plus"
   end
+
+  test 'edits and views postmortem after the incident is closed' do
+    create(:incident, :closed, creator: @account, name: 'Blank landing page')
+    login_as(account: @account)
+    find('li', text: 'CRISIS-1').click
+    assert_text '#CRISIS-1: Blank landing page'
+    assert_text 'Closed'
+    assert_text 'Postmortem'
+    assert_text "Owner: #{@account.email}"
+    click_on 'Edit'
+
+    assert_text 'Postmortem edition'
+    fill_in 'summary', with: 'The landing page was fully blank'
+    click_on 'Save'
+
+    assert_text 'Postmortem'
+    assert_no_text 'edition'
+    assert_text 'One sentence summary'
+    assert_no_text 'Who was impacted'
+    click_on 'Edit'
+
+    assert_field 'summary', with: 'The landing page was fully blank'
+    fill_in 'impact_who', with: 'All users'
+    fill_in 'impact_what', with: 'They could not access the landing page and thus not login if they were logged out'
+    fill_in 'incident_impact_started_at', with: Time.parse('24-12-2022 18:00')
+    fill_in 'incident_impact_ended_at', with: Time.parse('24-12-2022 19:00')
+    fill_in 'timeline_text', with: 'Timeline'
+    fill_in 'lucky_text', with: 'Lucky'
+    fill_in 'unlucky_text', with: 'Unlucky'
+    fill_in 'five_whys_text', with: 'Five whys'
+    assert_no_field 'next_step_actions.1.name'
+    fill_in 'next_step_actions.0.name', with: 'Deploy sentry to catch 500 sooner'
+    assert_field 'next_step_actions.1.name'
+    fill_in 'next_step_actions.1.name', with: 'Add a test on the landing page'
+    click_on 'Save'
+
+    assert_text 'Postmortem'
+    assert_no_text 'edition'
+    assert_text 'The landing page was fully blank'
+    assert_text 'All users'
+    assert_text 'They could not access the landing page and thus not login if they were logged out'
+    assert_text '2022-12-24 19:00'
+    assert_text '2022-12-24 20:00'
+    assert_text 'Timeline'
+    assert_text 'Lucky'
+    assert_text 'Unlucky'
+    assert_text 'Five whys'
+    assert_text 'Deploy sentry to catch 500 sooner'
+    assert_text 'Add a test on the landing page'
+  end
 end

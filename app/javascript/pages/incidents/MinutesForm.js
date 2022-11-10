@@ -1,39 +1,14 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import dayjs from 'dayjs';
 import useHttpQuery from 'modules/httpQuery/useHttpQuery';
 import Card from 'components/Card';
 import { Input } from 'components/form/Input';
 import { Button } from 'components/Button';
-import Loader from 'components/Loader';
-import { List, ListRow } from 'components/list/List';
-
-const ScribedMinutes = ({ loading, minutes }) => {
-  const listRef = useRef();
-
-  useEffect(() => {
-    if (!listRef.current) return;
-
-    listRef.current.scrollTop = listRef.current.scrollHeight;
-  }, [minutes]);
-
-  if (loading && !minutes) return <Loader />;
-  if (minutes)
-    return (
-      <List ref={listRef} className="border rounded">
-        {minutes.map((minute, i) => (
-          <ListRow key={i} className="flex items-center px-3 py-2 w-full">
-            <div className="w-1/6">{minute.who}</div>
-            <div className="w-4/6">{minute.what}</div>
-            <div className="w-1/6 text-sm text-right text-gray-400">
-              {dayjs(minute.created_at).format('HH:mm:ss')}
-            </div>
-          </ListRow>
-        ))}
-      </List>
-    );
-};
+import {
+  ScribedMinutesContainer,
+  ScribedMinutes,
+} from './minutes/ScribedMinutes';
 
 const MinutesForm = () => {
   const { id: incidentId } = useParams();
@@ -71,17 +46,12 @@ const MinutesForm = () => {
   };
 
   return (
-    <div className="flex flex-col h-full py-6 px-4 md:px-32">
+    <div className="flex flex-col h-full overflow-y-hidden py-6 px-4 md:px-32">
       <h3 className="mb-4 font-semibold text-2xl">Minutes</h3>
       <Card className="flex flex-col justify-between px-8 py-6 h-full overflow-hidden">
-        <div className="flex flex-col overflow-y-auto">
-          <div className="flex w-full px-3">
-            <span className="w-1/6 font-medium">Who</span>
-            <span className="w-4/6 font-medium">What</span>
-            <span className="w-1/6 font-medium text-right">When</span>
-          </div>
+        <ScribedMinutesContainer>
           <ScribedMinutes loading={loadingFetch} minutes={minutes} />
-        </div>
+        </ScribedMinutesContainer>
         <div>
           <form className="flex mt-6 mb-1" onSubmit={handleSubmit(onSubmit)}>
             <Input
