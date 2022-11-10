@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :accounts, only: %i[index]
     resources :incidents, only: %i[index show create update] do
       scope module: :incidents do
+        resource :status, only: %i[update]
         resources :minutes, only: %i[index create]
         resource :postmortem, only: %i[show update]
       end

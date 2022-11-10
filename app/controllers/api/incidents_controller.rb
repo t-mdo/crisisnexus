@@ -22,18 +22,6 @@ class Api::IncidentsController < ApiController
            status: :unprocessable_entity
   end
 
-  def update
-    attributes = params.require(:incident).permit(:name, :summary, :status)
-
-    @incident.close(**attributes, closer: current_account) if attributes[:status] == Incident::STATUS_CLOSED
-    return if @incident.save
-
-    render status: :unprocessable_entity,
-           json: {
-             errors: @incident.errors.full_messages
-           }
-  end
-
   private
 
   def set_incident

@@ -69,7 +69,8 @@ const IncidentUpdateForm = ({
 const PostmortemForm = ({
   closureFormData,
   setClosureFormData,
-  closeIncident,
+  closingLoading,
+  closingErrors,
 }) => {
   const {
     register,
@@ -90,9 +91,11 @@ const PostmortemForm = ({
     triggerFetch({ params });
   }, [assignedTo]);
 
-  const onSubmit = (postmortem) => {
-    setClosureFormData((data) => ({ ...data, postmortem }));
-    closeIncident();
+  const onSubmit = ({ assigned_to }) => {
+    setClosureFormData((data) => ({
+      ...data,
+      postmortem: { assigned_to: assigned_to.value },
+    }));
   };
 
   const autocompleteOptions =
@@ -106,6 +109,7 @@ const PostmortemForm = ({
       <div>
         <ErrorFeedback
           formErrors={Object.values(formErrors).map((error) => error.message)}
+          queryErrors={closingErrors}
           className="mb-4"
         />
         <Label>Who's owning the postmortem?</Label>
@@ -116,11 +120,15 @@ const PostmortemForm = ({
           }}
           placeholder="New member's email"
           className="w-2/3"
-          {...register('assigned_to')}
+          {...register('assigned_to', {
+            required: 'You need to assign an owner to the postmortem',
+          })}
         />
       </div>
       <div className="mt-48 flex justify-end w-full">
-        <Button role="submit">Next step</Button>
+        <Button loading={closingLoading} role="submit">
+          Close incident
+        </Button>
       </div>
     </form>
   );
@@ -133,27 +141,33 @@ const CloseIncidentModal = ({ open, onClose }) => {
     incident: {
       name: openIncident.name,
       summary: openIncident.summary,
+      status: 'closed',
     },
     postmortem: {},
   });
 
   const {
     loading,
-    data: patchResponse,
-    error: patchError,
-    trigger: triggerIncidentPatch,
+    data: putResponse,
+    error: putError,
+    trigger: triggerIncidentPut,
   } = useHttpQuery({
-    url: `/incidents/${openIncident.local_id}`,
-    method: 'PATCH',
+    url: `/incidents/${openIncident.local_id}/status`,
+    method: 'PUT',
     trigger: true,
+    body: { ...closureFormData },
     onSuccess: () => {
       setOpenIncident(null);
       onClose();
     },
   });
 
+  useEffect(() => {
+    if (closureFormData.postmortem.assigned_to) triggerIncidentPut();
+  }, [closureFormData]);
+
   return (
-    <Modal open={true} onClose={onClose}>
+    <Modal open={open} onClose={onClose}>
       <ModalPanel className="w-full">
         <ModalTitle onClose={onClose}>Close the incident</ModalTitle>
         <ModalDescription>
@@ -168,7 +182,8 @@ const CloseIncidentModal = ({ open, onClose }) => {
             <PostmortemForm
               closureFormData={closureFormData}
               setClosureFormData={setClosureFormData}
-              closeIncident={() => {}}
+              closingLoading={loading}
+              closingErrors={putError && putResponse.errors}
             />
           )}
         </ModalDescription>
