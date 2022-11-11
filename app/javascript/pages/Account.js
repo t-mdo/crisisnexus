@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import AccountContext from 'modules/contexts/accountContext';
 import useHttpQuery from 'modules/httpQuery/useHttpQuery';
 import Card from 'components/Card';
-import { Button, BUTTON_TYPE_PRIMARY } from 'components/Button';
+import { Button, BUTTON_TYPE_DANGER } from 'components/Button';
 import { Input } from 'components/form/Input';
 import Label from 'components/form/Label';
 import ErrorFeedback from 'components/form/ErrorFeedback';
@@ -75,7 +75,7 @@ const Account = () => {
           Logged in as: <span className="font-semibold">{account.email}</span>
         </p>
         <a href="/logout" rel="nofollow">
-          <Button type={BUTTON_TYPE_PRIMARY}>Sign out</Button>
+          <Button type={BUTTON_TYPE_DANGER}>Sign out</Button>
         </a>
       </div>
       <Card className="py-4 px-8">
