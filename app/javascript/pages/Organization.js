@@ -42,8 +42,8 @@ const Organization = ({ organization, setOrganization }) => {
     },
   });
 
-  const onSubmit = ({ warRoom }) => {
-    triggerOrganizationPatch({ body: { war_room_url: warRoom } });
+  const onSubmit = (organization) => {
+    triggerOrganizationPatch({ body: organization });
   };
 
   return (
@@ -73,8 +73,8 @@ const Organization = ({ organization, setOrganization }) => {
           />
           <Label>War Room URL</Label>
           <p className="mb-1 text-gray-400 text-xs">
-            The virtual room where your team will regroup to organize incident
-            response
+            The virtual room where your team will regroup to organize the
+            incidents' responses
           </p>
           <Input
             {...register('warRoom', {

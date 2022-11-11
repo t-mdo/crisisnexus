@@ -39,11 +39,11 @@ class Api::OrganizationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#update updates organization war_room_url' do
-    assert_nil @organization.war_room_url
-
     patch organization_path(
       params: {
-        war_room_url: 'https://meet.google.com/dss-dsss-dss'
+        organization: {
+          war_room_url: 'https://meet.google.com/dss-dsss-dss'
+        }
       },
       format: :json
     )
@@ -54,9 +54,13 @@ class Api::OrganizationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#update renders errors if war_room_url is invalid' do
+    default_war_room_url = @organization.war_room_url
+
     patch organization_path(
       params: {
-        war_room_url: 'crapcrap/dss-dsss-dss'
+        organization: {
+          war_room_url: 'crapcrap/dss-dsss-dss'
+        }
       },
       format: :json
     )
@@ -65,11 +69,11 @@ class Api::OrganizationsControllerTest < ActionDispatch::IntegrationTest
     body = response.parsed_body
     assert_equal 1, body['errors'].size
     assert_equal 'War room url must be a valid URL', body['errors'].first
-    assert_nil @organization.reload.war_room_url
+    assert_equal default_war_room_url, @organization.reload.war_room_url
   end
 
   test '#update updates organization name' do
-    patch organization_path(params: { name: 'New Name' }, format: :json)
+    patch organization_path(params: { organization: { name: 'New Name' } }, format: :json)
 
     assert_response :success
     assert_equal 'New Name', @organization.reload.name
