@@ -33,7 +33,6 @@ class RegistrationTest < ApplicationSystemTestCase
     assert_equal 'crisisnexus.com', domain.value
     fill_in 'war_room_url', with: 'https://meet.google.com/xxx-xxxx-xxx'
     click_on 'Next step'
-    pry
 
     assert_text 'Phone number'
     fill_in 'phone_number', with: '+1 555 555 5555'
