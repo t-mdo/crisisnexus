@@ -22,7 +22,8 @@ import IncidentsPostMortemShow from 'pages/incidents/PostMortemShow';
 import IncidentsPostMortemEdit from 'pages/incidents/PostMortemEdit';
 import RolesIndex from 'pages/RolesIndex';
 import RolesShow from 'pages/RolesShow';
-import Settings from 'pages/Settings';
+import Organization from 'pages/Organization';
+import InviteAccountsView from 'pages/InviteAccountsView';
 import Account from 'pages/Account';
 
 const AppRoutes = () => (
@@ -37,7 +38,8 @@ const AppRoutes = () => (
     </Route>
     <Route path="/roles" element={<RolesIndex />} />
     <Route path="/roles/:name" element={<RolesShow />} />
-    <Route path="/settings" element={<Settings />} />
+    <Route path="/organization" element={<Organization />} />
+    <Route path="/invite-accounts" element={<InviteAccountsView />} />
     <Route path="/account" element={<Account />} />
     <Route path="/*" element={<NoRouteMatch />} />
   </Routes>

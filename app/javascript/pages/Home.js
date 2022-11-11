@@ -59,7 +59,7 @@ const HotStateDashboard = ({ incident }) => {
 const CoolStateDashboard = () => {
   return (
     <>
-      <Card className="flex items-center justify-center px-8 py-4 mb-12">
+      <Card className="flex flex-col items-center justify-center px-8 py-4 mb-12">
         <p className="text-lg">No incident in progress</p>
       </Card>
       <PastIncidentsList queryLimit={5} />
@@ -84,7 +84,9 @@ const Home = () => {
       )}
       {openIncidentFetchDone && !openIncident && <CoolStateDashboard />}
       {openIncidentFetchError && (
-        <Alert style="error">An error occured while loading the dashboard</Alert>
+        <Alert style="error">
+          An error occured while loading the dashboard
+        </Alert>
       )}
     </FullView>
   );

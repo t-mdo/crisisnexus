@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import OrganizationContext from 'modules/contexts/organizationContext';
 import useHttpQuery from 'modules/httpQuery/useHttpQuery';
+import FullView from 'components/FullView';
 import Card from 'components/Card';
 import { Input } from 'components/form/Input';
 import Label from 'components/form/Label';
@@ -9,8 +10,9 @@ import ErrorFeedback from 'components/form/ErrorFeedback';
 import Button from 'components/Button';
 import Loader from 'components/Loader';
 import { Alert, ALERT_STYLE_SUCCESS } from 'components/Alert';
+import { List, ListRow } from 'components/list/List';
 
-const Settings = ({ organization, setOrganization }) => {
+const Organization = ({ organization, setOrganization }) => {
   const {
     register,
     handleSubmit,
@@ -21,6 +23,9 @@ const Settings = ({ organization, setOrganization }) => {
       warRoom: organization.war_room_url,
     },
   });
+
+  const { data: { accounts } = {}, loading: accountsFetchLoading } =
+    useHttpQuery({ url: '/accounts' });
 
   const {
     loading: patchLoading,
@@ -42,9 +47,9 @@ const Settings = ({ organization, setOrganization }) => {
   };
 
   return (
-    <div className="py-6 px-4 md:px-32">
-      <h2 className="mb-6 font-semibold text-2xl">Organization settings</h2>
-      <Card className="px-8 py-6">
+    <FullView className="py-6 px-4 md:px-32">
+      <h3 className="mb-6 font-semibold text-2xl">Organization settings</h3>
+      <Card className="mb-16 px-8 py-6">
         <form onSubmit={handleSubmit(onSubmit)}>
           {patchSuccess && (
             <Alert className="mb-4" style={ALERT_STYLE_SUCCESS}>
@@ -86,7 +91,29 @@ const Settings = ({ organization, setOrganization }) => {
           </Button>
         </form>
       </Card>
-    </div>
+      <div className="mb-6 flex justify-between">
+        <h3 className="font-semibold text-2xl">Registered accounts</h3>
+        <Button href="/invite-accounts">
+          Invite new accounts in your organization
+        </Button>
+      </div>
+      <Card>
+        {accountsFetchLoading ? (
+          <Loader />
+        ) : (
+          <List>
+            {accounts.map((account) => (
+              <ListRow
+                key={account.id}
+                className="flex items-center px-3 py-2 w-full"
+              >
+                {account.email}
+              </ListRow>
+            ))}
+          </List>
+        )}
+      </Card>
+    </FullView>
   );
 };
 
@@ -96,6 +123,9 @@ export default () => {
 
   if (loading) return <Loader />;
   return (
-    <Settings organization={organization} setOrganization={setOrganization} />
+    <Organization
+      organization={organization}
+      setOrganization={setOrganization}
+    />
   );
 };

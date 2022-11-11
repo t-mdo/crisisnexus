@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import classnames from 'classnames';
-import openIncidentContext from 'modules/contexts/openIncidentContext';
+import OpenIncidentContext from 'modules/contexts/openIncidentContext';
+import AccountContext from 'modules/contexts/accountContext';
 import { NavLink } from 'react-router-dom';
 import HouseIcon from 'images/icons/regular/house-chimney.svg';
 import FireIcon from 'images/icons/regular/fire.svg';
@@ -24,23 +25,26 @@ const MenuOption = ({ children, to, icon: Icon, incidentInProgress }) => (
     }
     to={to}
   >
-    <div className="flex items-center">
-      <Icon className="w-5 md:mr-4 fill-white" />
-      <div className="hidden md:block">{children}</div>
+    <div className="flex items-center overflow-x-hidden text-allipsis">
+      <Icon className="w-5 md:mr-4 fill-white shrink-0" />
+      <div className="text-ellipsis overflow-x-hidden hidden md:block">
+        {children}
+      </div>
     </div>
   </NavLink>
 );
 
 const SideMenu = () => {
+  const { account } = useContext(AccountContext);
   const { openIncident, openIncidentFetchDone } =
-    useContext(openIncidentContext);
+    useContext(OpenIncidentContext);
 
   const incidentInProgress = openIncidentFetchDone && openIncident;
 
   return (
     <div
       className={classnames(
-        'flex flex-col justify-between h-screen min-w-fit md:w-64 pt-20 md:pt-0 pb-4',
+        'flex flex-col justify-between h-screen md:w-64 pt-20 md:pt-0 pb-4 shrink-0',
         {
           'bg-red-800': incidentInProgress,
           'bg-stone-800': !incidentInProgress,
@@ -48,7 +52,7 @@ const SideMenu = () => {
       )}
     >
       <div>
-        <h1 className="hidden sm:block ml-2 my-5 text-3xl text-white">
+        <h1 className="hidden sm:block ml-4 my-5 text-3xl text-white">
           CrisisNexus
         </h1>
         <MenuOption
@@ -75,7 +79,7 @@ const SideMenu = () => {
         <MenuOption
           incidentInProgress={incidentInProgress}
           icon={GearIcon}
-          to="/settings"
+          to="/organization"
         >
           Organization
         </MenuOption>
@@ -86,7 +90,7 @@ const SideMenu = () => {
           icon={UserIcon}
           to="/account"
         >
-          Account
+          {account.email}
         </MenuOption>
       </div>
     </div>
