@@ -30,7 +30,7 @@ const Roles = () => {
   return (
     <FullView className="py-6 px-4 md:px-32">
       <h2 className="mb-12 font-semibold text-3xl">Roles</h2>
-      <div className="flex flex-wrap justify-evenly gap-4">
+      <div className="flex flex-wrap justify-evenly gap-8">
         <RoleColumn
           roleName={ROLES.NAMES.INCIDENT_MANAGER}
           roleDisplayName={ROLES.DISPLAY_NAMES.INCIDENT_MANAGER}
