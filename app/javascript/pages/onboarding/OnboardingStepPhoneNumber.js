@@ -36,7 +36,7 @@ const OnboardingStepPhoneNumber = ({ setAccount }) => {
           <Label>Phone number</Label>
           <Input
             {...register('phone_number')}
-            style="tel"
+            type="tel"
             className="w-full mb-2"
             placeholder="+33612345678"
           />
