@@ -2,15 +2,15 @@ import FireIcon from 'images/icons/solid/fire.svg';
 import CircleCheckIcon from 'images/icons/solid/circle-check.svg';
 import FileCheckIcon from 'images/icons/solid/file-check.svg';
 import {
-  STATUS_TYPE_INFO,
-  STATUS_TYPE_ERROR,
-  STATUS_TYPE_SUCCESS,
+  STATUS_STYLE_INFO,
+  STATUS_STYLE_ERROR,
+  STATUS_STYLE_SUCCESS,
 } from 'components/StatusBadge';
 
 export const getStatusBadgeType = (status) => {
-  if (status === 'open') return STATUS_TYPE_ERROR;
-  if (status === 'closed') return STATUS_TYPE_INFO;
-  return STATUS_TYPE_SUCCESS;
+  if (status === 'open') return STATUS_STYLE_ERROR;
+  if (status === 'closed') return STATUS_STYLE_INFO;
+  return STATUS_STYLE_SUCCESS;
 };
 
 export const getStatusBadgeIcon = (status) => {

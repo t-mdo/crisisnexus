@@ -8,7 +8,7 @@ import Label from 'components/form/Label';
 import ErrorFeedback from 'components/form/ErrorFeedback';
 import Button from 'components/Button';
 import Loader from 'components/Loader';
-import { Alert, ALERT_TYPE_SUCCESS } from 'components/Alert';
+import { Alert, ALERT_STYLE_SUCCESS } from 'components/Alert';
 
 const Settings = ({ organization, setOrganization }) => {
   const {
@@ -47,7 +47,7 @@ const Settings = ({ organization, setOrganization }) => {
       <Card className="px-8 py-6">
         <form onSubmit={handleSubmit(onSubmit)}>
           {patchSuccess && (
-            <Alert className="mb-4" type={ALERT_TYPE_SUCCESS}>
+            <Alert className="mb-4" style={ALERT_STYLE_SUCCESS}>
               Changes applied
             </Alert>
           )}

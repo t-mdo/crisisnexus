@@ -5,7 +5,6 @@ import useHttpQuery from 'modules/httpQuery/useHttpQuery';
 import { Input, TextArea } from 'components/form/Input';
 import { Label } from 'components/form/Label';
 import { Button } from 'components/Button';
-import { Alert, ALERT_TYPE_SUCCESS } from 'components/Alert';
 import range from 'lodash/range';
 import Card from 'components/Card';
 import Loader from 'components/Loader';

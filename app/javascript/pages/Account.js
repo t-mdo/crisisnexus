@@ -3,11 +3,11 @@ import { useForm } from 'react-hook-form';
 import AccountContext from 'modules/contexts/accountContext';
 import useHttpQuery from 'modules/httpQuery/useHttpQuery';
 import Card from 'components/Card';
-import { Button, BUTTON_TYPE_DANGER } from 'components/Button';
+import { Button, BUTTON_STYLE_DANGER } from 'components/Button';
 import { Input } from 'components/form/Input';
 import Label from 'components/form/Label';
 import ErrorFeedback from 'components/form/ErrorFeedback';
-import { Alert, ALERT_TYPE_SUCCESS } from 'components/Alert';
+import { Alert, ALERT_STYLE_SUCCESS } from 'components/Alert';
 
 const EditAccountForm = ({ account, setAccount }) => {
   const {
@@ -38,7 +38,7 @@ const EditAccountForm = ({ account, setAccount }) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       {patchSuccess && (
-        <Alert className="mb-4" type={ALERT_TYPE_SUCCESS}>
+        <Alert className="mb-4" style={ALERT_STYLE_SUCCESS}>
           Changes applied
         </Alert>
       )}
@@ -75,7 +75,7 @@ const Account = () => {
           Logged in as: <span className="font-semibold">{account.email}</span>
         </p>
         <a href="/logout" rel="nofollow">
-          <Button type={BUTTON_TYPE_DANGER}>Sign out</Button>
+          <Button style={BUTTON_STYLE_DANGER}>Sign out</Button>
         </a>
       </div>
       <Card className="py-4 px-8">
