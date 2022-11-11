@@ -9,7 +9,7 @@ import Label from 'components/form/Label';
 import ErrorFeedback from 'components/form/ErrorFeedback';
 import Button from 'components/Button';
 import Loader from 'components/Loader';
-import { Alert, ALERT_STYLE_SUCCESS } from 'components/Alert';
+import { Alert, ALERT_COLOR_SUCCESS } from 'components/Alert';
 import { List, ListRow } from 'components/list/List';
 
 const Organization = ({ organization, setOrganization }) => {
@@ -52,7 +52,7 @@ const Organization = ({ organization, setOrganization }) => {
       <Card className="mb-16 px-8 py-6">
         <form onSubmit={handleSubmit(onSubmit)}>
           {patchSuccess && (
-            <Alert className="mb-4" style={ALERT_STYLE_SUCCESS}>
+            <Alert className="mb-4" color={ALERT_COLOR_SUCCESS}>
               Changes applied
             </Alert>
           )}

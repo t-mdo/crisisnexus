@@ -29,7 +29,7 @@ const IncidentRow = ({ incident }) => {
         <div className="flex mb-2">
           <h4 className="flex items-center mr-4 text-sm text-gray-900 font-semibold">{`#CRISIS-${incident.local_id}: ${incident.name}`}</h4>
           <StatusBadge
-            style={getStatusBadgeType(incident.status)}
+            color={getStatusBadgeType(incident.status)}
             icon={getStatusBadgeIcon(incident.status)}
           >
             {incident.status}

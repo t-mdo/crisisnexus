@@ -17,7 +17,7 @@ const InviteAccountsView = () => {
       </h3>
       <Card className="px-8 py-6">
         {copied && (
-          <Alert className="mb-2" style="success">
+          <Alert className="mb-2" color="success">
             Copied
           </Alert>
         )}

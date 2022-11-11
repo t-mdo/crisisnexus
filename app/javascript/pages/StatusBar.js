@@ -4,9 +4,9 @@ import OpenIncidentContext from 'modules/contexts/openIncidentContext';
 import OrganizationContext from 'modules/contexts/organizationContext';
 import {
   Button,
-  BUTTON_STYLE_DANGER,
-  BUTTON_STYLE_SUCCESS,
-  BUTTON_STYLE_PRIMARY,
+  BUTTON_COLOR_DANGER,
+  BUTTON_COLOR_SUCCESS,
+  BUTTON_COLOR_PRIMARY,
 } from 'components/Button';
 import TriggerIncidentModal from 'pages/statusBar/TriggerIncidentModal';
 
@@ -17,7 +17,7 @@ const CoolStateStatusBar = () => {
   return (
     <div className="flex justify-end w-full h-16 p-3 bg-stone-200 border-b border-slate-300">
       <Button
-        style={BUTTON_STYLE_DANGER}
+        color={BUTTON_COLOR_DANGER}
         onClick={() => setTriggerIncidentModalOpen(true)}
       >
         Trigger an incident
@@ -44,13 +44,13 @@ const HotStateStatusBar = () => {
         if (organization.war_room_url) {
           return (
             <a target="_blank" href={organization.war_room_url}>
-              <Button style={BUTTON_STYLE_SUCCESS}>Join the War Room</Button>
+              <Button color={BUTTON_COLOR_SUCCESS}>Join the War Room</Button>
             </a>
           );
         }
         return (
           <Button
-            style={BUTTON_STYLE_PRIMARY}
+            color={BUTTON_COLOR_PRIMARY}
             onClick={() => navigate('/settings')}
           >
             Set up your crisis room

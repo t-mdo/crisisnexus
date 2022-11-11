@@ -5,7 +5,7 @@ import FullView from 'components/FullView';
 import Alert from 'components/Alert';
 import Loader from 'components/Loader';
 import Card from 'components/Card';
-import Button, { BUTTON_STYLE_SUCCESS } from 'components/Button';
+import Button, { BUTTON_COLOR_SUCCESS } from 'components/Button';
 import PastIncidentsList from 'pages/home/PastIncidentsList';
 import CloseIncidentModal from 'pages/home/CloseIncidentModal';
 import RolesBlock from 'pages/home/RolesBlock';
@@ -41,7 +41,7 @@ const HotStateDashboard = ({ incident }) => {
             <div />
           )}
           <Button
-            style={BUTTON_STYLE_SUCCESS}
+            color={BUTTON_COLOR_SUCCESS}
             onClick={() => setCloseIncidentModalOpen(true)}
           >
             Close the incident
@@ -84,7 +84,7 @@ const Home = () => {
       )}
       {openIncidentFetchDone && !openIncident && <CoolStateDashboard />}
       {openIncidentFetchError && (
-        <Alert style="error">
+        <Alert color="error">
           An error occured while loading the dashboard
         </Alert>
       )}
