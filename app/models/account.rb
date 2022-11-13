@@ -32,6 +32,8 @@ class Account < ApplicationRecord
             phone: { possible: true, allow_blank: true,
                      message: 'is invalid. Please write it to the format +14123456789' }
 
+  scope :activated, -> { where(activation_state: 'active') }
+
   def can_manage_incident?
     roles.enrolled_as_incident_manager?
   end
