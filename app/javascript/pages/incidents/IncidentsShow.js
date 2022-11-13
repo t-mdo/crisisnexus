@@ -51,9 +51,16 @@ const IncidentsShow = () => {
           </div>
           <div className="text font-semibold text-gray-500 mb-2">Minutes</div>
           <div className="px-8 py-4 bg-white border rounded overflow-y-auto">
-            <ScribedMinutesContainer>
-              <ScribedMinutes loading={loadingFetchMinutes} minutes={minutes} />
-            </ScribedMinutesContainer>
+            {minutes && minutes.length > 0 ? (
+              <ScribedMinutesContainer>
+                <ScribedMinutes
+                  loading={loadingFetchMinutes}
+                  minutes={minutes}
+                />
+              </ScribedMinutesContainer>
+            ) : (
+              <p className="text-gray-900 italic">No minutes scribed</p>
+            )}
           </div>
         </>
       </div>
