@@ -36,7 +36,7 @@ const Roles = () => {
           roleDisplayName={ROLES.DISPLAY_NAMES.INCIDENT_MANAGER}
           roleIcon={<UserPilotIcon className="w-6" />}
         >
-          An Incident Manager acts as the single source of truth of what is
+          The incident manager acts as the single source of truth of what is
           currently happening and what is going to happen during a major
           incident.
         </RoleColumn>
@@ -45,16 +45,16 @@ const Roles = () => {
           roleDisplayName={ROLES.DISPLAY_NAMES.COMMUNICATION_MANAGER}
           roleIcon={<UserHeadsetIcon className="w-6" />}
         >
-          A person responsible for interacting with customers, either directly,
-          or via our public communication channels. Typically a member of the
-          Customer Support team.
+          The communication manager is responsible for interacting with
+          customers during the incident. Typically a member of the Customer
+          Support team.
         </RoleColumn>
         <RoleColumn
           roleName={ROLES.NAMES.SCRIBE}
           roleDisplayName={ROLES.DISPLAY_NAMES.SCRIBE}
           roleIcon={<UserPenIcon className="w-8" />}
         >
-          A Scribe documents the timeline of an incident as it progresses and
+          The scribe documents the timeline of an incident as it progresses and
           makes sure all important decisions and data are captured for later
           review.
         </RoleColumn>
