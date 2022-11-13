@@ -1,7 +1,7 @@
 <div class="bg-white pb-6 sm:pb-8 lg:pb-12">
   <div class="max-w-screen-2xl px-4 md:px-16 mx-auto">
     <section class="flex flex-col lg:flex-row justify-between gap-6 sm:gap-10 md:gap-16">
-      <div class="xl:w-5/12 flex flex-col justify-center sm:text-center lg:text-left lg:py-12">
+      <div class="xl:w-5/12 flex flex-col sm:text-center lg:text-left lg:py-12">
         <h1 class="text-black-800 text-4xl sm:text-5xl md:text-6xl font-bold mb-8 md:mb-12">Downtime happens no matter who you are</h1>
         <p class="lg:w-4/5 text-gray-500 xl:text-lg leading-relaxed">Being reactive and learning from mistakes are the two keys to reduce production incidents.</p>
         <p class="lg:w-4/5 text-gray-500 xl:text-lg leading-relaxed mb-1 md:mb-2">That’s what we gathered from dozens of heavily tested processes from global companies, and that’s precisely what we offer your start-up.</p>
@@ -12,8 +12,9 @@
         </div>
         <p class="text-xs text-gray-500">No configuration, no credit card required.</p>
       </div>
-      <div class="xl:w-5/12 h-48 lg:h-auto bg-gray-100 overflow-hidden shadow-lg rounded-lg">
-        <img src="https://images.unsplash.com/photo-1618004912476-29818d81ae2e?auto=format&q=75&fit=crop&w=1000" loading="lazy" alt="Photo by Fakurian Design" class="w-full h-full object-cover object-center" />
+      <div class="xl:w-1/2 lg:h-auto overflow-hidden">
+        <%= image_tag('landing/screenshot-dashboard-hotstate.png') %>
+        <%= image_tag('landing/screenshot-dashboard-coolstate.png') %>
       </div>
     </section>
   </div>

@@ -68,7 +68,7 @@ class IncidentsTest < ApplicationSystemTestCase
     communication_manager_block = find('div#role-block-communication_manager')
     communication_manager_block.assert_text "Communication manager\ncm@crisisnexus.com"
     scribe_block = find('button#role-block-scribe')
-    scribe_block.assert_text "Scribe\nNo scribe appointed\nAssume the role"
+    scribe_block.assert_text "Scribe\nNo scribe assigned\nAssume the role"
 
     click_on 'Roles'
     find_all('a', text: 'Details').first.click
@@ -105,7 +105,7 @@ class IncidentsTest < ApplicationSystemTestCase
 
     login_as(account: @account)
     assert_no_button 'Start scribing'
-    assert_text 'No scribe appointed'
+    assert_text 'No scribe assigned'
     assert_text 'Assume the role'
     click_on 'Assume the role'
     within '#role-block-scribe' do
