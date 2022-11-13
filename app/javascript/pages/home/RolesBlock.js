@@ -57,7 +57,7 @@ const RoleBlock = ({
       ) : (
         <>
           <span className="text-gray-900 italic">
-            No {displayName.toLowerCase()} appointed
+            No {displayName.toLowerCase()} assigned
           </span>
           {clickable && <span className="font-medium">Assume the role</span>}
         </>
