@@ -26,12 +26,12 @@ const InviteAccountsView = () => {
           able to join your organization on CrisisNexus.
         </p>
         <button
-          className="w-full"
+          className="w-full mb-4"
           onClick={() => {
             navigator.clipboard.writeText(url).then(() => setCopied(true));
           }}
         >
-          <Input className="mb-4 w-full" disabled value={url} />
+          <Input className="w-full pointer-events-none" disabled value={url} />
         </button>
         <p className="mb-4 text-sm text-gray-400">
           Alernatively, they can create an account from the landing page using a
