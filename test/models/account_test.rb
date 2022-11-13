@@ -35,6 +35,18 @@ class AccountTest < ActiveSupport::TestCase
     assert account.valid?
   end
 
+  test 'account should have a strong password' do
+    account = Account.new(email: 't@t.com', password: '123456')
+    assert_not account.valid?
+    assert_equal 'is too weak', account.errors[:password].first
+    account = Account.new(email: 't@t.com', password: 'crappy')
+    assert_not account.valid?
+    assert_equal 'is too weak', account.errors[:password].first
+
+    account = Account.new(email: 't@t.com', password: 'strongpassword1234')
+    assert account.valid?
+  end
+
   test 'can_manage_incident?' do
     account = create(:account)
     assert_not account.can_manage_incident?

@@ -11,17 +11,17 @@ class AccountsController < ApplicationController
     @account.save
     return redirect_to new_account_activation_path, flash: { email: @account.email } if @account.persisted?
 
-    redirect_to new_account_path(params: { organization: @organization[:identifier] }),
+    redirect_to new_account_path(params: { organization: @organization_identifier }),
                 flash: { error: @account.errors.full_messages.first }
   end
 
   private
 
   def set_account_for_creation
-    @organization = params[:organization]
+    @organization_identifier = params.dig(:organization, :identifier)
     account_attributes = params.permit(:email, :password)
 
-    account_attributes[:email] += "@#{params[:organization][:identifier]}" if params[:organization].present?
+    account_attributes[:email] += "@#{@organization_identifier}" if @organization_identifier.present?
     @account = Account.new(account_attributes)
     @account.organization = Organization.find_organization_from_email(@account.email)
   end

@@ -7,7 +7,7 @@ class RegistrationTest < ApplicationSystemTestCase
     assert_text 'Sign up'
     assert_text 'Use your work email'
     fill_in 'email', with: 'test@crisisnexus.com'
-    fill_in 'password', with: 'password'
+    fill_in 'password', with: 'strongpassword1234'
     click_on 'Sign up'
     assert_text 'Account activation required'
     assert_text "We've just sent a link to test@crisisnexus.com."
@@ -48,7 +48,7 @@ class RegistrationTest < ApplicationSystemTestCase
     visit new_account_path(organization: @organization.identifier)
     assert_field 'email_domain', disabled: true, with: '@crisisnexus.com'
     fill_in 'email', with: 'tmo'
-    fill_in 'password', with: 'test1234'
+    fill_in 'password', with: 'strongpassword1234'
     click_on 'Sign up'
     assert_text 'Account activation required'
     assert_text "We've just sent a link to tmo@crisisnexus.com."

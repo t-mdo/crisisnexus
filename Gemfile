@@ -18,6 +18,7 @@ gem 'sentry-ruby'
 gem 'sorcery'
 gem 'sprockets-rails'
 gem 'stimulus-rails'
+gem 'strong_password'
 gem 'turbo-rails'
 gem 'twilio-ruby'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

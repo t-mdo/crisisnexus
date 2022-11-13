@@ -27,6 +27,7 @@ class Account < ApplicationRecord
               with: URI::MailTo::EMAIL_REGEXP
             }
   validate :email_domain_is_not_from_a_global_provider
+  validates :password, password_strength: { use_dictionary: true }, allow_blank: true
   validates :phone_number,
             phone: { possible: true, allow_blank: true,
                      message: 'is invalid. Please write it to the format +14123456789' }

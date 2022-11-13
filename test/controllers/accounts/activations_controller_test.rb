@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Accounts::ActivationController < ActionDispatch::IntegrationTest
   setup do
-    @account = create(:account, phone_number: nil, password: 'password')
+    @account = create(:account, phone_number: nil, password: 'strongpassword1234')
   end
 
   test '#show activates account' do

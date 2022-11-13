@@ -3,7 +3,7 @@ require 'test_helper'
 class AccountsControllerTest < ActionDispatch::IntegrationTest
   test '#create creates a new account with no pre-existing org' do
     assert_difference 'Account.count', 1 do
-      post account_path(params: { email: 'test@test.com', password: 'test123' }, format: :json)
+      post account_path(params: { email: 'test@test.com', password: 'strongpassword1234' }, format: :json)
       assert_response :found
       assert_redirected_to new_account_activation_path
     end
@@ -12,10 +12,17 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
     assert_nil Account.last.organization
   end
 
+  test '#create renders error if password is too simple' do
+    assert_difference 'Account.count', 0 do
+      post account_path(params: { email: 'test@test.com', password: 'weak' }, format: :json)
+      assert_redirected_to new_account_path
+    end
+  end
+
   test '#create creates a new account associated to pre-existing org' do
     organization = create(:organization, name: 'Test Org', identifier: 'test.com')
     assert_difference 'Account.count', 1 do
-      post account_path(params: { email: 'test@test.com', password: 'test123' }, format: :json)
+      post account_path(params: { email: 'test@test.com', password: 'strongpassword1234' }, format: :json)
       assert_response :found
       assert_redirected_to new_account_activation_path
     end
