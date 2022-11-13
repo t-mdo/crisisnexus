@@ -10,7 +10,7 @@ class RegistrationTest < ApplicationSystemTestCase
     fill_in 'password', with: 'strongpassword1234'
     click_on 'Sign up'
     assert_text 'Account activation required'
-    assert_text "We've just sent a link to test@crisisnexus.com."
+    assert_text "We've just sent a link to test@crisisnexus.com"
     assert_text 'Check out your inbox and click the link to activate your account.'
 
     assert_equal 1, ActionMailer::Base.deliveries.size
@@ -51,7 +51,7 @@ class RegistrationTest < ApplicationSystemTestCase
     fill_in 'password', with: 'strongpassword1234'
     click_on 'Sign up'
     assert_text 'Account activation required'
-    assert_text "We've just sent a link to tmo@crisisnexus.com."
+    assert_text "We've just sent a link to tmo@crisisnexus.com"
     last_mail_sent = ActionMailer::Base.deliveries.last
     assert_equal 'tmo@crisisnexus.com', last_mail_sent.to.first
     assert_equal 'Activate your CrisisNexus account', last_mail_sent.subject
