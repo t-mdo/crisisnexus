@@ -82,4 +82,24 @@ class IncidentTest < ActiveSupport::TestCase
       end
     end
   end
+
+  test 'sms_notification_body opened incident' do
+    @reporter_account.role_enrollments.create(role: Role.incident_manager)
+    cm_account = create(:account, :enrolled_as_communication_manager, organization: @reporter_account.organization)
+    incident =
+      create(:incident, :open,
+             creator: @reporter_account, incident_manager: @reporter_account, communication_manager: cm_account)
+    assert_equal "CRISIS STARTED by #{@reporter_account.email}: #{incident.name}.\nIncident manager: #{@reporter_account.email}\nCommunication manager: #{cm_account.email}\nPlease join the war room asap. Godspeed!",
+                 incident.sms_notification_body
+  end
+
+  test 'sms_notification_body closed incident' do
+    @reporter_account.role_enrollments.create(role: Role.incident_manager)
+    cm_account = create(:account, :enrolled_as_communication_manager, organization: @reporter_account.organization)
+    closer = create(:account, organization: @reporter_account.organization)
+    incident =
+      create(:incident, :closed,
+             creator: @reporter_account, incident_manager: @reporter_account, communication_manager: cm_account, closer:)
+    assert_equal "Crisis ended by #{closer.email}", incident.sms_notification_body
+  end
 end
