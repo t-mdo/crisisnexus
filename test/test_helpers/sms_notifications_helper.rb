@@ -1,5 +1,6 @@
 module SmsNotificationsHelper
-  TWILIO_API_MESSAGES_URL = 'https://api.twilio.com/2010-04-01/Accounts/ACf873a585b8cdc5718514f3f7d2fa470b/Messages.json'.freeze
+  TWILIO_API_MESSAGES_URL = 'https://api.twilio.com/2010-04-01/Accounts/AC89f478227f8d946ed9300027620aa9fd/Messages.json'.freeze
+  TWILIO_PHONE_NUMBER = '15005550006'.freeze
 
   def stub_sms_notification_requests
     stub_request(:post, TWILIO_API_MESSAGES_URL)
@@ -23,9 +24,8 @@ module SmsNotificationsHelper
   end
 
   def assert_sms_notification_request(body:, to:, times: 1)
-    from_phone_number = '18644796982'
     assert_requested :post, TWILIO_API_MESSAGES_URL,
-                     body: { 'Body' => body, 'From' => from_phone_number, 'To' => to }, times:
+                     body: { 'Body' => body, 'From' => TWILIO_PHONE_NUMBER, 'To' => to }, times:
   end
 
   def assert_no_sms_notification_request
