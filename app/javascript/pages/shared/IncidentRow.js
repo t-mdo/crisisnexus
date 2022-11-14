@@ -25,7 +25,7 @@ const IncidentRow = ({ incident }) => {
       onClick={() => navigate(`/incidents/${incident.local_id}`)}
       className="flex justify-between p-4 hover:bg-gray-100"
     >
-      <div>
+      <div className="w-full">
         <div className="flex justify-between md:justify-start mb-2">
           <h4 className="flex items-center mr-4 text-sm text-gray-900 font-semibold">{`#CRISIS-${incident.local_id}: ${incident.name}`}</h4>
           <StatusBadge
@@ -50,7 +50,7 @@ const IncidentRow = ({ incident }) => {
           </div>
         </div>
       </div>
-      <ChevronRightIcon className="ml-4 w-3 fill-gray-400" />
+      <ChevronRightIcon className="hidden md:block ml-4 w-3 fill-gray-400" />
     </li>
   );
 };
