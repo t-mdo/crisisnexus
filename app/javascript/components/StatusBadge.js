@@ -13,7 +13,7 @@ export const StatusBadge = ({
 }) => (
   <span
     className={classnames(
-      'flex items-center w-fit px-2 py-1 border rounded capitalize text-xs',
+      'flex items-center w-fit h-fit px-2 py-1 border rounded capitalize text-xs',
       {
         'bg-blue-100 border-blue-400 text-blue-600':
           color === STATUS_COLOR_INFO,

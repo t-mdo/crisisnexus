@@ -93,7 +93,7 @@ const Organization = ({ organization, setOrganization }) => {
       </Card>
       <div className="mb-6 flex justify-between">
         <h3 className="font-semibold text-2xl">Registered accounts</h3>
-        <Button href="/invite-accounts">
+        <Button className="nowrap text-ellipsis" href="/invite-accounts">
           Invite new accounts in your organization
         </Button>
       </div>

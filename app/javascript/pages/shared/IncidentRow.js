@@ -26,7 +26,7 @@ const IncidentRow = ({ incident }) => {
       className="flex justify-between p-4 hover:bg-gray-100"
     >
       <div>
-        <div className="flex mb-2">
+        <div className="flex justify-between md:justify-start mb-2">
           <h4 className="flex items-center mr-4 text-sm text-gray-900 font-semibold">{`#CRISIS-${incident.local_id}: ${incident.name}`}</h4>
           <StatusBadge
             color={getStatusBadgeType(incident.status)}
@@ -36,9 +36,13 @@ const IncidentRow = ({ incident }) => {
           </StatusBadge>
         </div>
         <div className="flex ml-2 text-gray-600 text-xs">
-          <div className="flex mr-5 items-center">
+          <div className="flex flex-wrap mr-5 items-center">
             <CalendarDayIcon className="w-3 mr-1" />
-            {`${started_at_formatted} - ${ended_at_formatted}`}
+            <div className="flex flex-col md:flex-row">
+              <span className="mr-1">{started_at_formatted}</span>
+              <span className="mr-1 hidden md:inline">-</span>
+              <span>{ended_at_formatted}</span>
+            </div>
           </div>
           <div className="flex items-center">
             <ClockIcon className="w-3 mr-1" />
@@ -46,7 +50,7 @@ const IncidentRow = ({ incident }) => {
           </div>
         </div>
       </div>
-      <ChevronRightIcon className="w-3 fill-gray-400" />
+      <ChevronRightIcon className="ml-4 w-3 fill-gray-400" />
     </li>
   );
 };

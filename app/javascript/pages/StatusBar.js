@@ -44,7 +44,10 @@ const HotStateStatusBar = () => {
         if (organization.war_room_url) {
           return (
             <a target="_blank" href={organization.war_room_url}>
-              <Button color={BUTTON_COLOR_SUCCESS}>Join the War Room</Button>
+              <Button color={BUTTON_COLOR_SUCCESS}>
+                <span className="hidden md:inline">Join the </span>
+                <span>War Room</span>
+              </Button>
             </a>
           );
         }
