@@ -45,7 +45,7 @@ const OnboardingStepPhoneNumber = ({ setAccount }) => {
             happening in your organization.
           </span>
         </div>
-        <Label subtitle="This is how we will use to refer to you in the app.">
+        <Label subtitle="This is the name we will use to refer to you in the app.">
           Display name
         </Label>
         <Input

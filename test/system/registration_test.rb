@@ -35,7 +35,11 @@ class RegistrationTest < ApplicationSystemTestCase
     click_on 'Next step'
 
     assert_text 'Phone number'
-    fill_in 'phone_number', with: '+1 555 555 5555'
+    fill_in 'phone_number', with: '0637799194'
+    click_on 'Finish'
+    assert_text 'Phone number is invalid. Please write it to the format +14123456789'
+    fill_in 'phone_number', with: '+1 555 555 5555', fill_options: { clear: :backspace }
+    fill_in 'display_name', with: 'John'
     click_on 'Finish'
 
     assert_text 'Dashboard'
