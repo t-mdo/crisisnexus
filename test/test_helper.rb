@@ -9,6 +9,10 @@ Dir[Rails.root.join('test', 'test_helpers', '**', '*.rb')].each { |file| require
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
 
+  teardown do
+    ActionMailer::Base.deliveries.clear
+  end
+
   Minitest::Reporters.use!
   WebMock.disable_net_connect!(
     allow_localhost: true,
