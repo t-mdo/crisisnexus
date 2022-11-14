@@ -53,9 +53,12 @@ const SideMenu = () => {
       )}
     >
       <div>
-        <h1 className="hidden sm:block ml-4 my-5 text-3xl text-white">
-          CrisisNexus
-        </h1>
+        <div className="px-4 flex items-center">
+          <img className="h-8" src={LogoWithWhiteBackground} />
+          <h1 className="hidden sm:block ml-4 my-5 text-3xl text-white">
+            CrisisNexus
+          </h1>
+        </div>
         <MenuOption
           incidentInProgress={incidentInProgress}
           icon={HouseIcon}
