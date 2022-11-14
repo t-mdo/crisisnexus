@@ -12,13 +12,6 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
     assert_nil Account.last.organization
   end
 
-  test '#create renders error if password is too simple' do
-    assert_difference 'Account.count', 0 do
-      post account_path(params: { email: 'test@test.com', password: 'weak' }, format: :json)
-      assert_redirected_to new_account_path
-    end
-  end
-
   test '#create creates a new account associated to pre-existing org' do
     organization = create(:organization, name: 'Test Org', identifier: 'test.com')
     assert_difference 'Account.count', 1 do

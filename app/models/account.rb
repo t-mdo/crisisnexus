@@ -27,7 +27,6 @@ class Account < ApplicationRecord
               with: URI::MailTo::EMAIL_REGEXP
             }
   validate :email_domain_is_not_from_a_global_provider
-  validates :password, password_strength: { use_dictionary: true }, allow_blank: true
   validates :phone_number,
             phone: { possible: true, allow_blank: true,
                      message: 'is invalid. Please write it to the format +14123456789' }
@@ -45,7 +44,7 @@ class Account < ApplicationRecord
   private
 
   def email_domain_is_not_from_a_global_provider
-    return unless email_changed?
+    return unless email_changed? && email.present?
 
     domain = email.split('@').last
     email_matches_blacklisted_domain =
