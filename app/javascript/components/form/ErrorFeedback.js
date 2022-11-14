@@ -4,7 +4,7 @@ const ErrorFeedback = ({ formErrors, queryErrors }) => {
   const formHasErrors = formErrors && formErrors.length > 0;
   const queryHasErrors = queryErrors && queryErrors.length > 0;
 
-  if (!formHasErrors && !queryErrors) return null;
+  if (!formHasErrors && !queryHasErrors) return null;
   return (
     <Alert className="mb-4" color={ALERT_COLOR_ERROR}>
       <ul className="text-left">

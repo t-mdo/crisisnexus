@@ -31,6 +31,8 @@ class Account < ApplicationRecord
             phone: { possible: true, allow_blank: true,
                      message: 'is invalid. Please write it to the format +14123456789' }
 
+  before_create :set_default_display_name
+
   scope :activated, -> { where(activation_state: 'active') }
 
   def can_manage_incident?
@@ -55,5 +57,9 @@ class Account < ApplicationRecord
 
     errors.add(:email,
                'cannot be from an email provider. Use your work email instead.')
+  end
+
+  def set_default_display_name
+    self.display_name ||= email.split('@').first
   end
 end

@@ -5,7 +5,7 @@ class Api::CurrentAccountsController < ApiController
 
   def update
     attributes =
-      params.require(:account).permit(:phone_number, :onboarding_completed).compact_blank!
+      params.require(:account).permit(:phone_number, :display_name, :onboarding_completed).compact_blank!
 
     return if current_account.update(attributes)
 

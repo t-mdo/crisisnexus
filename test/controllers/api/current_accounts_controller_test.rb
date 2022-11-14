@@ -13,6 +13,13 @@ class Api::CurrentAccountsControllerTest < ActionDispatch::IntegrationTest
     assert_equal '+33633779194', @account.reload.phone_number
   end
 
+  test '#update updates current account display name' do
+    assert_nil @account.phone_number
+    patch current_account_path(params: { account: { display_name: 'John' } }, format: :json)
+    assert_response :success
+    assert_equal 'John', @account.reload.display_name
+  end
+
   test '#update renders error if phone number is invalid' do
     assert_nil @account.phone_number
     patch current_account_path(params: { account: { phone_number: 'crapcrap' } }, format: :json)

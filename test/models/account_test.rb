@@ -35,6 +35,11 @@ class AccountTest < ActiveSupport::TestCase
     assert account.valid?
   end
 
+  test 'sets display name on account creation' do
+    account = Account.create(email: 'thibault.miranda@crisisnexus.com')
+    assert_equal 'thibault.miranda', account.display_name
+  end
+
   test 'can_manage_incident?' do
     account = create(:account)
     assert_not account.can_manage_incident?

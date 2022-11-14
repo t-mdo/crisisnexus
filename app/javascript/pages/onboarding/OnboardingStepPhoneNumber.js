@@ -30,14 +30,14 @@ const OnboardingStepPhoneNumber = ({ setAccount }) => {
 
   return (
     <div>
+      <ErrorFeedback queryErrors={patchError && patchResponse.errors} />
       <form onSubmit={handleSubmit(onSubmit)}>
-        <ErrorFeedback queryError={patchError && patchResponse.error} />
         <div className="mb-6 w-3/4">
           <Label>Phone number</Label>
           <Input
             {...register('phone_number')}
             type="tel"
-            className="w-full mb-2"
+            className="w-1/4 mb-2"
             placeholder="+33612345678"
           />
           <span className="text-sm text-gray-400">
@@ -45,6 +45,15 @@ const OnboardingStepPhoneNumber = ({ setAccount }) => {
             happening in your organization.
           </span>
         </div>
+        <Label subtitle="This is how we will use to refer to you in the app.">
+          Display name
+        </Label>
+        <Input
+          {...register('display_name')}
+          type="text"
+          className="w-1/4 mb-2"
+          placeholder="John Doe"
+        />
         <div className="w-full flex justify-end">
           <Button loading={patchLoading} role="submit">
             Finish
