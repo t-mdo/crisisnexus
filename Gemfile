@@ -28,6 +28,8 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'pry'
+  gem 'pry-rescue'
+  gem 'pry-stack_explorer'
 end
 
 group :development do

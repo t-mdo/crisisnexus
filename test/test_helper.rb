@@ -3,6 +3,7 @@ require_relative '../config/environment'
 require 'rails/test_help'
 require 'minitest/reporters'
 require 'webmock/minitest'
+require 'pry-rescue/minitest' if ENV['PRY_RESCUE']
 Dir[Rails.root.join('test', 'test_helpers', '**', '*.rb')].each { |file| require file }
 
 class ActiveSupport::TestCase
