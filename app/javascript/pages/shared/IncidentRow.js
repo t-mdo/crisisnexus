@@ -5,9 +5,9 @@ import {
   getStatusBadgeType,
   getStatusBadgeIcon,
 } from 'pages/shared/statusUtils';
-import CalendarDayIcon from 'images/icons/regular/calendar-day.svg';
-import ClockIcon from 'images/icons/regular/clock.svg';
-import ChevronRightIcon from 'images/icons/regular/chevron-right.svg';
+import CalendarDayIcon from 'icons/regular/calendar-day.svg';
+import ClockIcon from 'icons/regular/clock.svg';
+import ChevronRightIcon from 'icons/regular/chevron-right.svg';
 
 const IncidentRow = ({ incident }) => {
   const navigate = useNavigate();

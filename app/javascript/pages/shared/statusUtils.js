@@ -1,6 +1,6 @@
-import FireIcon from 'images/icons/solid/fire.svg';
-import CircleCheckIcon from 'images/icons/solid/circle-check.svg';
-import FileCheckIcon from 'images/icons/solid/file-check.svg';
+import FireIcon from 'icons/solid/fire.svg';
+import CircleCheckIcon from 'icons/solid/circle-check.svg';
+import FileCheckIcon from 'icons/solid/file-check.svg';
 import {
   STATUS_COLOR_INFO,
   STATUS_COLOR_ERROR,

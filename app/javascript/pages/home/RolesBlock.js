@@ -4,9 +4,9 @@ import accountContext from 'modules/contexts/accountContext';
 import openIncidentContext from 'modules/contexts/openIncidentContext';
 import useHttpQuery from 'modules/httpQuery/useHttpQuery';
 import { ROLES } from 'modules/constants';
-import UserPilotIcon from 'images/icons/regular/user-pilot.svg';
-import UserHeadsetIcon from 'images/icons/regular/user-headset.svg';
-import UserPenIcon from 'images/icons/regular/user-pen.svg';
+import UserPilotIcon from 'icons/regular/user-pilot.svg';
+import UserHeadsetIcon from 'icons/regular/user-headset.svg';
+import UserPenIcon from 'icons/regular/user-pen.svg';
 
 const RoleBlock = ({
   icon,

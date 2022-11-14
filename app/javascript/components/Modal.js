@@ -1,6 +1,6 @@
 import classnames from 'classnames';
 import { Dialog } from '@headlessui/react';
-import XIcon from 'images/icons/regular/xmark.svg';
+import XIcon from 'icons/regular/xmark.svg';
 
 export const Modal = ({ children, ...props }) => {
   return (

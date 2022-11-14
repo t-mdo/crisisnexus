@@ -21,7 +21,7 @@ esbuild
     sourcemap: true,
     outdir: 'app/assets/builds',
     publicPath: 'assets',
-    loader: { '.js': 'jsx' },
+    loader: { '.js': 'jsx', '.png': 'file' },
     jsx: 'automatic',
     watch: WATCH ? watchFunc : null,
     plugins: [
@@ -29,7 +29,8 @@ esbuild
         pages: path.resolve(__dirname, '..', 'app/javascript/pages'),
         modules: path.resolve(__dirname, '..', 'app/javascript/modules'),
         components: path.resolve(__dirname, '..', 'app/javascript/components'),
-        images: path.resolve(__dirname, '..', 'app/assets/images'),
+        assets: path.resolve(__dirname, '..', 'app/javascript/assets'),
+        icons: path.resolve(__dirname, '..', 'app/assets/images/icons'),
       }),
       svgr(),
     ],

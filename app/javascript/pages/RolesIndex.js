@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom';
 import { ROLES } from 'modules/constants';
 import Card from 'components/Card';
 import FullView from 'components/FullView';
-import UserPilotIcon from 'images/icons/regular/user-pilot.svg';
-import UserHeadsetIcon from 'images/icons/regular/user-headset.svg';
-import UserPenIcon from 'images/icons/regular/user-pen.svg';
+import UserPilotIcon from 'icons/regular/user-pilot.svg';
+import UserHeadsetIcon from 'icons/regular/user-headset.svg';
+import UserPenIcon from 'icons/regular/user-pen.svg';
 
 const RoleColumn = ({ roleName, roleDisplayName, roleIcon, children }) => (
   <Card className="flex flex-col relative w-72 h-fit">

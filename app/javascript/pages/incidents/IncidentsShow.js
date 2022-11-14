@@ -6,9 +6,9 @@ import {
   ScribedMinutesContainer,
   ScribedMinutes,
 } from './minutes/ScribedMinutes';
-import UserPilotIcon from 'images/icons/regular/user-pilot.svg';
-import UserHeadsetIcon from 'images/icons/regular/user-headset.svg';
-import UserPenIcon from 'images/icons/regular/user-pen.svg';
+import UserPilotIcon from 'icons/regular/user-pilot.svg';
+import UserHeadsetIcon from 'icons/regular/user-headset.svg';
+import UserPenIcon from 'icons/regular/user-pen.svg';
 
 const RoleBlock = ({ icon, displayName, roleHolder }) => (
   <div className="flex flex-col items-center border rounded px-5 py-4 w-48 text-center overflow-hidden mb-4 bg-white">

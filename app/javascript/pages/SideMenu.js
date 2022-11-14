@@ -3,11 +3,12 @@ import classnames from 'classnames';
 import OpenIncidentContext from 'modules/contexts/openIncidentContext';
 import AccountContext from 'modules/contexts/accountContext';
 import { NavLink } from 'react-router-dom';
-import HouseIcon from 'images/icons/regular/house-chimney.svg';
-import FireIcon from 'images/icons/regular/fire.svg';
-import GearIcon from 'images/icons/regular/gear.svg';
-import UsersGearIcon from 'images/icons/regular/users-gear.svg';
-import UserIcon from 'images/icons/regular/user.svg';
+import LogoWithWhiteBackground from 'assets/images/LogoWithWhiteBackground.png';
+import HouseIcon from 'icons/regular/house-chimney.svg';
+import FireIcon from 'icons/regular/fire.svg';
+import GearIcon from 'icons/regular/gear.svg';
+import UsersGearIcon from 'icons/regular/users-gear.svg';
+import UserIcon from 'icons/regular/user.svg';
 
 const MenuOption = ({ children, to, icon: Icon, incidentInProgress }) => (
   <NavLink

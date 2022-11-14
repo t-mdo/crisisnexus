@@ -2,9 +2,9 @@ import classnames from 'classnames';
 import { forwardRef } from 'react';
 import { Combobox } from '@headlessui/react';
 import { inputComponentStyle } from 'components/form/Input';
-import CheckIcon from 'images/icons/regular/check.svg';
-import ChevronUp from 'images/icons/regular/chevron-up.svg';
-import ChevronDown from 'images/icons/regular/chevron-down.svg';
+import CheckIcon from 'icons/regular/check.svg';
+import ChevronUp from 'icons/regular/chevron-up.svg';
+import ChevronDown from 'icons/regular/chevron-down.svg';
 
 export const AutocompletedInputOption = ({ item }) => (
   <Combobox.Option

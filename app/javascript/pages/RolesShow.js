@@ -7,12 +7,12 @@ import IconButton from 'components/IconButton';
 import Loader from 'components/Loader';
 import Card from 'components/Card';
 import FullView from 'components/FullView';
-import UserPilotIcon from 'images/icons/regular/user-pilot.svg';
-import UserHeadsetIcon from 'images/icons/regular/user-headset.svg';
-import UserPenIcon from 'images/icons/regular/user-pen.svg';
-import ChevronRightIcon from 'images/icons/regular/chevron-right.svg';
-import UserMinusIcon from 'images/icons/regular/user-minus.svg';
-import UserPlusIcon from 'images/icons/regular/user-plus.svg';
+import UserPilotIcon from 'icons/regular/user-pilot.svg';
+import UserHeadsetIcon from 'icons/regular/user-headset.svg';
+import UserPenIcon from 'icons/regular/user-pen.svg';
+import ChevronRightIcon from 'icons/regular/chevron-right.svg';
+import UserMinusIcon from 'icons/regular/user-minus.svg';
+import UserPlusIcon from 'icons/regular/user-plus.svg';
 import NewEnrollmentForm from 'pages/roles/NewEnrollmentForm';
 
 const RoleIcon = ({ roleName }) => {
