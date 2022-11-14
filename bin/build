@@ -6,6 +6,7 @@ const resolve = require('esbuild-plugin-resolve');
 const svgr = require('esbuild-plugin-svgr');
 
 const WATCH = process.argv.includes('--watch');
+const production = process.env.NODE_ENV === 'production';
 
 const watchFunc = {
   onRebuild(error, result) {
@@ -19,10 +20,12 @@ esbuild
     entryPoints: ['app/javascript/application.js'],
     bundle: true,
     sourcemap: true,
+    assetNames: '[name]-[hash].digested',
     outdir: 'app/assets/builds',
     publicPath: 'assets',
     loader: { '.js': 'jsx', '.png': 'file' },
     jsx: 'automatic',
+    minify: production,
     watch: WATCH ? watchFunc : null,
     plugins: [
       resolve({
