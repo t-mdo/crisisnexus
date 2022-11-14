@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_08_232249) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_14_152735) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -26,6 +26,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_08_232249) do
     t.string "activation_state"
     t.string "activation_token"
     t.datetime "activation_token_expires_at"
+    t.text "display_name"
     t.index ["activation_token"], name: "index_accounts_on_activation_token"
     t.index ["email"], name: "index_accounts_on_email", unique: true
     t.index ["organization_id"], name: "index_accounts_on_organization_id"
