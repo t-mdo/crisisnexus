@@ -37,7 +37,7 @@ const IncidentRow = ({ incident }) => {
         </div>
         <div className="flex ml-2 text-gray-600 text-xs">
           <div className="flex flex-wrap mr-5 items-center">
-            <CalendarDayIcon className="w-3 mr-1" />
+            <CalendarDayIcon className="w-3 mr-2" />
             <div className="flex flex-col md:flex-row">
               <span className="mr-1">{started_at_formatted}</span>
               <span className="mr-1 hidden md:inline">-</span>
