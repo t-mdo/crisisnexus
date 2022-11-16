@@ -15,7 +15,7 @@ class AccountTest < ActiveSupport::TestCase
   test 'account should have an email that does not come from email providers' do
     account = Account.new(email: 'thibault@gmail.com')
     assert_not account.valid?
-    assert_equal 'Email cannot be from an email provider. Use your work email instead.',
+    assert_equal 'Email cannot be from a public email provider. Use your work email instead.',
                  account.errors.full_messages.first
   end
 

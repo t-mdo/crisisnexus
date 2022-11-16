@@ -56,7 +56,7 @@ class Account < ApplicationRecord
     return unless email_matches_blacklisted_domain
 
     errors.add(:email,
-               'cannot be from an email provider. Use your work email instead.')
+               'cannot be from a public email provider. Use your work email instead.')
   end
 
   def set_default_display_name
