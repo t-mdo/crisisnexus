@@ -32,7 +32,9 @@ class RegistrationTest < ApplicationSystemTestCase
     domain = find 'input[disabled]'
     assert_equal 'crisisnexus.com', domain.value
     fill_in 'war_room_url', with: 'https://meet.google.com/xxx-xxxx-xxx'
-    click_on 'Next step'
+    assert_difference 'ActionMailer::Base.deliveries.size', 1 do
+      click_on 'Next step'
+    end
 
     assert_text 'Phone number'
     fill_in 'phone_number', with: '0637799194'

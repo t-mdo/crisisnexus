@@ -1,5 +1,6 @@
 class Api::OrganizationsController < ApiController
   before_action :check_no_current_organization, only: :create
+  after_action :send_internal_notification_on_organization_creation, only: :create
 
   def show
     @organization = current_organization
@@ -43,5 +44,9 @@ class Api::OrganizationsController < ApiController
            json: {
              errors: ['You already belong to an organization']
            }
+  end
+
+  def send_internal_notification_on_organization_creation
+    OrganizationMailer.organization_registered_internal_email(@organization).deliver_now
   end
 end

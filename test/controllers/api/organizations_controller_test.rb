@@ -26,6 +26,22 @@ class Api::OrganizationsControllerTest < ActionDispatch::IntegrationTest
     assert_equal organization.id, @account.reload.organization_id
   end
 
+  test '#create sends an internal email to notify us about the organization creation' do
+    @account.update!(organization: nil)
+
+    assert_difference 'ActionMailer::Base.deliveries.size', 1 do
+      post organization_path(params: { organization: { name: 'Test Org', war_room_url: 'https://meet.google.com/xyz-zzzz-zyx' } },
+                             format: :json)
+      assert_response :success
+    end
+
+    @organization = Organization.last
+
+    mail = ActionMailer::Base.deliveries.last
+    assert_equal "CrisisNexus - #{@organization.identifier} has registered", mail.subject
+    assert_equal 'tmo@crisisnexus.com', mail.to.first
+  end
+
   test '#create does not create a new organization if account already has one' do
     old_organization_id = @account.organization_id
 

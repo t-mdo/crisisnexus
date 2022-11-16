@@ -5,14 +5,14 @@ class OrganizationTest < ActiveSupport::TestCase
     organization =
       Organization.new(
         name: 'Test Organization',
-        war_room_url: 'https://meet.google.com/xyz-abcd-zyx',
+        war_room_url: 'https://meet.google.com/xyz-abcd-zyx'
       )
     assert organization.valid?
 
     organization =
       Organization.new(
         name: 'Test Organization',
-        war_room_url: 'slack://slack.com/channel',
+        war_room_url: 'slack://slack.com/channel'
       )
     assert organization.valid?
 
