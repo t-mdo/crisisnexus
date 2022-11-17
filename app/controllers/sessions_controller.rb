@@ -25,7 +25,10 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    @ssid = session[:ssid]
+
     logout
+    session[:ssid] = @ssid
     redirect_to welcome_path, flash: { success: 'Logged out' }
   end
 end
