@@ -5,6 +5,7 @@ class AccountsController < ApplicationController
 
   def new
     @organization = params[:organization] && Organization.find_by(identifier: params[:organization])
+    track_event('signup_page_viewed', source: params[:source])
   end
 
   def create

@@ -1,5 +1,7 @@
 class LandingController < ApplicationController
-  def index; end
+  def index
+    track_event('landing_page_viewed')
+  end
 
   def pricing; end
 
