@@ -148,7 +148,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_17_140702) do
     t.text "ssid"
     t.bigint "account_id"
     t.text "name"
-    t.text "source"
+    t.jsonb "properties", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_tracking_events_on_account_id"
