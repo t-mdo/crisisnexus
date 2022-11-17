@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_14_152735) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_17_140702) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -144,6 +144,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_152735) do
     t.index ["organization_id"], name: "index_sms_notifications_on_organization_id"
   end
 
+  create_table "tracking_events", force: :cascade do |t|
+    t.text "ssid"
+    t.bigint "account_id"
+    t.text "name"
+    t.text "source"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_tracking_events_on_account_id"
+  end
+
   add_foreign_key "accounts", "organizations"
   add_foreign_key "incidents", "accounts", column: "closer_id"
   add_foreign_key "incidents", "accounts", column: "communication_manager_id"
@@ -163,4 +173,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_152735) do
   add_foreign_key "sms_notifications", "accounts"
   add_foreign_key "sms_notifications", "incidents"
   add_foreign_key "sms_notifications", "organizations"
+  add_foreign_key "tracking_events", "accounts"
 end

@@ -19,6 +19,7 @@ class Account < ApplicationRecord
   has_many :minutes, inverse_of: :recorded_by
   has_many :postmortem, inverse_of: :assigned_to
   has_many :sms_notifications
+  has_many :tracking_events
 
   validates :email,
             presence: true,
