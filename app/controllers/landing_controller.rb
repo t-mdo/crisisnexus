@@ -1,10 +1,7 @@
 class LandingController < ApplicationController
-  def index
-  end
+  def index; end
 
-  def pricing
-  end
+  def pricing; end
 
-  def contact
-  end
+  def contact; end
 end
