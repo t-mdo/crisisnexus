@@ -94,7 +94,7 @@ const SideMenu = () => {
           icon={UserIcon}
           to="/account"
         >
-          {account.email}
+          {account.display_name}
         </MenuOption>
       </div>
     </div>

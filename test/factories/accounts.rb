@@ -5,6 +5,7 @@ FactoryBot.define do
     organization
     activation_state { 'active' }
     onboarding_completed { true }
+    display_name { Faker::Name.unique.name }
 
     trait :enrolled_as_incident_manager do
       after(:create) do |account|

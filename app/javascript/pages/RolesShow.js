@@ -34,7 +34,7 @@ const EnrollmentRow = ({ enrollment: { id, account }, onDelete }) => {
     <li onClick={() => {}} className="flex justify-between p-4">
       <div className="flex items-center justify-between w-full">
         <h4 className="flex items-center mr-4 text-sm text-gray-900 font-semibold">
-          {account.email}
+          {account.display_name}
         </h4>
         <IconButton name="remove_enrollment">
           <UserMinusIcon className="w-5 fill-red-500" onClick={triggerDelete} />

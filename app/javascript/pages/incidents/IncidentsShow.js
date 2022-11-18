@@ -18,7 +18,7 @@ const RoleBlock = ({ icon, displayName, roleHolder }) => (
     </div>
     {roleHolder ? (
       <span className="w-full text-gray-900 overflow-hidden text-ellipsis">
-        {roleHolder.email}
+        {roleHolder.display_name}
       </span>
     ) : (
       <span className="w-full text-gray-900 italic overflow-hidden text-ellipsis">
@@ -73,7 +73,7 @@ const IncidentsShow = () => {
             <>
               <div className="mb-2 text-ellipsis">
                 <span className="text-sm text-gray-500">Owner:</span>{' '}
-                {postmortem.assigned_to.email}
+                {postmortem.assigned_to.display_name}
               </div>
               <Button
                 href={`postmortem${postmortem.is_touched ? '' : '/edit'}`}

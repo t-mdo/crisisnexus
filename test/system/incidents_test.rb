@@ -64,9 +64,9 @@ class IncidentsTest < ApplicationSystemTestCase
 
     login_as(account: @account)
     incident_manager_block = find('div#role-block-incident_manager')
-    incident_manager_block.assert_text "Incident manager\nim@crisisnexus.com"
+    incident_manager_block.assert_text "Incident manager\n#{default_im_account.display_name}"
     communication_manager_block = find('div#role-block-communication_manager')
-    communication_manager_block.assert_text "Communication manager\ncm@crisisnexus.com"
+    communication_manager_block.assert_text "Communication manager\n#{default_cm_account.display_name}"
     scribe_block = find('button#role-block-scribe')
     scribe_block.assert_text "Scribe\nNo scribe assigned\nAssume the role"
 
@@ -74,27 +74,27 @@ class IncidentsTest < ApplicationSystemTestCase
     find_all('a', text: 'Details').first.click
     assert_text 'Roles - Incident manager'
     assert_selector 'li', count: 1
-    enrollment = find 'li', text: 'im@crisisnexus.com'
+    enrollment = find 'li', text: default_im_account.display_name
     enrollment.find('button').click
-    assert_no_selector 'li', text: 'im@crisisnexus.com'
+    assert_no_selector 'li', text: default_im_account.display_name
     assert_text 'No members enrolled yet'
     click_on 'add_enrollment'
     fill_in "New member's email", with: @account.email[0..2]
     option = find 'li[role="option"]', text: @account.email
     option.click
-    assert_selector 'li', text: @account.email
+    assert_selector 'li', text: @account.display_name
 
     click_on 'Dashboard'
     refresh
     incident_manager_block = find('button#role-block-incident_manager')
     incident_manager_block.click
     incident_manager_block = find('div#role-block-incident_manager')
-    incident_manager_block.assert_text "Incident manager\n#{@account.email}"
+    incident_manager_block.assert_text "Incident manager\n#{@account.display_name}"
 
     scribe_block = find('button#role-block-scribe')
     scribe_block.click
     scribe_block = find('div#role-block-scribe')
-    scribe_block.assert_text "Scribe\n#{@account.email}"
+    scribe_block.assert_text "Scribe\n#{@account.display_name}"
   end
 
   test 'assigns scribe role and scribe minutes' do
@@ -109,7 +109,7 @@ class IncidentsTest < ApplicationSystemTestCase
     assert_text 'Assume the role'
     click_on 'Assume the role'
     within '#role-block-scribe' do
-      assert_text @account.email
+      assert_text @account.display_name
     end
     click_on 'Start scribing'
     assert_text '#CRISIS-1: We are down'
@@ -129,7 +129,7 @@ class IncidentsTest < ApplicationSystemTestCase
     assert_text '#CRISIS-1: Blank landing page'
     assert_text 'Closed'
     assert_text 'Postmortem'
-    assert_text "Owner: #{@account.email}"
+    assert_text "Owner: #{@account.display_name}"
     click_on 'Edit'
 
     assert_text 'Postmortem edition'

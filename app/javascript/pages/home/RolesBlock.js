@@ -75,25 +75,25 @@ const RolesBlock = ({ incident }) => {
         icon={<UserPilotIcon className="w-5 mb-1" />}
         name={ROLES.NAMES.INCIDENT_MANAGER}
         displayName={ROLES.DISPLAY_NAMES.INCIDENT_MANAGER}
-        roleHolder={incident.incident_manager?.email}
+        roleHolder={incident.incident_manager?.display_name}
         canAssumeRole={account.can_manage_incident}
-        assumingRole={incident.incident_manager?.email === account.email}
+        assumingRole={incident.incident_manager?.id === account.id}
       />
       <RoleBlock
         icon={<UserHeadsetIcon className="w-5 mb-1" />}
         name={ROLES.NAMES.COMMUNICATION_MANAGER}
         displayName={ROLES.DISPLAY_NAMES.COMMUNICATION_MANAGER}
-        roleHolder={incident.communication_manager?.email}
+        roleHolder={incident.communication_manager?.display_name}
         canAssumeRole={account.can_manage_communication}
-        assumingRole={incident.communication_manager?.email === account.email}
+        assumingRole={incident.communication_manager?.id === account.id}
       />
       <RoleBlock
         icon={<UserPenIcon className="w-6 mb-1" />}
         name={ROLES.NAMES.SCRIBE}
         displayName={ROLES.DISPLAY_NAMES.SCRIBE}
-        roleHolder={incident.scribe?.email}
+        roleHolder={incident.scribe?.display_name}
         canAssumeRole
-        assumingRole={incident.scribe?.email == account.email}
+        assumingRole={incident.scribe?.id == account.id}
       />
     </div>
   );
