@@ -10,6 +10,7 @@ class AccountsController < ApplicationController
 
   def create
     @account.save
+    track_event('signed_up')
     return redirect_to new_account_activation_path, flash: { email: @account.email } if @account.persisted?
 
     redirect_to new_account_path(params: { organization: @organization_identifier }),
