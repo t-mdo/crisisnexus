@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import classnames from 'classnames';
+import { NavLink, Link } from 'react-router-dom';
 import OpenIncidentContext from 'modules/contexts/openIncidentContext';
 import AccountContext from 'modules/contexts/accountContext';
-import { NavLink } from 'react-router-dom';
 import LogoWithWhiteBackground from 'assets/images/LogoWithWhiteBackground.png';
 import HouseIcon from 'icons/regular/house-chimney.svg';
 import FireIcon from 'icons/regular/fire.svg';
@@ -53,12 +53,12 @@ const SideMenu = () => {
       )}
     >
       <div>
-        <div className="px-4 flex items-center">
+        <Link to="/" className="px-4 flex items-center">
           <img className="hidden sm:block h-8" src={LogoWithWhiteBackground} />
           <h1 className="hidden sm:block ml-4 my-5 text-3xl text-white">
             CrisisNexus
           </h1>
-        </div>
+        </Link>
         <MenuOption
           incidentInProgress={incidentInProgress}
           icon={HouseIcon}
