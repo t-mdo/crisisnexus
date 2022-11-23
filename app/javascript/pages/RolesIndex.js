@@ -37,8 +37,7 @@ const Roles = () => {
           roleIcon={<UserPilotIcon className="w-6" />}
         >
           The incident manager acts as the single source of truth of what is
-          currently happening and what is going to happen during a major
-          incident.
+          currently happening and what is going to happen during an incident.
         </RoleColumn>
         <RoleColumn
           roleName={ROLES.NAMES.COMMUNICATION_MANAGER}
