@@ -15,12 +15,12 @@ const Onboarding = ({ account, setAccount, organization, setOrganization }) => {
       <Card className="p-8 w-3/4">
         <div className="mb-8">
           <h1 className="text-2xl font-semibold mb-1">
-            Welcome to CrisisNexus
+            A few more steps to go!
           </h1>
           <h3 className="text-sm text-gray-400">
             This is a quick onboarding to setup everything for you and your
             team.
-            <br /> It should only take a few minutes.
+            <br /> It should only take 2 minutes.
           </h3>
         </div>
         <Step

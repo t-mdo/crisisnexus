@@ -33,17 +33,22 @@ const OnboardingStepPhoneNumber = ({ setAccount }) => {
       <ErrorFeedback queryErrors={patchError && patchResponse.errors} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-6 w-3/4">
-          <Label>Phone number</Label>
+          <Label
+            subtitle={
+              <>
+                It will be <b>exclusively</b> used to notify you about incidents
+                happening in your organization.
+              </>
+            }
+          >
+            Phone number
+          </Label>
           <Input
             {...register('phone_number')}
             type="tel"
             className="w-1/4 mb-2"
             placeholder="+33612345678"
           />
-          <span className="text-sm text-gray-400">
-            It will be <b>exclusively</b> used to notify you about incidents
-            happening in your organization.
-          </span>
         </div>
         <Label subtitle="This is the name we will use to refer to you in the app.">
           Display name
