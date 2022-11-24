@@ -105,7 +105,7 @@ const Organization = ({ organization, setOrganization }) => {
             {accounts.map((account) => (
               <ListRow
                 key={account.id}
-                className="flex items-center px-3 py-2 w-full"
+                className="flex items-center p-4 w-full"
               >
                 {account.email}
               </ListRow>
