@@ -24,7 +24,7 @@ class Api::OrganizationsController < ApiController
 
   def update
     @organization = current_organization
-    attributes = params.require(:organization).permit(:name, :war_room_url)
+    attributes = params.require(:organization).permit(:name, :war_room_url, :welcome_message_displayed)
     updated = @organization.update(attributes)
 
     return if updated

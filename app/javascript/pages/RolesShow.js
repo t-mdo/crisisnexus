@@ -184,13 +184,13 @@ const Roles = () => {
       </div>
       <Card className="px-8 py-4">
         <div className="mb-8">
-          <Text uiStyle="title" className="mb-4">
+          <Text uiStyle="heading-2" className="mb-4">
             Mission
           </Text>
           <RoleDescription name={name} />
         </div>
         <div className="flex items-center mb-4">
-          <Text uiStyle="title" className="mr-4">
+          <Text uiStyle="heading-2" className="mr-4">
             Enrolled members
           </Text>
           {name !== ROLES.NAMES.SCRIBE && (

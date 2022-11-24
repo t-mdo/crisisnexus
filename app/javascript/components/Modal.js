@@ -2,9 +2,9 @@ import classnames from 'classnames';
 import { Dialog } from '@headlessui/react';
 import XIcon from 'icons/regular/xmark.svg';
 
-export const Modal = ({ children, ...props }) => {
+export const Modal = ({ children, onClose = () => {}, ...props }) => {
   return (
-    <Dialog {...props}>
+    <Dialog onClose={onClose} {...props}>
       <div className="fixed inset-0 bg-black/70" aria-hidden="true" />
       <div className="fixed inset-0 flex items-center justify-center p-4">
         {children}
@@ -13,10 +13,15 @@ export const Modal = ({ children, ...props }) => {
   );
 };
 
-export const ModalPanel = ({ children, className }) => (
+export const ModalPanel = ({ children, className, size = 'medium' }) => (
   <Dialog.Panel
     className={classnames(
-      'flex flex-col mx-auto max-w-sm md:max-w-2xl py-4 px-8 rounded bg-white modal-container shadow-lg z-50 overflow-y-auto',
+      'flex flex-col mx-auto py-4 px-8 rounded bg-white modal-container shadow-lg z-50 overflow-y-auto',
+      {
+        'max-w-sm md:max-w-1xl': size === 'small',
+        'max-w-sm md:max-w-2xl': size === 'medium',
+        'max-w-xl sm:max-w-4xl': size === 'large',
+      },
       className,
     )}
   >

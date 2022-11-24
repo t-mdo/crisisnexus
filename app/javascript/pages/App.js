@@ -25,6 +25,7 @@ import RolesShow from 'pages/RolesShow';
 import Organization from 'pages/Organization';
 import InviteAccountsView from 'pages/InviteAccountsView';
 import Account from 'pages/Account';
+import WelcomeModal from 'pages/WelcomeModal';
 
 const AppRoutes = () => (
   <Routes>
@@ -81,6 +82,15 @@ const AppView = () => {
         <div className="w-full bg-gray-100">
           <StatusBar />
           <AppRoutes />
+          <WelcomeModal
+            open={!organization.welcome_message_displayed}
+            onClose={() =>
+              setOrganization((organization) => ({
+                ...organization,
+                welcome_message_displayed: true,
+              }))
+            }
+          />
         </div>
       </div>
     </OpenIncidentProvider>

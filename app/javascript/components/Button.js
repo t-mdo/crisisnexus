@@ -23,7 +23,7 @@ export const Button = ({
         {
           'bg-violet-500 hover:bg-violet-600 active:bg-violet-700 disabled:hover:bg-violet-500 disabled:active:big-violet-500':
             color === BUTTON_COLOR_PRIMARY,
-          'bg-lime-400 hover:bg-lime-500 active:bg-lime-600 disabled:hover:bg-lime-500 disabled:active:big-lime-500':
+          'text-gray-700 bg-gray-200 hover:bg-gray-300 active:bg-gray-400':
             color === BUTTON_COLOR_SECONDARY,
           'bg-green-600 hover:bg-green-700 active:bg-green-800 disabled:hover:bg-green-500 disabled:active:big-green-500':
             color === BUTTON_COLOR_SUCCESS,

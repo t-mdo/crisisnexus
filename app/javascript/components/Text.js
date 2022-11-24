@@ -4,14 +4,16 @@ const getElement = (uiStyle, inline) => {
   switch (uiStyle) {
     case 'body':
       return inline ? 'span' : 'p';
-    case 'title-lg':
+    case 'heading-1':
       return 'h2';
-    case 'title':
+    case 'heading-2':
       return 'h3';
-    case 'title-sm':
+    case 'heading-3':
       return 'h4';
+    case 'subtext':
+      return inline ? 'span' : 'p';
     default:
-      return 'p';
+      return inline ? 'span' : 'p';
   }
 };
 
@@ -22,8 +24,10 @@ const Text = ({ uiStyle = 'body', inline, className, children }) => {
     <Element
       className={classnames(
         {
+          'text-gray-400 text-sm': uiStyle === 'subtext',
           'text-gray-900': uiStyle === 'body',
-          'font-semibold text-lg': uiStyle === 'title',
+          'text-gray-900 font-semibold text-lg': uiStyle === 'heading-2',
+          'text-gray-900 font-medium text-lg': uiStyle === 'heading-3',
         },
         className,
       )}
