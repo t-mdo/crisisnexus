@@ -21,6 +21,7 @@
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "lodash": "^4.17.21",
+    "mixpanel-browser": "^2.45.0",
     "postcss": "^8.4.17",
     "prettier": "^2.7.1",
     "react": "^18.2.0",
