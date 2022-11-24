@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import Mixpanel from 'mixpanel-browser';
 
 export const identifyUser = ({ id }) => {
-  console.log('track', process.env.NODE_ENV);
   if (process.env.NODE_ENV !== 'production') {
     console.log('identified for tracking user', id); // eslint-disable-line no-console
     return;
@@ -11,7 +10,6 @@ export const identifyUser = ({ id }) => {
 };
 
 export const trackEvent = ({ name, ...payload }) => {
-  console.log('track', process.env.NODE_ENV);
   if (process.env.NODE_ENV !== 'production') {
     console.log('event tracked', name, payload); // eslint-disable-line no-console
     return;
