@@ -15,7 +15,6 @@ if (process.env.NODE_ENV === 'production') {
   });
   Mixpanel.init('d0e22b30c642a4319c08f0f8316a0d32', {
     api_host: 'https://api-eu.mixpanel.com',
-    debug: true,
   });
 }
 
