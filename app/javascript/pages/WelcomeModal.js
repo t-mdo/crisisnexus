@@ -44,16 +44,16 @@ const WelcomeModal = ({ open, onClose }) => {
                 Thank you for being one of our earliest users
               </Text>
               <Text>
-                I’m entirely dedicated to making sure your company benefits from
-                the best process to handle production incident from now on.
+                Now it’s my focus to ensure your company benefits from the best
+                process to handle production incidents.
               </Text>
               <Text className="mb-3">
-                The product is in its early life and you will notice that it
+                The product is in its early life, so you’ll notice that it
                 evolves constantly to match your needs.
               </Text>
               <Text className="mb-16">
-                Book a first session with me so we can discuss your current
-                needs and start setting up the tool for your organisation.
+                Book a first session with me to discuss your current needs and
+                start setting up the tool for your organisation.
               </Text>
             </div>
           </div>
