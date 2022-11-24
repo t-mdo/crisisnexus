@@ -7,9 +7,12 @@ import {
   ModalTitle,
   ModalDescription,
 } from 'components/Modal';
+import { trackEvent, useTrackEvent } from 'modules/tracking';
 import tmoPictureUrl from 'assets/images/tmo.png';
 
 const WelcomeModal = ({ open, onClose }) => {
+  useTrackEvent({ name: 'welcome_message_displayed' });
+
   const { trigger: triggerOrganizationPatch } = useHttpQuery({
     url: '/organization',
     method: 'PATCH',
@@ -18,12 +21,14 @@ const WelcomeModal = ({ open, onClose }) => {
   });
 
   const onLaterButtonClick = () => {
+    trackEvent({ name: 'pass_intro_call_button_clicked' });
     triggerOrganizationPatch();
     onClose();
   };
 
   const onBookButtonClick = () => {
     window.open('https://calendly.com/tmdo/crisisnexus-intro', '_blank');
+    trackEvent({ name: 'book_intro_call_button_clicked' });
     triggerOrganizationPatch();
     onClose();
   };

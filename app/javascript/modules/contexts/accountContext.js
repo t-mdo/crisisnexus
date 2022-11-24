@@ -1,4 +1,5 @@
 import { useState, createContext } from 'react';
+import { identifyUser } from 'modules/tracking';
 import useHttpQuery from 'modules/httpQuery/useHttpQuery';
 
 export const AccountContext = createContext();
@@ -9,6 +10,7 @@ export const AccountProvider = ({ children }) => {
     url: '/current_account',
     onSuccess: ({ data: { account } }) => {
       setAccount(account);
+      identifyUser(account);
     },
   });
 
