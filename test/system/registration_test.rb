@@ -25,24 +25,37 @@ class RegistrationTest < ApplicationSystemTestCase
     assert_equal 'test@crisisnexus.com', activation_email.to.first
     assert_equal 'Your CrisisNexus account is now activated', confirmation_email.subject
 
-    assert_text 'Welcome to CrisisNexus'
-    assert_text 'This is a quick onboarding'
-    assert_text 'Organization creation'
-    assert_text 'Organization domain'
-    domain = find 'input[disabled]'
-    assert_equal 'crisisnexus.com', domain.value
-    fill_in 'war_room_url', with: 'https://meet.google.com/xxx-xxxx-xxx'
-    assert_difference 'ActionMailer::Base.deliveries.size', 1 do
+    assert_difference 'ActionMailer::Base.deliveries.size', 1 do # email to tmo@crisisnexus.com
+      assert_text 'A few more steps to go'
+      assert_text 'This is a quick onboarding'
+      assert_text 'Organization creation'
+      assert_text 'Organization domain'
+      domain = find 'input[disabled]'
+      assert_equal 'crisisnexus.com', domain.value
+      fill_in 'war_room_url', with: 'https://meet.google.com/xxx-xxxx-xxx'
       click_on 'Next step'
+
+      assert_text 'Phone number'
+      fill_in 'phone_number', with: '0637799194'
+      click_on 'Finish'
+      assert_text 'Phone number is invalid. Please write it to the format +14123456789'
+      fill_in 'phone_number', with: '+1 555 555 5555', fill_options: { clear: :backspace }
+      fill_in 'display_name', with: 'John'
+      click_on 'Finish'
     end
 
-    assert_text 'Phone number'
-    fill_in 'phone_number', with: '0637799194'
-    click_on 'Finish'
-    assert_text 'Phone number is invalid. Please write it to the format +14123456789'
-    fill_in 'phone_number', with: '+1 555 555 5555', fill_options: { clear: :backspace }
-    fill_in 'display_name', with: 'John'
-    click_on 'Finish'
+    assert_text 'Welcome to CrisisNexus'
+    assert_text 'Thank you for being one of our earliest users'
+    assert_text 'Book a first session with me'
+    assert_text 'Thibault Miranda de Oliveira'
+    assert_button 'Later'
+    new_tab = window_opened_by do
+      click_on 'Book the session'
+    end
+    within_window new_tab do
+      assert_current_path 'https://calendly.com/tmdo/crisisnexus-intro', ignore_query: true
+    end
+    new_tab.close
 
     assert_text 'Dashboard'
   end

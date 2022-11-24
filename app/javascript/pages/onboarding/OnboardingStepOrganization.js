@@ -62,10 +62,9 @@ const OnboardingStepOrganization = ({ account, setOrganization }) => {
             aria-required="true"
             aria-invalid={formErrors?.name ? 'true' : 'false'}
           />
-          <Label>War Room URL</Label>
-          <p className="text-xs text-gray-400 mb-1">
-            You will be able to change it later
-          </p>
+          <Label subtitle="The virtual room where your team will regroup to organize the incidents' responses">
+            War Room URL
+          </Label>
           <Input
             {...register('war_room_url')}
             type="text"
