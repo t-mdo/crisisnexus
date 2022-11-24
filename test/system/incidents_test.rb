@@ -73,16 +73,20 @@ class IncidentsTest < ApplicationSystemTestCase
     click_on 'Roles'
     find_all('a', text: 'Details').first.click
     assert_text 'Roles - Incident manager'
-    assert_selector 'li', count: 1
-    enrollment = find 'li', text: default_im_account.display_name
-    enrollment.find('button').click
-    assert_no_selector 'li', text: default_im_account.display_name
-    assert_text 'No members enrolled yet'
+    within find('#enrolled-members') do
+      assert_selector 'li', count: 1
+      enrollment = find 'li', text: default_im_account.display_name
+      enrollment.find('button').click
+      assert_no_selector 'li', text: default_im_account.display_name
+      assert_text 'No members enrolled yet'
+    end
     click_on 'add_enrollment'
-    fill_in "New member's email", with: @account.email[0..2]
-    option = find 'li[role="option"]', text: @account.email
-    option.click
-    assert_selector 'li', text: @account.display_name
+    within find('#enrolled-members') do
+      fill_in "New member's email", with: @account.email[0..2]
+      option = find 'li[role="option"]', text: @account.email
+      option.click
+      assert_selector 'li', text: @account.display_name
+    end
 
     click_on 'Dashboard'
     refresh

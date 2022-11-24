@@ -205,7 +205,7 @@ const Roles = () => {
         {fetchLoading && <Loader />}
         {fetchError && <div>Something went wrong</div>}
         {fetchSuccess && (
-          <ul className="border rounded">
+          <ul id="enrolled-members" className="border rounded">
             {!hasMembersEnrolled && (
               <EnrollmentsEmptyState
                 roleName={name}
