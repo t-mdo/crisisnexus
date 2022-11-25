@@ -18,10 +18,7 @@ const Organization = ({ organization, setOrganization }) => {
     handleSubmit,
     formState: { errors: formErrors },
   } = useForm({
-    defaultValues: {
-      name: organization.name,
-      warRoom: organization.war_room_url,
-    },
+    defaultValues: organization,
   });
 
   const { data: { accounts } = {}, loading: accountsFetchLoading } =
@@ -77,7 +74,7 @@ const Organization = ({ organization, setOrganization }) => {
             incidents' responses
           </p>
           <Input
-            {...register('warRoom', {
+            {...register('war_room_url', {
               required: 'You need a virtual war room url for your organization',
             })}
             type="text"

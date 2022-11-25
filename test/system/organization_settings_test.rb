@@ -12,10 +12,15 @@ class OrganizationSettingsTest < ApplicationSystemTestCase
     click_on 'Organization'
     assert_text 'Organization settings'
     assert_field 'name', with: @organization.name
-    assert_field 'warRoom', with: @organization.war_room_url
+    assert_field 'war_room_url', with: @organization.war_room_url
     fill_in 'name', with: 'Awesome Inc.', fill_options: { clear: :backspace }
+    fill_in 'war_room_url', with: 'https://meet.google.com/xxx-xxxx-xxx', fill_options: { clear: :backspace }
     click_on 'Submit'
     assert_equal 'Awesome Inc.', @organization.reload.name
+    assert_equal 'https://meet.google.com/xxx-xxxx-xxx', @organization.reload.war_room_url
+    refresh
+    assert_field 'name', with: @organization.name
+    assert_field 'war_room_url', with: @organization.war_room_url
 
     assert_selector 'li', count: 21
     assert_selector 'li', text: @account.email
