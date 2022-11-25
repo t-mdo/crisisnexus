@@ -1,6 +1,6 @@
 require 'application_system_test_case'
 
-class OrganizationSettingsTest < ApplicationSystemTestCase
+class AccountSettingsTest < ApplicationSystemTestCase
   setup do
     @account = create(:account, phone_number: nil)
     @organization = @account.organization
