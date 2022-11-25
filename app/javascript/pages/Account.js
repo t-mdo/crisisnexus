@@ -25,8 +25,12 @@ const EditAccountForm = ({ account, setAccount }) => {
     },
   });
 
-  const { register, handleSubmit } = useForm({
-    defaultValues: { phone_number: account.phone_number },
+  const {
+    register,
+    handleSubmit,
+    formState: { errors: formErrors },
+  } = useForm({
+    defaultValues: account,
   });
 
   const onSubmit = (account) => {
@@ -42,19 +46,37 @@ const EditAccountForm = ({ account, setAccount }) => {
           Changes applied
         </Alert>
       )}
-      <ErrorFeedback queryErrors={patchError && patchResponse.errors} />
+      <ErrorFeedback
+        formErrors={Object.values(formErrors).map((error) => error.message)}
+        queryErrors={patchError && patchResponse.errors}
+      />
       <div className="mb-6 w-3/4">
-        <Label>Phone number</Label>
+        <Label subtitle="This is the name we will use to refer to you in the app.">
+          Display name
+        </Label>
+        <Input
+          {...register('display_name', {
+            required: 'Display name is required',
+          })}
+          type="text"
+          className="w-full mb-4"
+        />
+        <Label
+          subtitle={
+            <>
+              It will be <b>exclusively</b> used to notify you about incidents
+              happening in your organization.
+            </>
+          }
+        >
+          Phone number
+        </Label>
         <Input
           {...register('phone_number')}
           type="tel"
           className="w-full mb-2"
           placeholder="+33612345678"
         />
-        <span className="text-sm text-gray-400">
-          It will be <b>exclusively</b> used to notify you about incidents
-          happening in your organization.
-        </span>
       </div>
       <Button loading={patchLoading} role="submit">
         Submit
