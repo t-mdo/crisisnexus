@@ -68,7 +68,7 @@ const Organization = ({ organization, setOrganization }) => {
             aria-required="true"
             aria-invalid={formErrors?.name ? 'true' : 'false'}
           />
-          <Label>War Room URL</Label>
+          <Label>War room URL</Label>
           <p className="mb-1 text-gray-400 text-xs">
             The virtual room where your team will regroup to organize the
             incidents' responses
