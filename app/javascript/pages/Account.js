@@ -42,7 +42,7 @@ const EditAccountForm = ({ account, setAccount }) => {
           Changes applied
         </Alert>
       )}
-      <ErrorFeedback queryError={patchError && patchResponse.error} />
+      <ErrorFeedback queryErrors={patchError && patchResponse.errors} />
       <div className="mb-6 w-3/4">
         <Label>Phone number</Label>
         <Input
