@@ -30,4 +30,19 @@ class OrganizationSettingsTest < ApplicationSystemTestCase
     assert_text 'Invite accounts to your organization'
     assert_field disabled: true, with: "https://www.crisisnexus.com/account/new?organization=#{@organization.identifier}"
   end
+
+  test 'organization settings form errors' do
+    login_as(account: @account)
+    click_on 'Organization'
+    assert_text 'Organization settings'
+    fill_in 'name', with: '', fill_options: { clear: :backspace }
+    fill_in 'war_room_url', with: '', fill_options: { clear: :backspace }
+    click_on 'Submit'
+    assert_text 'Your organization needs to have a name'
+    assert_text 'You need a virtual war room url for your organization'
+    refresh
+    fill_in 'war_room_url', with: 'crapcrap', fill_options: { clear: :backspace }
+    click_on 'Submit'
+    assert_text 'War room url must be a valid URL'
+  end
 end
