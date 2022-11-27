@@ -1,17 +1,29 @@
-import { useState, useEffect } from 'react';
-import { useOutletContext, useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+import { useState, useEffect, useCallback } from 'react';
+import { useOutletContext } from 'react-router-dom';
+import { useForm, useWatch } from 'react-hook-form';
+import debounce from 'lodash/debounce';
 import useHttpQuery from 'modules/httpQuery/useHttpQuery';
 import { Input, TextArea } from 'components/form/Input';
 import { Label } from 'components/form/Label';
-import { Button } from 'components/Button';
+import { LinkButton } from 'components/LinkButton';
 import range from 'lodash/range';
 import Card from 'components/Card';
 import Loader from 'components/Loader';
 
+const UpdateStatus = ({ loading, success }) => {
+  if (loading) {
+    return <Loader />;
+  }
+
+  if (success) {
+    return <div className="text-gray-400">Document saved</div>;
+  }
+
+  return <div className="invisible">Placeholder</div>;
+};
+
 const PostMortemEdit = () => {
   const { incident } = useOutletContext();
-  const navigate = useNavigate();
 
   const {
     register,
@@ -19,6 +31,8 @@ const PostMortemEdit = () => {
     setFocus,
     watch,
     reset: resetForm,
+    control,
+    formState: { isDirty: formIsDirty },
   } = useForm();
 
   const { loading: fetchLoading } = useHttpQuery({
@@ -28,13 +42,14 @@ const PostMortemEdit = () => {
     },
   });
 
-  const { trigger: triggerPost } = useHttpQuery({
+  const {
+    loading: putLoading,
+    success: putSuccess,
+    trigger: triggerPut,
+  } = useHttpQuery({
     url: `/incidents/${incident.local_id}/postmortem`,
     method: 'PUT',
     trigger: true,
-    onSuccess: () => {
-      navigate(`/incidents/${incident.local_id}/postmortem`);
-    },
   });
 
   const [nextStepActionsFieldIndex, setNextStepActionsFieldIndex] = useState(1);
@@ -48,6 +63,18 @@ const PostMortemEdit = () => {
     }
   }, [newestNSAField]);
 
+  const debouncedTriggerForm = useCallback(
+    debounce(() => {
+      handleSubmit(onSubmit)();
+    }, 2000),
+    [],
+  );
+  const watchForm = useWatch({ control: control });
+  useEffect(() => {
+    if (!formIsDirty) return;
+    debouncedTriggerForm();
+  }, [watchForm]);
+
   const previousNSAField =
     nextStepActionsFieldIndex > 0 &&
     watch(`next_step_actions.${nextStepActionsFieldIndex - 1}.name`);
@@ -58,7 +85,7 @@ const PostMortemEdit = () => {
   }, [previousNSAField]);
 
   const onSubmit = (postmortem) => {
-    triggerPost({
+    triggerPut({
       body: {
         postmortem: {
           ...postmortem,
@@ -70,13 +97,24 @@ const PostMortemEdit = () => {
 
   return (
     <div id="form-body" className="py-6 px-4 md:px-32 overflow-y-auto">
+      <LinkButton
+        className="mb-4"
+        direction="back"
+        to={`/incidents/${incident.local_id}`}
+      >
+        Back to incident
+      </LinkButton>
       <h2 className="mb-4 font-semibold text-2xl">Postmortem edition</h2>
       <Card className="p-4">
         {fetchLoading ? (
           <Loader />
         ) : (
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form>
+            <div className="flex justify-between"></div>
             <div className="mb-16">
+              <div className="flex justify-end">
+                <UpdateStatus loading={putLoading} success={putSuccess} />
+              </div>
               <Label htmlFor="summary">One sentence summary</Label>
               <Input
                 placeholder="One sentence anybody at the company can understand"
@@ -177,7 +215,7 @@ const PostMortemEdit = () => {
                 {...register('five_whys_text')}
               />
             </div>
-            <div className="mb-16">
+            <div>
               <Label>Next step actions</Label>
               {range(nextStepActionsFieldIndex + 1).map((index) => (
                 <div key={index} className="flex items-center mb-4">
@@ -197,7 +235,7 @@ const PostMortemEdit = () => {
               ))}
             </div>
             <div className="flex justify-end">
-              <Button role="submit">Save</Button>
+              <UpdateStatus loading={putLoading} success={putSuccess} />
             </div>
           </form>
         )}
