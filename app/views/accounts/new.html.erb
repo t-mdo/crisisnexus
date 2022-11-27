@@ -1,7 +1,7 @@
 <div class="bg-white py-6 sm:py-8 lg:py-12">
   <h2 class="text-2xl lg:text-3xl font-bold text-center mb-4 md:mb-8 xl:mb-12">Sign up</h2>
-  <div class="text-gray-800 px-4 md:px-8 flex justify-center">
-    <div class="p-6 w-[560px] rounded-lg border border-gray-200 shadow-md">
+  <div class="flex flex-col items-center text-gray-800 px-4 md:px-8">
+    <div class="mb-10 p-6 w-[560px] rounded-lg border border-gray-200 shadow-md">
       <% if @organization.present? %>
         <p class="text-sm text-gray-600">You are registering an account in the <b><%= @organization.name %></b> organization.</p>
       <% else %>
@@ -30,5 +30,6 @@
     <%= submit_tag "Sign up", class: 'w-full bg-violet-500 hover:bg-violet-600 active:bg-violet-700 focus-visible:ring ring-violet-300 text-white text-xs md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-2 py-2 md:px-8 md:py-3' %>
   <% end %>
     </div>
+    <p class="text-gray-500 text-lg text-center">Any questions or need any help? <a class="text-violet-700" href="https://calendly.com/tmdo/crisisnexus-demo" target="_blank">Just book a quick meeting in my calendar!</a></p>
   </div>
 </div>
