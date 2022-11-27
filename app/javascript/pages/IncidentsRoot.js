@@ -1,7 +1,7 @@
 import { useParams, Outlet } from 'react-router-dom';
 import useHttpQuery from 'modules/httpQuery/useHttpQuery';
 import FullView from 'components/FullView';
-import Loader from 'components/Loader';
+import { BlockLoader } from 'components/Loader';
 import Card from 'components/Card';
 import { StatusBadge } from 'components/StatusBadge';
 import {
@@ -17,7 +17,7 @@ const IncidentsIndex = () => {
     data: { incident } = {},
   } = useHttpQuery({ url: `/incidents/${id}` });
 
-  if (loading) return <Loader />;
+  if (loading) return <BlockLoader />;
   if (error) return <p>Something went wrong</p>;
   return (
     <FullView>

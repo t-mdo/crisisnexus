@@ -1,7 +1,7 @@
 import useHttpQuery from 'modules/httpQuery/useHttpQuery';
 import intersperse from 'modules/helpers/intersperse';
 import Card from 'components/Card';
-import Loader from 'components/Card';
+import { BlockLoader } from 'components/Card';
 import IncidentRow from 'pages/shared/IncidentRow';
 
 const PastIncidentsList = ({ queryLimit }) => {
@@ -18,7 +18,7 @@ const PastIncidentsList = ({ queryLimit }) => {
       <h3 className="mb-3 font-semibold text-xl">Past incidents</h3>
       <Card as="ul">
         {(() => {
-          if (loading) return <Loader />;
+          if (loading) return <BlockLoader />;
           if (error) return <div>Something went wrong</div>;
           if (noPastIncidents)
             return (

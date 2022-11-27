@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import dayjs from 'dayjs';
-import Loader from 'components/Loader';
+import { BlockLoader } from 'components/Loader';
 import { List, ListRow } from 'components/list/List';
 
 export const ScribedMinutesContainer = ({ children }) => (
@@ -23,7 +23,7 @@ export const ScribedMinutes = ({ loading, minutes }) => {
     listRef.current.scrollTop = listRef.current.scrollHeight;
   }, [minutes]);
 
-  if (loading && !minutes) return <Loader />;
+  if (loading && !minutes) return <BlockLoader />;
   if (minutes)
     return (
       <List ref={listRef} className="border rounded">

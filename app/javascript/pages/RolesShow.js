@@ -5,7 +5,7 @@ import intersperse from 'modules/helpers/intersperse';
 import { ROLES } from 'modules/constants';
 import Text from 'components/Text';
 import IconButton from 'components/IconButton';
-import Loader from 'components/Loader';
+import { BlockLoader } from 'components/Loader';
 import Card from 'components/Card';
 import FullView from 'components/FullView';
 import UserPilotIcon from 'icons/regular/user-pilot.svg';
@@ -202,7 +202,7 @@ const Roles = () => {
             </IconButton>
           )}
         </div>
-        {fetchLoading && <Loader />}
+        {fetchLoading && <BlockLoader />}
         {fetchError && <div>Something went wrong</div>}
         {fetchSuccess && (
           <ul id="enrolled-members" className="border rounded">

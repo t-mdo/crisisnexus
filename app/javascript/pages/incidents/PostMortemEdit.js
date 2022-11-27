@@ -8,7 +8,7 @@ import { Label } from 'components/form/Label';
 import { LinkButton } from 'components/LinkButton';
 import range from 'lodash/range';
 import Card from 'components/Card';
-import Loader from 'components/Loader';
+import { Loader, BlockLoader } from 'components/Loader';
 
 const UpdateStatus = ({ loading, success }) => {
   if (loading) {
@@ -108,7 +108,7 @@ const PostMortemEdit = () => {
       <h2 className="mb-4 font-semibold text-2xl">Postmortem edition</h2>
       <Card className="p-4">
         {fetchLoading ? (
-          <Loader />
+          <BlockLoader />
         ) : (
           <form>
             <div className="flex justify-between"></div>

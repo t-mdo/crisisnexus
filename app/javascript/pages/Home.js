@@ -3,7 +3,7 @@ import OpenIncidentContext from 'modules/contexts/openIncidentContext';
 import AccountContext from 'modules/contexts/accountContext';
 import FullView from 'components/FullView';
 import Alert from 'components/Alert';
-import Loader from 'components/Loader';
+import { BlockLoader } from 'components/Loader';
 import Card from 'components/Card';
 import Button, { BUTTON_COLOR_SUCCESS } from 'components/Button';
 import PastIncidentsList from 'pages/home/PastIncidentsList';
@@ -78,7 +78,7 @@ const Home = () => {
   return (
     <FullView className="py-6 px-4 md:px-32">
       <h2 className="mb-6 font-semibold text-3xl">Dashboard</h2>
-      {openIncidentFetchLoading && <Loader />}
+      {openIncidentFetchLoading && <BlockLoader />}
       {openIncidentFetchDone && Boolean(openIncident) && (
         <HotStateDashboard incident={openIncident} />
       )}

@@ -8,7 +8,7 @@ import { Input } from 'components/form/Input';
 import Label from 'components/form/Label';
 import ErrorFeedback from 'components/form/ErrorFeedback';
 import Button from 'components/Button';
-import Loader from 'components/Loader';
+import { BlockLoader } from 'components/Loader';
 import { Alert, ALERT_COLOR_SUCCESS } from 'components/Alert';
 import { List, ListRow } from 'components/list/List';
 
@@ -96,7 +96,7 @@ const Organization = ({ organization, setOrganization }) => {
       </div>
       <Card>
         {accountsFetchLoading ? (
-          <Loader />
+          <BlockLoader />
         ) : (
           <List>
             {accounts.map((account) => (
@@ -118,7 +118,7 @@ export default () => {
   const { organization, loading, setOrganization } =
     useContext(OrganizationContext);
 
-  if (loading) return <Loader />;
+  if (loading) return <BlockLoader />;
   return (
     <Organization
       organization={organization}

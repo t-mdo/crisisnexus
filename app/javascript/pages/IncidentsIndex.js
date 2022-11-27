@@ -1,6 +1,6 @@
 import useHttpQuery from 'modules/httpQuery/useHttpQuery';
 import intersperse from 'modules/helpers/intersperse';
-import Loader from 'components/Loader';
+import { BlockLoader } from 'components/Loader';
 import Card from 'components/Card';
 import IncidentRow from 'pages/shared/IncidentRow';
 
@@ -13,7 +13,7 @@ const IncidentsIndex = () => {
   } = useHttpQuery({ url: '/incidents' });
   const noPastIncident = success && incidents.length === 0;
 
-  if (loading) return <Loader />;
+  if (loading) return <BlockLoader />;
   if (error) return <p>Something went wrong</p>;
   return (
     <div className="max-h-[calc(100vh-64px)] py-6 px-4 md:px-32 overflow-y-auto">

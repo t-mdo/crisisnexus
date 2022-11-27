@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import { useOutletContext } from 'react-router-dom';
 import useHttpQuery from 'modules/httpQuery/useHttpQuery';
 import Button from 'components/Button';
-import Loader from 'components/Loader';
+import { BlockLoader } from 'components/Loader';
 
 const LabelAndField = ({ label, field }) => {
   if (!field) return null;
@@ -48,7 +48,7 @@ const PostMortemShow = () => {
       </div>
       <div>
         {fetchLoading ? (
-          <Loader />
+          <BlockLoader />
         ) : (
           <>
             <div className="mb-16">

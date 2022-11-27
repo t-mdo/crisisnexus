@@ -79,7 +79,7 @@ const AppView = () => {
     <OpenIncidentProvider>
       <div className="flex overflow-hidden h-screen">
         <SideMenu />
-        <div className="w-full bg-gray-100">
+        <div className="flex flex-col w-full bg-gray-100">
           <StatusBar />
           <AppRoutes />
           <WelcomeModal
