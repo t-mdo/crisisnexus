@@ -1,19 +1,19 @@
 <div class="bg-white pb-8 sm:pb-10 lg:pb-12">
   <div class="max-w-screen-2xl px-4 md:px-16 mx-auto">
-    <header class="flex justify-between items-center py-4 md:py-8">
-      <a href="/" class="inline-flex items-center text-black-800 text-2xl mr-4 sm:mr-0 md:text-3xl font-bold gap-2.5" aria-label="logo">
+    <header class="flex flex-col sm:flex-row justify-between items-center py-4 md:py-8">
+      <a href="/" class="mb-8 sm:mb-0 inline-flex items-center text-black-800 text-2xl sm:mr-4 mr-0 md:text-3xl font-bold gap-2.5" aria-label="logo">
         <div class="w-10">
           <%= image_tag("CrisisNexusLogo.png", :alt => "crisis nexus logo") %>
         </div>
         CrisisNexus
       </a>
-      <nav class="hidden lg:flex gap-12">
-        <a href="/" class="text-gray-600 hover:text-violet-500 active:text-violet-700 text-lg font-semibold transition duration-100">Home</a>
-        <a href="/pricing" class="text-gray-600 hover:text-violet-500 active:text-violet-700 text-lg font-semibold transition duration-100">Pricing</a>
-        <a href="https://calendly.com/tmdo/crisisnexus-demo" target="_blank" class="text-gray-600 hover:text-violet-500 active:text-violet-700 text-lg font-semibold transition duration-100">Book a demo</a>
-        <a href="/contact" class="text-gray-600 hover:text-violet-500 active:text-violet-700 text-lg font-semibold transition duration-100">Contact</a>
+      <nav class="flex gap-12 mb-8 sm:mb-0">
+        <a href="/" class="text-gray-600 text-sm md:text-lg hover:text-violet-500 active:text-violet-700 font-semibold transition duration-100">Home</a>
+        <a href="/pricing" class="text-gray-600 text-sm md:text-lg hover:text-violet-500 active:text-violet-700 font-semibold transition duration-100">Pricing</a>
+        <a href="/contact" class="text-gray-600 text-sm md:text-lg hover:text-violet-500 active:text-violet-700 font-semibold transition duration-100">Contact</a>
       </nav>
-      <div class="flex flex-wrap justify-end gap-4">
+      <div class="flex flex-wrap justify-end gap-4 items-center">
+        <a href="https://calendly.com/tmdo/crisisnexus-demo" target="_blank" class="inline-block border border-gray-300 focus-visible:ring ring-gray-300 text-xs md:text-base font-semibold text-center text-gray-600 hover:bg-gray-300 rounded-lg outline-none transition duration-100 px-2 py-2 md:px-8 md:py-3">Book a demo</a>
       <a href="/login" class="inline-block border border-gray-300 focus-visible:ring ring-gray-300 text-xs md:text-base font-semibold text-center text-gray-600 hover:bg-gray-300 rounded-lg outline-none transition duration-100 px-2 py-2 md:px-8 md:py-3">Sign in</a>
       <a href="/account/new?source=header" class="inline-block bg-violet-500 hover:bg-violet-600 active:bg-violet-700 focus-visible:ring ring-violet-300 text-white text-xs md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-2 py-2 md:px-8 md:py-3">Get early access</a>
       </div>
