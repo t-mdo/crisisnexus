@@ -82,4 +82,11 @@ const WelcomeModal = ({ open, onClose }) => {
   );
 };
 
-export default WelcomeModal;
+const WelcomeModalContainer = ({ open, onClose }) => {
+  if (!open) {
+    return null;
+  }
+  return <WelcomeModal open={open} onClose={onClose} />;
+};
+
+export default WelcomeModalContainer;
