@@ -1,7 +1,7 @@
-<div class="bg-white py-6 sm:py-8 lg:py-12">
+<div class="bg-white pb-6 sm:py-8 lg:py-12">
   <h2 class="text-2xl lg:text-3xl font-bold text-center mb-4 md:mb-8 xl:mb-12">Sign up</h2>
   <div class="flex flex-col items-center text-gray-800 px-4 md:px-8">
-    <div class="mb-10 p-6 w-[560px] rounded-lg border border-gray-200 shadow-md">
+    <div class="mb-4 sm:mb-10 p-6 w-[560px] max-w-full rounded-lg border border-gray-200 shadow-md">
       <% if @organization.present? %>
         <p class="text-sm text-gray-600">You are registering an account in the <b><%= @organization.name %></b> organization.</p>
       <% else %>
