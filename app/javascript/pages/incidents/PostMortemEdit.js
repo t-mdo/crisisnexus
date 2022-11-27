@@ -72,6 +72,7 @@ const PostMortemEdit = () => {
   const watchForm = useWatch({ control: control });
   useEffect(() => {
     if (!formIsDirty) return;
+
     debouncedTriggerForm();
   }, [watchForm]);
 
