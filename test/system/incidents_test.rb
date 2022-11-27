@@ -138,7 +138,9 @@ class IncidentsTest < ApplicationSystemTestCase
 
     assert_text 'Postmortem edition'
     fill_in 'summary', with: 'The landing page was fully blank'
-    click_on 'Save'
+    assert_document_saved
+    click_on 'Back to incident'
+    click_on 'View'
 
     assert_text 'Postmortem'
     assert_no_text 'edition'
@@ -159,7 +161,9 @@ class IncidentsTest < ApplicationSystemTestCase
     fill_in 'next_step_actions.0.name', with: 'Deploy sentry to catch 500 sooner'
     assert_field 'next_step_actions.1.name'
     fill_in 'next_step_actions.1.name', with: 'Add a test on the landing page'
-    click_on 'Save'
+    assert_document_saved
+    click_on 'Back to incident'
+    click_on 'View'
 
     assert_text 'Postmortem'
     assert_no_text 'edition'
@@ -174,5 +178,12 @@ class IncidentsTest < ApplicationSystemTestCase
     assert_text 'Five whys'
     assert_text 'Deploy sentry to catch 500 sooner'
     assert_text 'Add a test on the landing page'
+  end
+
+  private
+
+  def assert_document_saved
+    sleep 2
+    assert_text 'Document saved'
   end
 end

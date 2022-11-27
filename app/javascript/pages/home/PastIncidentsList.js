@@ -1,7 +1,7 @@
 import useHttpQuery from 'modules/httpQuery/useHttpQuery';
 import intersperse from 'modules/helpers/intersperse';
 import Card from 'components/Card';
-import { BlockLoader } from 'components/Card';
+import { BlockLoader } from 'components/Loader';
 import IncidentRow from 'pages/shared/IncidentRow';
 
 const PastIncidentsList = ({ queryLimit }) => {
