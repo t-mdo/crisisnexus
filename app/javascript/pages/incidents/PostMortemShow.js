@@ -41,7 +41,10 @@ const PostMortemShow = () => {
   });
 
   return (
-    <div id="form-body" className="py-6 px-4 md:px-32 overflow-y-auto">
+    <div
+      id="form-body"
+      className="py-6 px-4 md:px-32 overflow-y-auto whitespace-pre"
+    >
       <div className="mb-4 flex justify-between">
         <h2 className="font-semibold text-2xl">Postmortem</h2>
         <Button href={`edit`}>Edit</Button>
