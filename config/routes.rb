@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new'
   get '/logout', to: 'sessions#destroy'
   resource :session, only: %i[create destroy]
+  resource :password_reset, only: %i[new create edit update]
 
   # Only static pages for lp
   get '/welcome', to: 'landing#index'
