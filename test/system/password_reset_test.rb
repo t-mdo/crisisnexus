@@ -43,6 +43,7 @@ class RegistrationTest < ApplicationSystemTestCase
     click_on 'Reset it'
     assert_text 'Reset password'
     fill_in 'Email', with: 'crapcrap@crapcrap.com'
+    click_on 'Reset password'
     assert_text 'No user found with that email'
   end
 end
