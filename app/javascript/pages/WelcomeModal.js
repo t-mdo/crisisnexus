@@ -27,7 +27,7 @@ const WelcomeModal = ({ open, onClose }) => {
   };
 
   const onBookButtonClick = () => {
-    window.open('https://calendly.com/tmdo/crisisnexus-intro', '_blank');
+    window.open('https://calendly.com/crisisnexus/onboarding', '_blank');
     trackEvent({ name: 'book_intro_call_button_clicked' });
     triggerOrganizationPatch();
     onClose();

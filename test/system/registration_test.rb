@@ -53,7 +53,7 @@ class RegistrationTest < ApplicationSystemTestCase
       click_on 'Book the session'
     end
     within_window new_tab do
-      assert_current_path 'https://calendly.com/tmdo/crisisnexus-intro', ignore_query: true
+      assert_current_path 'https://calendly.com/crisisnexus/onboarding', ignore_query: true
     end
     new_tab.close
 
