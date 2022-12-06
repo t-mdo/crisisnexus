@@ -1,5 +1,4 @@
 import { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import OpenIncidentContext from 'modules/contexts/openIncidentContext';
 import OrganizationContext from 'modules/contexts/organizationContext';
 import {
@@ -31,7 +30,6 @@ const CoolStateStatusBar = () => {
 };
 
 const HotStateStatusBar = () => {
-  const navigate = useNavigate();
   const { organization } = useContext(OrganizationContext);
 
   return (
@@ -52,10 +50,7 @@ const HotStateStatusBar = () => {
           );
         }
         return (
-          <Button
-            color={BUTTON_COLOR_PRIMARY}
-            onClick={() => navigate('/settings')}
-          >
+          <Button href="/organization" color="white">
             Set up your crisis room
           </Button>
         );
