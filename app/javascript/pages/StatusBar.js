@@ -51,7 +51,7 @@ const HotStateStatusBar = () => {
         }
         return (
           <Button href="/organization" color="white">
-            Set up your crisis room
+            Set up your war room
           </Button>
         );
       })()}

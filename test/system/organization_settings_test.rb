@@ -7,6 +7,18 @@ class OrganizationSettingsTest < ApplicationSystemTestCase
     create_list(:account, 20, organization: @organization)
   end
 
+  test 'setup war room url' do
+    create(:incident, :open, organization: @organization)
+    @organization.update!(war_room_url: nil)
+
+    login_as(account: @account)
+    click_on 'Set up your war room'
+    assert_text 'Organization settings'
+    fill_in 'war_room_url', with: 'https://meet.google.com/xxx-yyyy-zzz'
+    click_on 'Submit'
+    assert_text 'Changes applied'
+  end
+
   test 'organization settings form and accounts list and accounts invitations' do
     login_as(account: @account)
     click_on 'Organization'
