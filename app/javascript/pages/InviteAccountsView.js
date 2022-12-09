@@ -33,9 +33,10 @@ const InviteAccountsView = () => {
         >
           <Input className="w-full pointer-events-none" disabled value={url} />
         </button>
-        <p className="mb-4 text-sm text-gray-400">
-          Alernatively, they can create an account from the landing page using a
-          email domain that matches your organization's domain.
+        <p className="text-sm text-gray-400">
+          Alternatively, they can create an account from the landing page using
+          an email associated to a domain that matches your organization's
+          domain.
         </p>
       </Card>
     </FullView>
