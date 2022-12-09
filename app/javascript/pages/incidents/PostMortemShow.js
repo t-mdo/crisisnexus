@@ -102,14 +102,15 @@ const PostMortemShow = () => {
                 <div className="text font-semibold text-gray-500 mb-2">
                   Next step actions
                 </div>
-                {next_step_actions.map((action, index) => (
-                  <div key={index} className="flex items-center mb-4">
-                    <div className="px-4 py-2 bg-white border rounded overflow-y-auto">
-                      <span className="mr-2">{index + 1}.</span>
-                      {action.name}
-                    </div>
-                  </div>
-                ))}
+                <ul className="list-disc">
+                  {next_step_actions.map((action, index) => (
+                    <li key={index} className="mb-4">
+                      <div className="px-4 py-2 bg-white border rounded overflow-y-auto">
+                        {action.name}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
               </div>
             )}
           </>

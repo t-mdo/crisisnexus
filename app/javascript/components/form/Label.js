@@ -14,7 +14,7 @@ export const Label = ({ subtitle, className, children }) => (
     >
       {children}
     </label>
-    {subtitle && <p className="text-xs text-gray-400 mb-1">{subtitle}</p>}
+    {subtitle && <p className="text-xs text-gray-400 mb-2">{subtitle}</p>}
   </>
 );
 

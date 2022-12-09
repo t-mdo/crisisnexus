@@ -197,9 +197,7 @@ const PostMortemEdit = () => {
                 {...register('unlucky_text')}
               />
               <div className="flex justify-between">
-                <Label htmlFor="five_whys_text" className="mb-0">
-                  Five whys analysis
-                </Label>
+                <Label htmlFor="five_whys_text">Five whys analysis</Label>
                 <a
                   className="text-blue-700"
                   href="https://en.wikipedia.org/wiki/Five_whys"
@@ -218,22 +216,25 @@ const PostMortemEdit = () => {
             </div>
             <div>
               <Label>Next step actions</Label>
-              {range(nextStepActionsFieldIndex + 1).map((index) => (
-                <div key={index} className="flex items-center mb-4">
-                  <span className="mr-2">{index + 1}.</span>
-                  <Input
-                    className="w-1/2"
-                    placeholder="Action name"
-                    onKeyDown={(e) => {
-                      if (e.key !== 'Enter') return;
-                      e.preventDefault();
-                      setFocus(`next_step_actions.${index + 1}.name`);
-                    }}
-                    id={`next_step_actions.${index}.name`}
-                    {...register(`next_step_actions.${index}.name`)}
-                  />
-                </div>
-              ))}
+              <ul className="pl-6 list-disc marker:text-gray-600">
+                {range(nextStepActionsFieldIndex + 1).map((index) => (
+                  <li key={index}>
+                    <div className="flex items-center mb-4">
+                      <Input
+                        className="w-1/2"
+                        placeholder="Action name"
+                        onKeyDown={(e) => {
+                          if (e.key !== 'Enter') return;
+                          e.preventDefault();
+                          setFocus(`next_step_actions.${index + 1}.name`);
+                        }}
+                        id={`next_step_actions.${index}.name`}
+                        {...register(`next_step_actions.${index}.name`)}
+                      />
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
             <div className="flex justify-end">
               <UpdateStatus loading={putLoading} success={putSuccess} />
