@@ -26,7 +26,7 @@ const Text = ({ uiStyle = 'body', inline, className, children }) => {
         {
           'text-gray-400 text-sm': uiStyle === 'subtext',
           'text-gray-900': uiStyle === 'body',
-          'text-gray-900 font-semibold text-lg': uiStyle === 'heading-2',
+          'text-gray-900 font-semibold text-xl': uiStyle === 'heading-2',
           'text-gray-900 font-medium text-lg': uiStyle === 'heading-3',
         },
         className,
