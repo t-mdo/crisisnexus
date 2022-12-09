@@ -86,7 +86,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_140426) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "assigned_to_id"
-    t.datetime "deadline_at"
+    t.datetime "due_at"
+    t.datetime "completed_at"
     t.index ["assigned_to_id"], name: "index_next_step_actions_on_assigned_to_id"
     t.index ["postmortem_id"], name: "index_next_step_actions_on_postmortem_id"
   end
