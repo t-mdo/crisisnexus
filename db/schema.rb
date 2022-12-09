@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_30_164751) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_09_140426) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -85,6 +85,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_30_164751) do
     t.bigint "postmortem_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "assigned_to_id"
+    t.datetime "deadline_at"
+    t.index ["assigned_to_id"], name: "index_next_step_actions_on_assigned_to_id"
     t.index ["postmortem_id"], name: "index_next_step_actions_on_postmortem_id"
   end
 
@@ -170,6 +173,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_30_164751) do
   add_foreign_key "incidents", "organizations"
   add_foreign_key "minutes", "accounts", column: "recorded_by_id"
   add_foreign_key "minutes", "incidents"
+  add_foreign_key "next_step_actions", "accounts", column: "assigned_to_id"
   add_foreign_key "next_step_actions", "postmortems"
   add_foreign_key "postmortems", "accounts", column: "assigned_to_id"
   add_foreign_key "postmortems", "incidents"
