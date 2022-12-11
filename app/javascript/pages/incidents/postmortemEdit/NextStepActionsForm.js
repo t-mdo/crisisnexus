@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useFieldArray } from 'react-hook-form';
 import range from 'lodash/range';
 import { Input, DateInput } from 'components/form/Input';
 import IconButton from 'components/IconButton';
@@ -7,6 +7,7 @@ import useAccountsAutocompletion from 'modules/accounts/useAccountsAutocompletio
 import { AutocompletedInput } from 'components/form/AutocompletedInput';
 import { Label } from 'components/form/Label';
 import TrashIcon from 'icons/regular/trash-can.svg';
+import PlusIcon from 'icons/regular/plus.svg';
 
 const NextStepActionInputs = ({
   index,
@@ -72,6 +73,7 @@ const NextStepActionInputs = ({
 const NextStepActionsForm = ({ defaultValues }) => {
   const {
     register,
+    control,
     handleSubmit,
     watch,
     setFocus,
@@ -80,18 +82,35 @@ const NextStepActionsForm = ({ defaultValues }) => {
   } = useForm({
     defaultValues: { next_step_actions: defaultValues },
   });
-  const nextStepActions = watch('next_step_actions');
-  const nextStepActionsCount =
-    nextStepActions?.filter((action) => action.name).length || 0;
+
+  const { fields, append, remove } = useFieldArray({
+    name: 'next_step_actions',
+    control,
+  });
+
+  useEffect(() => {
+    if (fields.length === 0) {
+      append({}, { shouldFocus: false });
+    }
+  }, [fields]);
+
+  const everyNameFilled = watch('next_step_actions')?.every(
+    (action) => action.name,
+  );
+  useEffect(() => {
+    if (everyNameFilled) {
+      append({}, { shouldFocus: false });
+    }
+  }, [everyNameFilled]);
 
   return (
     <div>
       <Label>Next step actions</Label>
       <div className="mx-3">
-        <ul className="flex flex-col gap-y-2">
-          {range(nextStepActionsCount + 1).map((index) => (
+        <ul className="mb-2 flex flex-col gap-y-2">
+          {fields.map((field, index) => (
             <NextStepActionInputs
-              key={index}
+              key={field.id}
               index={index}
               setFocus={setFocus}
               register={register}

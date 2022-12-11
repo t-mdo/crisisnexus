@@ -38,7 +38,6 @@ export const DateInput = forwardRef(
     useEffect(() => {
       if (dateInputRef.current) {
         dateInputRef.current.addEventListener('blur', ({ target }) => {
-          console.log(target.value);
           if (target.value) return;
           dateInputRef.current.value = '';
           inputRef.current.style.display = 'block';
