@@ -6,13 +6,13 @@ import { Loader, BlockLoader } from 'components/Loader';
 import PostmortemForm from 'pages/incidents/PostmortemEdit/PostmortemForm';
 import NextStepActionsForm from 'pages/incidents/PostmortemEdit/NextStepActionsForm';
 
-const UpdateStatus = ({ loading, success }) => {
+const UpdateStatus = ({ loading, success, wording }) => {
   if (loading) {
     return <Loader />;
   }
 
   if (success) {
-    return <div className="text-gray-400">Document saved</div>;
+    return <div className="text-gray-400">{wording} saved</div>;
   }
 
   return <div className="invisible">Placeholder</div>;
@@ -23,7 +23,7 @@ const PostmortemEdit = () => {
 
   const { data: { postmortem } = {}, loading: fetchPostmortemLoading } =
     useHttpQuery({
-      url: `/incidents/${incident.local_id}/postmortem`,
+      url: `/postmortems/${incident.postmortem.id}`,
     });
 
   const {
@@ -31,7 +31,7 @@ const PostmortemEdit = () => {
     success: putPostmortemSuccess,
     trigger: triggerPutPostmortem,
   } = useHttpQuery({
-    url: `/incidents/${incident.local_id}/postmortem`,
+    url: `/postmortems/${incident.postmortem.id}`,
     method: 'PUT',
     trigger: true,
   });
@@ -59,8 +59,9 @@ const PostmortemEdit = () => {
           <BlockLoader />
         ) : (
           <div>
-            <div className="flex justify-end">
+            <div className="flex justify-end mb-4">
               <UpdateStatus
+                wording="Postmortem"
                 loading={putPostmortemLoading}
                 success={putPostmortemSuccess}
               />
@@ -69,27 +70,31 @@ const PostmortemEdit = () => {
               triggerPut={triggerPutPostmortem}
               defaultValues={postmortem}
             />
-            <div className="flex justify-end">
+            <div className="flex justify-end mt-4">
               <UpdateStatus
+                wording="Postmortem"
                 loading={putPostmortemLoading}
                 success={putPostmortemSuccess}
               />
             </div>
           </div>
         )}
-        {fetchNextStepActionsLoading ? (
-          <BlockLoader />
-        ) : (
-          <div className="mt-8">
-            <NextStepActionsForm />
-            <div className="flex justify-end">
-              <UpdateStatus
-                loading={putPostmortemLoading}
-                success={putPostmortemSuccess}
-              />
-            </div>
-          </div>
-        )}
+        <div className="mt-8">
+          {fetchNextStepActionsLoading ? (
+            <BlockLoader />
+          ) : (
+            <>
+              <NextStepActionsForm />
+              <div className="flex justify-end mt-4">
+                <UpdateStatus
+                  wording="Actions"
+                  loading={putPostmortemLoading}
+                  success={putPostmortemSuccess}
+                />
+              </div>
+            </>
+          )}
+        </div>
       </Card>
     </div>
   );

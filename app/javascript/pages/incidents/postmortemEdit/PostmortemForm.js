@@ -30,16 +30,7 @@ const PostmortemForm = ({ triggerPut, defaultValues }) => {
   const onSubmit = (postmortem) => {
     triggerPut({
       body: {
-        postmortem: {
-          ...postmortem,
-          next_step_actions_attributes: postmortem.next_step_actions.map(
-            (actions) => ({
-              name: actions.name,
-              assigned_to_id: actions.assigned_to?.id,
-              due_at: actions.due_at,
-            }),
-          ),
-        },
+        postmortem,
       },
     });
   };
@@ -86,7 +77,7 @@ const PostmortemForm = ({ triggerPut, defaultValues }) => {
           />
         </div>
       </div>
-      <div className="mb-8">
+      <div>
         <Label
           htmlFor="timeline_text"
           subtitle="From the moment the incident appeared to its resolution"

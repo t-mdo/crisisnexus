@@ -37,7 +37,7 @@ const PostmortemShow = () => {
     } = {},
     loading: fetchLoading,
   } = useHttpQuery({
-    url: `incidents/${incident.local_id}/postmortem`,
+    url: `/postmortems/${incident.postmortem.id}`,
   });
 
   return (
