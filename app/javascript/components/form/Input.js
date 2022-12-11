@@ -35,16 +35,19 @@ export const DateInput = forwardRef(
       dateInputRef.current.focus();
     };
 
+    const onBlur = ({ target }) => {
+      if (target.value) return;
+      dateInputRef.current.value = '';
+      inputRef.current.style.display = 'block';
+      dateInputRef.current.style.display = 'none';
+    };
+
     useEffect(() => {
-      if (dateInputRef.current) {
-        dateInputRef.current.addEventListener('blur', ({ target }) => {
-          if (target.value) return;
-          dateInputRef.current.value = '';
-          inputRef.current.style.display = 'block';
-          dateInputRef.current.style.display = 'none';
-        });
+      const { current } = dateInputRef;
+      if (current) {
+        current.addEventListener('blur', onBlur);
         return () => {
-          dateInputRef.current.removeEventListener('blur', () => {});
+          current.removeEventListener('blur', onBlur);
         };
       }
     }, []);
