@@ -19,13 +19,15 @@ const useHttpQuery = ({
     error: false,
   });
   const executeRequest = async ({
+    url: triggerUrl,
+    method: triggerMethod,
     body: triggerBody,
     params: triggerParams,
   } = {}) => {
     setState((state) => ({ ...state, loading: true }));
     httpQuery({
-      url,
-      method,
+      url: triggerUrl || url,
+      method: triggerMethod || method,
       body: triggerBody || body,
       params: triggerParams || params,
     })
