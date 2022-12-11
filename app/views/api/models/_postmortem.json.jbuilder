@@ -13,8 +13,3 @@ json.is_touched postmortem.touched?
 json.assigned_to do
   json.partial! 'api/models/account', account: postmortem.assigned_to
 end
-json.next_step_actions postmortem.next_step_actions do |action|
-  json.name action.name
-  json.assigned_to action.assigned_to, partial: 'api/models/account', as: :account
-  json.due_at action.due_at.strftime('%Y-%m-%d')
-end
