@@ -17,7 +17,7 @@ const LabelAndField = ({ label, field }) => {
   );
 };
 
-const PostMortemShow = () => {
+const PostmortemShow = () => {
   const { incident } = useOutletContext();
 
   const {
@@ -120,4 +120,4 @@ const PostMortemShow = () => {
   );
 };
 
-export default PostMortemShow;
+export default PostmortemShow;

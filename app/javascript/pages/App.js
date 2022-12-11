@@ -18,8 +18,8 @@ import IncidentsIndex from 'pages/IncidentsIndex';
 import IncidentsRoot from 'pages/IncidentsRoot';
 import IncidentsShow from 'pages/incidents/IncidentsShow';
 import IncidentsMinutesForm from 'pages/incidents/MinutesForm';
-import IncidentsPostMortemShow from 'pages/incidents/PostMortemShow';
-import IncidentsPostMortemEdit from 'pages/incidents/PostMortemEdit';
+import IncidentsPostmortemShow from 'pages/incidents/PostmortemShow';
+import IncidentsPostmortemEdit from 'pages/incidents/PostmortemEdit';
 import RolesIndex from 'pages/RolesIndex';
 import RolesShow from 'pages/RolesShow';
 import Organization from 'pages/Organization';
@@ -34,8 +34,8 @@ const AppRoutes = () => (
     <Route path="/incidents/:id" element={<IncidentsRoot />}>
       <Route index element={<IncidentsShow />} />
       <Route path="minutes" element={<IncidentsMinutesForm />} />
-      <Route path="postmortem" element={<IncidentsPostMortemShow />} />
-      <Route path="postmortem/edit" element={<IncidentsPostMortemEdit />} />
+      <Route path="postmortem" element={<IncidentsPostmortemShow />} />
+      <Route path="postmortem/edit" element={<IncidentsPostmortemEdit />} />
     </Route>
     <Route path="/roles" element={<RolesIndex />} />
     <Route path="/roles/:name" element={<RolesShow />} />

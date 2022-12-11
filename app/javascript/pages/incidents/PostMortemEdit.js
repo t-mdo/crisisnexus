@@ -76,7 +76,7 @@ const NextStepActionInputs = ({
   );
 };
 
-const PostMortemEdit = () => {
+const PostmortemEdit = () => {
   const { incident } = useOutletContext();
 
   const {
@@ -301,4 +301,4 @@ const PostMortemEdit = () => {
   );
 };
 
-export default PostMortemEdit;
+export default PostmortemEdit;
