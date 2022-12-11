@@ -28,7 +28,8 @@ class Api::Incidents::PostmortemsController < ApiController
   def set_attributes
     permit_attributes =
       [:summary, :impact_who, :impact_what, :incident_impact_started_at, :incident_impact_ended_at,
-       :timeline_text, :lucky_text, :unlucky_text, :five_whys_text, { next_step_actions_attributes: [:name] }]
+       :timeline_text, :lucky_text, :unlucky_text, :five_whys_text,
+       { next_step_actions_attributes: %i[name due_at assigned_to_id] }]
     @postmortem_attributes = params.require(:postmortem).permit(permit_attributes)
     @postmortem_attributes[:next_step_actions_attributes].filter! { |action| action[:name].present? }
     @postmortem_attributes.compact_blank!

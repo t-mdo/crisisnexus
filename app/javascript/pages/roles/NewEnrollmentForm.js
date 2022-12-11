@@ -29,9 +29,9 @@ const NewEnrollmentForm = ({ enrollments, onAccountSelect }) => {
     <form className="flex items-start p-1 grow-0">
       <AutocompletedInput
         options={autocompleteOptions}
-        onChange={({ target: { value } }) => setEmailInput(value)}
+        onInputChange={({ target: { value } }) => setEmailInput(value)}
         value={emailInput}
-        onSelect={onAccountSelect}
+        onChange={onAccountSelect}
         placeholder="New member's email"
         className="w-full"
       />

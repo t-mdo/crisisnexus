@@ -3,6 +3,8 @@ import { useOutletContext } from 'react-router-dom';
 import { useForm, useWatch } from 'react-hook-form';
 import debounce from 'lodash/debounce';
 import useHttpQuery from 'modules/httpQuery/useHttpQuery';
+import useAccountsAutocompletion from 'modules/accounts/useAccountsAutocompletion';
+import { AutocompletedInput } from 'components/form/AutocompletedInput';
 import { Input, TextArea } from 'components/form/Input';
 import { Label } from 'components/form/Label';
 import { LinkButton } from 'components/LinkButton';
@@ -22,6 +24,58 @@ const UpdateStatus = ({ loading, success }) => {
   return <div className="invisible">Placeholder</div>;
 };
 
+const NextStepActionInputs = ({
+  index,
+  setFocus,
+  register,
+  setValue,
+  watch,
+}) => {
+  const [accountInput, setAccountInput] = useState();
+  const accountsOptions = useAccountsAutocompletion({
+    valueWatcher: accountInput,
+  });
+  const accountWatcher = watch(`next_step_actions.${index}.assigned_to`);
+  const accountValue = {
+    display: accountWatcher?.email,
+    value: accountWatcher?.id,
+  };
+
+  return (
+    <div className="flex flex-wrap gap-4 items-center mb-4">
+      <Input
+        className="w-1/3"
+        placeholder="Task name"
+        onKeyDown={(e) => {
+          if (e.key !== 'Enter') return;
+          e.preventDefault();
+          setFocus(`next_step_actions.${index + 1}.name`);
+        }}
+        {...register(`next_step_actions.${index}.name`)}
+      />
+      <AutocompletedInput
+        options={accountsOptions}
+        onChange={({ display, value }) => {
+          setValue(
+            `next_step_actions.${index}.assigned_to`,
+            { id: value, email: display },
+            {
+              shouldDirty: true,
+            },
+          );
+        }}
+        value={accountValue}
+        placeholder="Task owner"
+        className="w-1/3"
+        onInputChange={({ target: { value } }) => {
+          setAccountInput(value);
+        }}
+      />
+      <Input type="date" {...register(`next_step_actions.${index}.due_at`)} />
+    </div>
+  );
+};
+
 const PostMortemEdit = () => {
   const { incident } = useOutletContext();
 
@@ -33,6 +87,7 @@ const PostMortemEdit = () => {
     reset: resetForm,
     control,
     formState: { isDirty: formIsDirty },
+    setValue,
   } = useForm();
 
   const { loading: fetchLoading } = useHttpQuery({
@@ -63,6 +118,15 @@ const PostMortemEdit = () => {
     }
   }, [newestNSAField]);
 
+  const previousNSAField =
+    nextStepActionsFieldIndex > 0 &&
+    watch(`next_step_actions.${nextStepActionsFieldIndex - 1}.name`);
+  useEffect(() => {
+    if (previousNSAField === false || previousNSAField) return;
+
+    setNextStepActionsFieldIndex(nextStepActionsFieldIndex - 1);
+  }, [previousNSAField]);
+
   const debouncedTriggerForm = useCallback(
     debounce(() => {
       handleSubmit(onSubmit)();
@@ -76,21 +140,18 @@ const PostMortemEdit = () => {
     debouncedTriggerForm();
   }, [watchForm]);
 
-  const previousNSAField =
-    nextStepActionsFieldIndex > 0 &&
-    watch(`next_step_actions.${nextStepActionsFieldIndex - 1}.name`);
-  useEffect(() => {
-    if (previousNSAField === false || previousNSAField) return;
-
-    setNextStepActionsFieldIndex(nextStepActionsFieldIndex - 1);
-  }, [previousNSAField]);
-
   const onSubmit = (postmortem) => {
     triggerPut({
       body: {
         postmortem: {
           ...postmortem,
-          next_step_actions_attributes: postmortem.next_step_actions,
+          next_step_actions_attributes: postmortem.next_step_actions.map(
+            (actions) => ({
+              name: actions.name,
+              assigned_to_id: actions.assigned_to?.id,
+              due_at: actions.due_at,
+            }),
+          ),
         },
       },
     });
@@ -219,19 +280,13 @@ const PostMortemEdit = () => {
               <ul className="pl-6 list-disc marker:text-gray-600">
                 {range(nextStepActionsFieldIndex + 1).map((index) => (
                   <li key={index}>
-                    <div className="flex items-center mb-4">
-                      <Input
-                        className="w-1/2"
-                        placeholder="Action name"
-                        onKeyDown={(e) => {
-                          if (e.key !== 'Enter') return;
-                          e.preventDefault();
-                          setFocus(`next_step_actions.${index + 1}.name`);
-                        }}
-                        id={`next_step_actions.${index}.name`}
-                        {...register(`next_step_actions.${index}.name`)}
-                      />
-                    </div>
+                    <NextStepActionInputs
+                      index={index}
+                      setFocus={setFocus}
+                      register={register}
+                      setValue={setValue}
+                      watch={watch}
+                    />
                   </li>
                 ))}
               </ul>

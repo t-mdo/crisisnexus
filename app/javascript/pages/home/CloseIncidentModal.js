@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import useHttpQuery from 'modules/httpQuery/useHttpQuery';
 import OpenIncidentContext from 'modules/contexts/openIncidentContext';
+import useAccountsAutocompletion from 'modules/accounts/useAccountsAutocompletion';
 import { AutocompletedInput } from 'components/form/AutocompletedInput';
 import {
   Modal,
@@ -80,16 +81,11 @@ const PostmortemForm = ({
     setValue,
   } = useForm({ defaultValues: closureFormData.postmortem });
 
-  const { data: { accounts } = {}, trigger: triggerFetch } = useHttpQuery({
-    url: '/accounts',
-    trigger: true,
-  });
-
   const assignedTo = watch('assigned_to');
-  useEffect(() => {
-    const params = assignedTo ? { q: assignedTo, limit: 4 } : {};
-    triggerFetch({ params });
-  }, [assignedTo]);
+
+  const accountsOptions = useAccountsAutocompletion({
+    valueWatcher: assignedTo,
+  });
 
   const onSubmit = ({ assigned_to }) => {
     setClosureFormData((data) => ({
@@ -97,12 +93,6 @@ const PostmortemForm = ({
       postmortem: { assigned_to: assigned_to.value },
     }));
   };
-
-  const autocompleteOptions =
-    accounts?.map((account) => ({
-      display: account.email,
-      value: account.id,
-    })) || [];
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -114,8 +104,8 @@ const PostmortemForm = ({
         />
         <Label>Who's owning the postmortem?</Label>
         <AutocompletedInput
-          options={autocompleteOptions}
-          onSelect={(account_id) => {
+          options={accountsOptions}
+          onChange={(account_id) => {
             setValue('assigned_to', account_id);
           }}
           placeholder="Postmortem owner email"
