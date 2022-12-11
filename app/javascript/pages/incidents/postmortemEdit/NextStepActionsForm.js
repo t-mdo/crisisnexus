@@ -78,7 +78,7 @@ const NextStepActionsForm = ({ defaultValues }) => {
     setValue,
     formState: { isDirty: formIsDirty },
   } = useForm({
-    defaultValues,
+    defaultValues: { next_step_actions: defaultValues },
   });
   const nextStepActions = watch('next_step_actions');
   const nextStepActionsCount =

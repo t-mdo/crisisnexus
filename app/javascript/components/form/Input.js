@@ -25,40 +25,42 @@ export const TextArea = forwardRef((props, ref) => (
 
 export const DateInput = forwardRef(
   ({ className, placeholder, ...props }, ref) => {
-    const [selected, setSelected] = useState(false);
-    const localRef = useRef();
+    const inputRef = useRef();
+    const dateInputRef = useRef();
+    const hasValue = Boolean(dateInputRef?.current?.value);
 
-    const onFocus = () => {
-      setSelected(true);
+    const onFocus = ({ target }) => {
+      target.style.display = 'none';
+      dateInputRef.current.style.display = 'block';
+      dateInputRef.current.focus();
     };
 
     useEffect(() => {
-      if (localRef.current && selected) {
-        localRef.current.focus();
-        localRef.current.showPicker();
-      }
-    }, [selected]);
-
-    useEffect(() => {
-      if (localRef.current) {
-        localRef.current.addEventListener('blur', ({ target }) => {
-          if (target.value !== '') return;
-
-          setSelected(false);
+      if (dateInputRef.current) {
+        dateInputRef.current.addEventListener('blur', ({ target }) => {
+          console.log(target.value);
+          if (target.value) return;
+          dateInputRef.current.value = '';
+          inputRef.current.style.display = 'block';
+          dateInputRef.current.style.display = 'none';
         });
+        return () => {
+          dateInputRef.current.removeEventListener('blur', () => {});
+        };
       }
     }, []);
 
     return (
       <>
         <Input
-          className={classnames({ hidden: selected }, className)}
+          ref={inputRef}
+          className={classnames({ hidden: hasValue }, className)}
           onFocus={onFocus}
           placeholder={placeholder}
         />
         <Input
-          className={classnames({ hidden: !selected }, className)}
-          ref={mergeRefs([ref, localRef])}
+          className={classnames({ hidden: !hasValue }, className)}
+          ref={mergeRefs([ref, dateInputRef])}
           element="input"
           type="date"
           {...props}

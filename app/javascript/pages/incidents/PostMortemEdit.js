@@ -39,9 +39,8 @@ const PostmortemEdit = () => {
   const {
     data: { next_step_actions } = {},
     loading: fetchNextStepActionsLoading,
-    success: fetchNextStepActionsSuccess,
   } = useHttpQuery({
-    url: `/incidents/${incident.local_id}/postmortem/next_step_actions`,
+    url: `/postmortems/${incident.postmortem.id}/next_step_actions`,
   });
 
   return (
@@ -84,7 +83,7 @@ const PostmortemEdit = () => {
             <BlockLoader />
           ) : (
             <>
-              <NextStepActionsForm />
+              <NextStepActionsForm defaultValues={next_step_actions} />
               <div className="flex justify-end mt-4">
                 <UpdateStatus
                   wording="Actions"
