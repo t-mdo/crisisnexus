@@ -3,8 +3,8 @@ import useHttpQuery from 'modules/httpQuery/useHttpQuery';
 import { LinkButton } from 'components/LinkButton';
 import Card from 'components/Card';
 import { Loader, BlockLoader } from 'components/Loader';
-import PostmortemForm from 'pages/incidents/PostmortemEdit/PostmortemForm';
-import NextStepActionsForm from 'pages/incidents/PostmortemEdit/NextStepActionsForm';
+import PostmortemForm from 'pages/incidents/postmortemEdit/PostmortemForm';
+import NextStepActionsForm from 'pages/incidents/postmortemEdit/NextStepActionsForm';
 
 const UpdateStatus = ({ loading, success, wording }) => {
   if (loading) {
