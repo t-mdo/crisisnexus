@@ -17,7 +17,7 @@ const LabelAndField = ({ label, field }) => {
   );
 };
 
-const PostMortemShow = () => {
+const PostmortemShow = () => {
   const { incident } = useOutletContext();
 
   const {
@@ -37,7 +37,7 @@ const PostMortemShow = () => {
     } = {},
     loading: fetchLoading,
   } = useHttpQuery({
-    url: `incidents/${incident.local_id}/postmortem`,
+    url: `/postmortems/${incident.postmortem.id}`,
   });
 
   return (
@@ -71,15 +71,11 @@ const PostMortemShow = () => {
                       Start:
                     </span>
                     <div className="mr-4 px-2 py-2 bg-white border rounded w-fit">
-                      {dayjs(incident_impact_started_at).format(
-                        'YYYY-MM-DD HH:mm',
-                      )}
+                      {dayjs(incident_impact_started_at).format('lll')}
                     </div>
                     <span className="mr-1 text-gray-400 font-medium">End:</span>
                     <div className="px-2 py-2 bg-white border rounded w-fit">
-                      {dayjs(incident_impact_ended_at).format(
-                        'YYYY-MM-DD HH:mm',
-                      )}
+                      {dayjs(incident_impact_ended_at).format('lll')}
                     </div>
                   </div>
                 </>
@@ -102,14 +98,15 @@ const PostMortemShow = () => {
                 <div className="text font-semibold text-gray-500 mb-2">
                   Next step actions
                 </div>
-                {next_step_actions.map((action, index) => (
-                  <div key={index} className="flex items-center mb-4">
-                    <div className="px-4 py-2 bg-white border rounded overflow-y-auto">
-                      <span className="mr-2">{index + 1}.</span>
-                      {action.name}
-                    </div>
-                  </div>
-                ))}
+                <ul className="list-disc">
+                  {next_step_actions.map((action, index) => (
+                    <li key={index} className="mb-4">
+                      <div className="px-4 py-2 bg-white border rounded overflow-y-auto">
+                        {action.name}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
               </div>
             )}
           </>
@@ -119,4 +116,4 @@ const PostMortemShow = () => {
   );
 };
 
-export default PostMortemShow;
+export default PostmortemShow;

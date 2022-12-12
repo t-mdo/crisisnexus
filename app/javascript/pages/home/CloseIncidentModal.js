@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import useHttpQuery from 'modules/httpQuery/useHttpQuery';
 import OpenIncidentContext from 'modules/contexts/openIncidentContext';
+import useAccountsAutocompletion from 'modules/accounts/useAccountsAutocompletion';
 import { AutocompletedInput } from 'components/form/AutocompletedInput';
 import {
   Modal,
@@ -67,62 +68,38 @@ const IncidentUpdateForm = ({
 };
 
 const PostmortemForm = ({
-  closureFormData,
   setClosureFormData,
   closingLoading,
   closingErrors,
 }) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors: formErrors },
-    watch,
-    setValue,
-  } = useForm({ defaultValues: closureFormData.postmortem });
+  const [queryText, setQueryText] = useState('');
+  const [assignedToId, setAssignedToId] = useState();
 
-  const { data: { accounts } = {}, trigger: triggerFetch } = useHttpQuery({
-    url: '/accounts',
-    trigger: true,
+  const accountsOptions = useAccountsAutocompletion({
+    valueWatcher: queryText,
   });
 
-  const assignedTo = watch('assigned_to');
-  useEffect(() => {
-    const params = assignedTo ? { q: assignedTo, limit: 4 } : {};
-    triggerFetch({ params });
-  }, [assignedTo]);
-
-  const onSubmit = ({ assigned_to }) => {
+  const onSubmit = () => {
     setClosureFormData((data) => ({
       ...data,
-      postmortem: { assigned_to: assigned_to.value },
+      postmortem: { assigned_to: assignedToId },
     }));
   };
 
-  const autocompleteOptions =
-    accounts?.map((account) => ({
-      display: account.email,
-      value: account.id,
-    })) || [];
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={onSubmit}>
       <div>
-        <ErrorFeedback
-          formErrors={Object.values(formErrors).map((error) => error.message)}
-          queryErrors={closingErrors}
-          className="mb-4"
-        />
+        <ErrorFeedback queryErrors={closingErrors} className="mb-4" />
         <Label>Who's owning the postmortem?</Label>
         <AutocompletedInput
-          options={autocompleteOptions}
-          onSelect={(account_id) => {
-            setValue('assigned_to', account_id);
+          options={accountsOptions}
+          onChange={({ value }) => {
+            setAssignedToId(value);
           }}
           placeholder="Postmortem owner email"
           className="w-2/3"
-          {...register('assigned_to', {
-            required: 'You need to assign an owner to the postmortem',
-          })}
+          onInputChange={({ target: { value } }) => setQueryText(value)}
+          inputValue={queryText}
         />
       </div>
       <div className="mt-48 flex justify-end w-full">
@@ -180,7 +157,6 @@ const CloseIncidentModal = ({ open, onClose }) => {
           )}
           {formStep === 'postmortem' && (
             <PostmortemForm
-              closureFormData={closureFormData}
               setClosureFormData={setClosureFormData}
               closingLoading={loading}
               closingErrors={putError && putResponse.errors}

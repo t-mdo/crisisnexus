@@ -19,19 +19,23 @@ const useHttpQuery = ({
     error: false,
   });
   const executeRequest = async ({
+    url: triggerUrl,
+    method: triggerMethod,
     body: triggerBody,
     params: triggerParams,
+    onSuccess: triggerOnSuccess,
   } = {}) => {
     setState((state) => ({ ...state, loading: true }));
     httpQuery({
-      url,
-      method,
+      url: triggerUrl || url,
+      method: triggerMethod || method,
       body: triggerBody || body,
       params: triggerParams || params,
     })
       .then((response) => {
         setState({ ...response, success: true, loading: false, error: false });
         if (onSuccess) onSuccess(response);
+        if (triggerOnSuccess) triggerOnSuccess(response);
       })
       .catch((error) => {
         if (environment === 'development')

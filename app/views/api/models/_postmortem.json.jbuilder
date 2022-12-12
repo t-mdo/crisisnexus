@@ -13,6 +13,3 @@ json.is_touched postmortem.touched?
 json.assigned_to do
   json.partial! 'api/models/account', account: postmortem.assigned_to
 end
-json.next_step_actions postmortem.next_step_actions do |action|
-  json.name action.name
-end

@@ -9,6 +9,7 @@ import Button, { BUTTON_COLOR_SUCCESS } from 'components/Button';
 import PastIncidentsList from 'pages/home/PastIncidentsList';
 import CloseIncidentModal from 'pages/home/CloseIncidentModal';
 import RolesBlock from 'pages/home/RolesBlock';
+import Text from 'components/Text';
 
 const HotStateDashboard = ({ incident }) => {
   const { account } = useContext(AccountContext);
@@ -56,12 +57,21 @@ const HotStateDashboard = ({ incident }) => {
   );
 };
 
+const TodosList = () => {
+  return (
+    <>
+      <Text uiStyle="heading-2" className="mb-3">
+        Todos
+      </Text>
+      <Card className="flex flex-col items-center justify-center px-8 py-4 mb-12"></Card>
+    </>
+  );
+};
+
 const CoolStateDashboard = () => {
   return (
     <>
-      <Card className="flex flex-col items-center justify-center px-8 py-4 mb-12">
-        <p className="text-lg">No incident in progress</p>
-      </Card>
+      <TodosList />
       <PastIncidentsList queryLimit={5} />
     </>
   );

@@ -39,14 +39,26 @@ export const AutocompletedInputOption = ({ item }) => (
 );
 
 export const AutocompletedInput = forwardRef(
-  ({ onSelect, onChange, options, className, ...props }, ref) => (
-    <Combobox onChange={onSelect}>
+  (
+    {
+      onChange,
+      value,
+      onInputChange,
+      inputValue,
+      options,
+      className,
+      ...props
+    },
+    ref,
+  ) => (
+    <Combobox value={value} onChange={onChange}>
       <div className={classnames('relative', className)}>
         <Combobox.Input
           ref={ref}
           className={classnames(inputComponentStyle, 'w-full')}
           displayValue={(item) => item?.display}
-          onChange={onChange}
+          onChange={onInputChange}
+          value={inputValue}
           {...props}
         />
         <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
@@ -55,7 +67,7 @@ export const AutocompletedInput = forwardRef(
             <ChevronDown className="w-2 h-fit fill-gray-400" />
           </div>
         </Combobox.Button>
-        <Combobox.Options className="absolute mt-1 py-1 w-full max-h-60 overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+        <Combobox.Options className="absolute mt-1 py-1 w-full max-h-60 overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm z-30">
           {options.map((option) => (
             <AutocompletedInputOption key={option.value} item={option} />
           ))}

@@ -1,7 +1,6 @@
 import { useOutletContext } from 'react-router-dom';
 import useHttpQuery from 'modules/httpQuery/useHttpQuery';
 import { Button } from 'components/Button';
-import Loader from 'components/Loader';
 import {
   ScribedMinutesContainer,
   ScribedMinutes,
@@ -30,12 +29,11 @@ const RoleBlock = ({ icon, displayName, roleHolder }) => (
 
 const IncidentsShow = () => {
   const { incident } = useOutletContext();
+  const { postmortem } = incident;
 
   const { data: { minutes } = {}, loading: loadingFetchMinutes } = useHttpQuery(
     { url: `incidents/${incident.local_id}/minutes` },
   );
-  const { data: { postmortem } = {}, loading: loadingPostmortem } =
-    useHttpQuery({ url: `incidents/${incident.local_id}/postmortem` });
 
   return (
     <div className="flex overflow-y-auto h-full">
@@ -66,23 +64,19 @@ const IncidentsShow = () => {
       </div>
       <div className="grow-1 px-8 py-6">
         <div className="text font-semibold text-gray-500 mb-2">Postmortem</div>
-        {loadingPostmortem ? (
-          <Loader />
-        ) : (
-          postmortem && (
-            <>
-              <div className="mb-2 text-ellipsis">
-                <span className="text-sm text-gray-500">Owner:</span>{' '}
-                {postmortem.assigned_to.display_name}
-              </div>
-              <Button
-                href={`postmortem${postmortem.is_touched ? '' : '/edit'}`}
-                className="text-center mb-4"
-              >
-                {postmortem.is_touched ? 'View' : 'Edit'}
-              </Button>
-            </>
-          )
+        {postmortem && (
+          <>
+            <div className="mb-2 text-ellipsis">
+              <span className="text-sm text-gray-500">Owner:</span>{' '}
+              {postmortem.assigned_to.display_name}
+            </div>
+            <Button
+              href={`postmortem${postmortem.is_touched ? '' : '/edit'}`}
+              className="text-center mb-4"
+            >
+              {postmortem.is_touched ? 'View' : 'Edit'}
+            </Button>
+          </>
         )}
         <div className="text font-semibold text-gray-500 mb-2">Roles</div>
         <div className="flex flex-col justify-evenly text-gray-900 mb-6">
