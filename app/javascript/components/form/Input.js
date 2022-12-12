@@ -28,7 +28,7 @@ export const TextArea = forwardRef((props, ref) => (
 ));
 
 export const DateInput = forwardRef(
-  ({ className, placeholder, ...props }, ref) => {
+  ({ className, placeholder, type = 'date', ...props }, ref) => {
     const inputRef = useRef();
     const dateInputRef = useRef();
     const hasValue = Boolean(dateInputRef?.current?.value);
@@ -68,7 +68,7 @@ export const DateInput = forwardRef(
           className={classnames({ hidden: !hasValue }, className)}
           ref={mergeRefs([ref, dateInputRef])}
           element="input"
-          type="date"
+          type={type}
           {...props}
         />
       </>

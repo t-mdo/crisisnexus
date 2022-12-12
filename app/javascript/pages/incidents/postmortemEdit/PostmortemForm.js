@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import { useForm } from 'react-hook-form';
 import useAutosave from 'modules/form/useAutosave';
 import { Label } from 'components/form/Label';
-import { Input, TextArea } from 'components/form/Input';
+import { Input, TextArea, DateInput } from 'components/form/Input';
 
 const PostmortemForm = ({ triggerPut, defaultValues }) => {
   const { register, handleSubmit, control } = useForm({
@@ -22,6 +22,12 @@ const PostmortemForm = ({ triggerPut, defaultValues }) => {
       body: {
         postmortem: {
           ...postmortem,
+          incident_impact_started_at: dayjs(
+            postmortem.incident_impact_started_at,
+          ).format(),
+          incident_impact_ended_at: dayjs(
+            postmortem.incident_impact_ended_at,
+          ).format(),
         },
       },
     });
@@ -61,15 +67,17 @@ const PostmortemForm = ({ triggerPut, defaultValues }) => {
         />
         <Label>When did the incident start and end *for impacted users*?</Label>
         <div className="flex">
-          <Input
+          <DateInput
             type="datetime-local"
             className="mr-2"
             id="incident_impact_started_at"
+            placeholder="Start time"
             {...register('incident_impact_started_at')}
           />
-          <Input
+          <DateInput
             type="datetime-local"
             id="incident_impact_ended_at"
+            placeholder="End time"
             {...register('incident_impact_ended_at')}
           />
         </div>
