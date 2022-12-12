@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
+import dayjs from 'dayjs';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import useAutosave from 'modules/form/useAutosave';
 import { Input, DateInput } from 'components/form/Input';
+import InputError from 'components/form/InputError';
 import IconButton from 'components/IconButton';
 import useAccountsAutocompletion from 'modules/accounts/useAccountsAutocompletion';
 import { AutocompletedInput } from 'components/form/AutocompletedInput';
@@ -15,6 +20,7 @@ const NextStepActionInputs = ({
   watch,
   displayRemoveButton,
   removeAction,
+  errors,
 }) => {
   const [accountInput, setAccountInput] = useState();
   const accountsOptions = useAccountsAutocompletion({
@@ -29,16 +35,19 @@ const NextStepActionInputs = ({
 
   return (
     <li className="grid grid-cols-12 gap-x-4 p-3 border rounded">
-      <Input
-        className="col-span-5"
-        placeholder="Title"
-        onKeyDown={(e) => {
-          if (e.key !== 'Enter') return;
-          e.preventDefault();
-          setFocus(`next_step_actions.${index + 1}.name`);
-        }}
-        {...register(`next_step_actions.${index}.name`)}
-      />
+      <div className="flex flex-col col-span-5">
+        <Input
+          placeholder="Title"
+          onKeyDown={(e) => {
+            if (e.key !== 'Enter') return;
+            e.preventDefault();
+            setFocus(`next_step_actions.${index + 1}.name`);
+          }}
+          error={Boolean(errors?.name)}
+          {...register(`next_step_actions.${index}.name`)}
+        />
+        <InputError className="mt-1" message={errors?.name?.message} />
+      </div>
       <AutocompletedInput
         options={accountsOptions}
         onChange={({ display, value }) => {
@@ -57,11 +66,14 @@ const NextStepActionInputs = ({
           setAccountInput(value);
         }}
       />
-      <DateInput
-        className="col-span-2"
-        placeholder="Due date"
-        {...register(`next_step_actions.${index}.due_at`)}
-      />
+      <div className="col-span-2 flex flex-col">
+        <DateInput
+          placeholder="Due date"
+          error={Boolean(errors?.due_at)}
+          {...register(`next_step_actions.${index}.due_at`)}
+        />
+        <InputError className="mt-1" message={errors?.due_at?.message} />
+      </div>
       <div className="flex justify-center items-center">
         {displayRemoveButton && (
           <IconButton onClick={() => removeAction({ index, id })}>
@@ -73,7 +85,31 @@ const NextStepActionInputs = ({
   );
 };
 
-const NextStepActionsForm = ({ defaultValues, deleteQuery }) => {
+const validationSchema = yup
+  .object({
+    next_step_actions: yup.array().of(
+      yup.object({
+        assigned_to: yup.object().nullable().default(null),
+        due_at: yup
+          .date()
+          .min(new Date(), 'Due date must be in the future')
+          .transform((curr, orig) => (orig === '' ? null : curr))
+          .nullable()
+          .default(null),
+        name: yup
+          .string()
+          .nullable()
+          .default(null)
+          .when(['assigned_to', 'due_at'], {
+            is: (assigned_to, due_at) => assigned_to || due_at,
+            then: (schema) => schema.required('Title is required'),
+          }),
+      }),
+    ),
+  })
+  .required();
+
+const NextStepActionsForm = ({ defaultValues, deleteQuery, postQuery }) => {
   const {
     register,
     control,
@@ -81,9 +117,17 @@ const NextStepActionsForm = ({ defaultValues, deleteQuery }) => {
     watch,
     setFocus,
     setValue,
-    formState: { isDirty: formIsDirty },
+    formState: { errors },
   } = useForm({
-    defaultValues: { next_step_actions: defaultValues },
+    defaultValues: {
+      next_step_actions: defaultValues.map((action) => ({
+        ...action,
+        due_at: action.due_at
+          ? dayjs(action.due_at).format('YYYY-MM-DD')
+          : null,
+      })),
+    },
+    resolver: yupResolver(validationSchema),
   });
 
   const { fields, append, remove } = useFieldArray({
@@ -91,22 +135,19 @@ const NextStepActionsForm = ({ defaultValues, deleteQuery }) => {
     control,
   });
 
+  const appendAction = () =>
+    append({ name: null, due_at: null }, { shouldFocus: false });
   useEffect(() => {
     if (fields.length === 0) {
-      append({}, { shouldFocus: false });
+      appendAction();
     }
   }, [fields]);
 
   const nextStepActions = watch('next_step_actions');
   const everyNameFilled = nextStepActions?.every((action) => action.name);
   useEffect(() => {
-    if (everyNameFilled) append({}, { shouldFocus: false });
+    if (everyNameFilled) appendAction();
   }, [everyNameFilled]);
-
-  // const lastRow = watch('next_step_actions')?.slice(-2)[0];
-  // useEffect(() => {
-  //   if (!lastRow.name && !lastRow.assigned_to && !lastRow.due_at) remove(-1);
-  // }, [lastRow.name, lastRow.assigned_to, lastRow.due_at]);
 
   const removeAction = ({ index, id }) => {
     if (id) {
@@ -114,6 +155,22 @@ const NextStepActionsForm = ({ defaultValues, deleteQuery }) => {
     }
     remove(index);
   };
+
+  const onSubmit = ({ next_step_actions }) => {
+    postQuery({
+      next_step_actions: next_step_actions.map((action) => ({
+        id: action.id,
+        name: action.name,
+        assigned_to_id: action.assigned_to?.id,
+        due_at: dayjs(action.due_at).format('YYYY-MM-DD'),
+      })),
+    });
+  };
+
+  useAutosave({
+    onSubmit: handleSubmit(onSubmit),
+    control,
+  });
 
   return (
     <div>
@@ -131,6 +188,7 @@ const NextStepActionsForm = ({ defaultValues, deleteQuery }) => {
               watch={watch}
               displayRemoveButton={index !== nextStepActions.length - 1}
               removeAction={removeAction}
+              errors={errors?.next_step_actions?.[index]}
             />
           ))}
         </ul>

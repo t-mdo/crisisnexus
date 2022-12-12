@@ -70,6 +70,7 @@ const PostmortemShow = () => {
                     <span className="mr-1 text-gray-400 font-medium">
                       Start:
                     </span>
+                    {console.log(incident_impact_started_at)}
                     <div className="mr-4 px-2 py-2 bg-white border rounded w-fit">
                       {dayjs(incident_impact_started_at).format(
                         'YYYY-MM-DD HH:mm',

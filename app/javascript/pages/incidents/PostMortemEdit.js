@@ -97,6 +97,13 @@ const PostmortemEdit = () => {
                     method: 'DELETE',
                   })
                 }
+                postQuery={({ next_step_actions }) =>
+                  triggerQueryActions({
+                    url: `/postmortems/${incident.postmortem.id}/next_step_actions`,
+                    method: 'POST',
+                    body: { next_step_actions },
+                  })
+                }
               />
               <div className="flex justify-end mt-4">
                 <UpdateStatus

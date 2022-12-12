@@ -5,6 +5,6 @@ class NextStepAction < ApplicationRecord
   validates :name, presence: true
   validates :due_at,
             comparison: {
-              greater_than: Time.now.utc
+              greater_than: Time.zone.now
             }, allow_nil: true
 end

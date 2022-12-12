@@ -68,51 +68,38 @@ const IncidentUpdateForm = ({
 };
 
 const PostmortemForm = ({
-  closureFormData,
   setClosureFormData,
   closingLoading,
   closingErrors,
 }) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors: formErrors },
-    watch,
-    setValue,
-  } = useForm({ defaultValues: closureFormData.postmortem });
-
-  const assignedTo = watch('assigned_to');
+  const [queryText, setQueryText] = useState('');
+  const [assignedToId, setAssignedToId] = useState();
 
   const accountsOptions = useAccountsAutocompletion({
-    valueWatcher: assignedTo,
+    valueWatcher: queryText,
   });
 
-  const onSubmit = ({ assigned_to }) => {
+  const onSubmit = () => {
     setClosureFormData((data) => ({
       ...data,
-      postmortem: { assigned_to: assigned_to.value },
+      postmortem: { assigned_to: assignedToId },
     }));
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={onSubmit}>
       <div>
-        <ErrorFeedback
-          formErrors={Object.values(formErrors).map((error) => error.message)}
-          queryErrors={closingErrors}
-          className="mb-4"
-        />
+        <ErrorFeedback queryErrors={closingErrors} className="mb-4" />
         <Label>Who's owning the postmortem?</Label>
         <AutocompletedInput
           options={accountsOptions}
-          onChange={(account_id) => {
-            setValue('assigned_to', account_id);
+          onChange={({ value }) => {
+            setAssignedToId(value);
           }}
           placeholder="Postmortem owner email"
           className="w-2/3"
-          {...register('assigned_to', {
-            required: 'You need to assign an owner to the postmortem',
-          })}
+          onInputChange={({ target: { value } }) => setQueryText(value)}
+          inputValue={queryText}
         />
       </div>
       <div className="mt-48 flex justify-end w-full">
@@ -170,7 +157,6 @@ const CloseIncidentModal = ({ open, onClose }) => {
           )}
           {formStep === 'postmortem' && (
             <PostmortemForm
-              closureFormData={closureFormData}
               setClosureFormData={setClosureFormData}
               closingLoading={loading}
               closingErrors={putError && putResponse.errors}

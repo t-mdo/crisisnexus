@@ -1,39 +1,36 @@
-import { useEffect, useCallback } from 'react';
-import debounce from 'lodash/debounce';
-import { useForm, useWatch } from 'react-hook-form';
+import dayjs from 'dayjs';
+import { useForm } from 'react-hook-form';
+import useAutosave from 'modules/form/useAutosave';
 import { Label } from 'components/form/Label';
 import { Input, TextArea } from 'components/form/Input';
 
 const PostmortemForm = ({ triggerPut, defaultValues }) => {
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState: { isDirty: formIsDirty },
-  } = useForm({
-    defaultValues,
+  const { register, handleSubmit, control } = useForm({
+    defaultValues: {
+      ...defaultValues,
+      incident_impact_started_at: dayjs(
+        defaultValues.incident_impact_started_at,
+      ).format('YYYY-MM-DD HH:mm'),
+      incident_impact_ended_at: dayjs(
+        defaultValues.incident_impact_ended_at,
+      ).format('YYYY-MM-DD HH:mm'),
+    },
   });
-
-  const debouncedTriggerForm = useCallback(
-    debounce(() => {
-      handleSubmit(onSubmit)();
-    }, 2000),
-    [],
-  );
-  const watchForm = useWatch({ control: control });
-  useEffect(() => {
-    if (!formIsDirty) return;
-
-    debouncedTriggerForm();
-  }, [watchForm]);
 
   const onSubmit = (postmortem) => {
     triggerPut({
       body: {
-        postmortem,
+        postmortem: {
+          ...postmortem,
+        },
       },
     });
   };
+
+  useAutosave({
+    onSubmit: handleSubmit(onSubmit),
+    control,
+  });
 
   return (
     <form>
