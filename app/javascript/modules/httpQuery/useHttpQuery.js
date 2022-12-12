@@ -23,6 +23,7 @@ const useHttpQuery = ({
     method: triggerMethod,
     body: triggerBody,
     params: triggerParams,
+    onSuccess: triggerOnSuccess,
   } = {}) => {
     setState((state) => ({ ...state, loading: true }));
     httpQuery({
@@ -34,6 +35,7 @@ const useHttpQuery = ({
       .then((response) => {
         setState({ ...response, success: true, loading: false, error: false });
         if (onSuccess) onSuccess(response);
+        if (triggerOnSuccess) triggerOnSuccess(response);
       })
       .catch((error) => {
         if (environment === 'development')

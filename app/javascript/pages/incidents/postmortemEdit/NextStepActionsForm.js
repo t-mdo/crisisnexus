@@ -70,6 +70,7 @@ const NextStepActionInputs = ({
         <DateInput
           placeholder="Due date"
           error={Boolean(errors?.due_at)}
+          max={dayjs().add(3, 'year').format('YYYY-MM-DD')}
           {...register(`next_step_actions.${index}.due_at`)}
         />
         <InputError className="mt-1" message={errors?.due_at?.message} />
@@ -117,6 +118,7 @@ const NextStepActionsForm = ({ defaultValues, deleteQuery, postQuery }) => {
     watch,
     setFocus,
     setValue,
+    reset,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -130,18 +132,13 @@ const NextStepActionsForm = ({ defaultValues, deleteQuery, postQuery }) => {
     resolver: yupResolver(validationSchema),
   });
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove, update } = useFieldArray({
     name: 'next_step_actions',
     control,
   });
 
   const appendAction = () =>
     append({ name: null, due_at: null }, { shouldFocus: false });
-  useEffect(() => {
-    if (fields.length === 0) {
-      appendAction();
-    }
-  }, [fields]);
 
   const nextStepActions = watch('next_step_actions');
   const everyNameFilled = nextStepActions?.every((action) => action.name);
@@ -156,6 +153,17 @@ const NextStepActionsForm = ({ defaultValues, deleteQuery, postQuery }) => {
     remove(index);
   };
 
+  const resetForm = ({ data: { next_step_actions } }) => {
+    const formNextStepAction = watch('next_step_actions');
+
+    if (next_step_actions?.length) {
+      formNextStepAction.forEach((action, index) => {
+        if (!action.id && action.name)
+          update(index, { id: next_step_actions[index].id, ...action });
+      });
+    }
+  };
+
   const onSubmit = ({ next_step_actions }) => {
     postQuery({
       next_step_actions: next_step_actions.map((action) => ({
@@ -164,6 +172,7 @@ const NextStepActionsForm = ({ defaultValues, deleteQuery, postQuery }) => {
         assigned_to_id: action.assigned_to?.id,
         due_at: dayjs(action.due_at).format('YYYY-MM-DD'),
       })),
+      onSuccess: resetForm,
     });
   };
 

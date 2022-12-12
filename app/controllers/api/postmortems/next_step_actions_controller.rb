@@ -7,14 +7,18 @@ class Api::Postmortems::NextStepActionsController < ApiController
   end
 
   def create
-    @next_step_actions = params.permit(next_step_actions: %i[id name assigned_to_id due_at])[:next_step_actions]
-    @next_step_actions = @next_step_actions.to_a.filter { |action| action[:name].present? }
-    @next_step_actions.each do |action|
-      if action[:id].present?
-        update_next_step_action(action)
-      else
-        create_next_step_action(action)
-      end
+    @next_step_actions_params =
+      params.permit(next_step_actions: %i[id name assigned_to_id due_at])[:next_step_actions].to_a
+    @next_step_actions_params.filter! { |action| action[:name].present? }
+
+    @next_step_actions = []
+
+    @next_step_actions_params.each do |action|
+      @next_step_actions << if action[:id].present?
+                              update_next_step_action(action)
+                            else
+                              create_next_step_action(action)
+                            end
     end
   end
 
@@ -36,7 +40,7 @@ class Api::Postmortems::NextStepActionsController < ApiController
 
   def create_next_step_action(attributes)
     action = @postmortem.next_step_actions.build(attributes)
-    return if action.save
+    return action if action.save
 
     render status: :unprocessable_entity,
            json: { errors: action.errors.full_messages }
@@ -44,7 +48,7 @@ class Api::Postmortems::NextStepActionsController < ApiController
 
   def update_next_step_action(attributes)
     action = @postmortem.next_step_actions.find(attributes[:id])
-    return if action.update(attributes)
+    return action if action.update(attributes)
 
     render status: :unprocessable_entity,
            json: { errors: action.errors.full_messages }

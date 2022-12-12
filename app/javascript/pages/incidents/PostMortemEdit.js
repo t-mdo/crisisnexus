@@ -97,11 +97,12 @@ const PostmortemEdit = () => {
                     method: 'DELETE',
                   })
                 }
-                postQuery={({ next_step_actions }) =>
+                postQuery={({ next_step_actions, onSuccess }) =>
                   triggerQueryActions({
                     url: `/postmortems/${incident.postmortem.id}/next_step_actions`,
                     method: 'POST',
                     body: { next_step_actions },
+                    onSuccess,
                   })
                 }
               />
