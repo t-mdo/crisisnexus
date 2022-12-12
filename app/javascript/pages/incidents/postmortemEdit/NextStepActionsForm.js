@@ -118,7 +118,6 @@ const NextStepActionsForm = ({ defaultValues, deleteQuery, postQuery }) => {
     watch,
     setFocus,
     setValue,
-    reset,
     formState: { errors },
   } = useForm({
     defaultValues: {
