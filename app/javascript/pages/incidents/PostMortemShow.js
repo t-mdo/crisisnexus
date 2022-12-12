@@ -32,12 +32,15 @@ const PostmortemShow = () => {
         lucky_text,
         unlucky_text,
         five_whys_text,
-        next_step_actions,
       } = {},
     } = {},
     loading: fetchLoading,
   } = useHttpQuery({
     url: `/postmortems/${incident.postmortem.id}`,
+  });
+
+  const { data: { next_step_actions } = {} } = useHttpQuery({
+    url: `/postmortems/${incident.postmortem.id}/next_step_actions`,
   });
 
   return (

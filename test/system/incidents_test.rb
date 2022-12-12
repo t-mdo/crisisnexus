@@ -138,8 +138,10 @@ class IncidentsTest < ApplicationSystemTestCase
 
     assert_text 'Postmortem edition'
     fill_in 'summary', with: 'The landing page was fully blank'
-    assert_document_saved
+    sleep 2
+    assert_text 'Postmortem saved'
     click_on 'Back to incident'
+    refresh
     click_on 'View'
 
     assert_text 'Postmortem'
@@ -151,17 +153,22 @@ class IncidentsTest < ApplicationSystemTestCase
     assert_field 'summary', with: 'The landing page was fully blank'
     fill_in 'impact_who', with: 'All users'
     fill_in 'impact_what', with: 'They could not access the landing page and thus not login if they were logged out'
+    find('input[placeholder="Start time"]').click
     fill_in 'incident_impact_started_at', with: Time.parse('24-12-2022 18:00')
+    find('input[placeholder="End time"]').click
     fill_in 'incident_impact_ended_at', with: Time.parse('24-12-2022 19:00')
     fill_in 'timeline_text', with: 'Timeline'
     fill_in 'lucky_text', with: 'Lucky'
     fill_in 'unlucky_text', with: 'Unlucky'
     fill_in 'five_whys_text', with: 'Five whys'
+    sleep 2
+    assert_text 'Postmortem saved'
     assert_no_field 'next_step_actions.1.name'
     fill_in 'next_step_actions.0.name', with: 'Deploy sentry to catch 500 sooner'
     assert_field 'next_step_actions.1.name'
     fill_in 'next_step_actions.1.name', with: 'Add a test on the landing page'
-    assert_document_saved
+    sleep 2
+    assert_text 'Actions saved'
     click_on 'Back to incident'
     click_on 'View'
 
@@ -170,20 +177,13 @@ class IncidentsTest < ApplicationSystemTestCase
     assert_text 'The landing page was fully blank'
     assert_text 'All users'
     assert_text 'They could not access the landing page and thus not login if they were logged out'
-    assert_text '2022-12-24 19:00'
-    assert_text '2022-12-24 20:00'
+    assert_text 'Dec 24, 2022 6:00 PM'
+    assert_text 'Dec 24, 2022 7:00 PM'
     assert_text 'Timeline'
     assert_text 'Lucky'
     assert_text 'Unlucky'
     assert_text 'Five whys'
     assert_text 'Deploy sentry to catch 500 sooner'
     assert_text 'Add a test on the landing page'
-  end
-
-  private
-
-  def assert_document_saved
-    sleep 2
-    assert_text 'Document saved'
   end
 end
