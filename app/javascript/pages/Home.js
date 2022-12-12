@@ -61,7 +61,7 @@ const TodosList = () => {
   return (
     <>
       <Text uiStyle="heading-2" className="mb-3">
-        Todos
+        To do
       </Text>
       <Card className="flex flex-col items-center justify-center px-8 py-4 mb-12"></Card>
     </>

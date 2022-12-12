@@ -13,7 +13,7 @@ class IncidentsTest < ApplicationSystemTestCase
   test 'triggers and closes an incident' do
     login_as(account: @account)
 
-    assert_text 'No incident in progress'
+    assert_text 'To do'
 
     click_on 'Trigger an incident'
 
@@ -48,7 +48,7 @@ class IncidentsTest < ApplicationSystemTestCase
           click_on 'Close incident'
         end
 
-        assert_text 'No incident in progress'
+        assert_text 'To do'
         assert_text '#CRISIS-1: We are down'
         assert_text 'Closed'
       end
