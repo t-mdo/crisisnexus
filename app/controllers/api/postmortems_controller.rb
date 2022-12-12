@@ -20,7 +20,7 @@ class Api::PostmortemsController < ApiController
   end
 
   def set_postmortem
-    @postmortem = Postmortem.find(params.require(:id))
+    @postmortem = current_organization.postmortems.find(params.require(:id))
   end
 
   def set_attributes

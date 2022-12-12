@@ -3,6 +3,7 @@ class Organization < ApplicationRecord
   has_many :incidents
   has_many :sms_notifications
   has_many :role_enrollments
+  has_many :postmortems, through: :incidents
 
   validate :war_room_url_is_valid
 

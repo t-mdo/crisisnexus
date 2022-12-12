@@ -8,6 +8,6 @@ class Api::Postmortems::NextStepActionsController < ApiController
   private
 
   def set_postmortem
-    @postmortem = Postmortem.find(params.require(:postmortem_id))
+    @postmortem = current_organization.postmortems.find(params.require(:postmortem_id))
   end
 end

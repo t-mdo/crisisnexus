@@ -2,7 +2,7 @@ class Postmortem < ApplicationRecord
   belongs_to :assigned_to, class_name: 'Account', inverse_of: :postmortem
   belongs_to :incident
   has_many :next_step_actions
-  accepts_nested_attributes_for :next_step_actions, allow_destroy: true
+  has_one :organization, through: :incident
 
   validates :incident_impact_ended_at,
             comparison: {
