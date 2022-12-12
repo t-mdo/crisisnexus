@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Api::Incidents::PostmortemControllerTest < ActionDispatch::IntegrationTest
+class Api::PostmortemControllerTest < ActionDispatch::IntegrationTest
   setup do
     @account = create(:account)
     @incident = create(:incident, :open, organization: @account.organization)
@@ -9,7 +9,7 @@ class Api::Incidents::PostmortemControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '#show renders postmortem' do
-    get incident_postmortem_path(@incident.local_id, format: :json)
+    get postmortem_path(@postmortem.id, format: :json)
     assert_response :success
 
     body = response.parsed_body
@@ -38,11 +38,10 @@ class Api::Incidents::PostmortemControllerTest < ActionDispatch::IntegrationTest
         timeline_text: 'timeline_text',
         lucky_text: 'lucky_text',
         unlucky_text: 'unlucky_text',
-        five_whys_text: 'five_whys_text',
-        next_step_actions_attributes: [{ name: 'action1' }, { name: 'action2' }]
+        five_whys_text: 'five_whys_text'
       } }
 
-    put incident_postmortem_path(@incident.local_id, params:, format: :json)
+    put postmortem_path(@postmortem.id, params:, format: :json)
     assert_response :success
 
     @postmortem.reload
@@ -52,23 +51,5 @@ class Api::Incidents::PostmortemControllerTest < ActionDispatch::IntegrationTest
     end
     assert_not_nil @postmortem.incident_impact_started_at
     assert_not_nil @postmortem.incident_impact_ended_at
-    assert_equal 2, @postmortem.next_step_actions.size
-    assert_equal 'action1', @postmortem.next_step_actions.first.name
-  end
-
-  test '#update overwrites next step actions' do
-    put incident_postmortem_path(
-      @incident.local_id,
-      params: { postmortem: { next_step_actions_attributes: [{ name: '1' }] } },
-      format: :json
-    )
-    assert_response :success
-    put incident_postmortem_path(
-      @incident.local_id,
-      params: { postmortem: { next_step_actions_attributes: [{ name: '2' }] } },
-      format: :json
-    )
-    assert_response :success
-    assert_equal 1, @postmortem.reload.next_step_actions.size
   end
 end
