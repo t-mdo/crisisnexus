@@ -43,6 +43,12 @@ const PostmortemEdit = () => {
     url: `/postmortems/${incident.postmortem.id}/next_step_actions`,
   });
 
+  const {
+    loading: queryActionsLoading,
+    success: queryActionsSuccess,
+    trigger: triggerQueryActions,
+  } = useHttpQuery({ trigger: true });
+
   return (
     <div id="form-body" className="py-6 px-4 md:px-32 overflow-y-auto">
       <LinkButton
@@ -83,12 +89,20 @@ const PostmortemEdit = () => {
             <BlockLoader />
           ) : (
             <>
-              <NextStepActionsForm defaultValues={next_step_actions} />
+              <NextStepActionsForm
+                defaultValues={next_step_actions}
+                deleteQuery={({ id }) =>
+                  triggerQueryActions({
+                    url: `/postmortems/${incident.postmortem.id}/next_step_actions/${id}`,
+                    method: 'DELETE',
+                  })
+                }
+              />
               <div className="flex justify-end mt-4">
                 <UpdateStatus
                   wording="Actions"
-                  loading={putPostmortemLoading}
-                  success={putPostmortemSuccess}
+                  loading={queryActionsLoading}
+                  success={queryActionsSuccess}
                 />
               </div>
             </>

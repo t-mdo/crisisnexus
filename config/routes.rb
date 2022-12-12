@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     end
     resources :postmortems, only: %i[show update] do
       scope module: :postmortems do
-        resources :next_step_actions, only: %i[index create update]
+        resources :next_step_actions, only: %i[index create destroy]
       end
     end
     resource :open_incident, only: %i[] do

@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
-import range from 'lodash/range';
 import { Input, DateInput } from 'components/form/Input';
 import IconButton from 'components/IconButton';
 import useAccountsAutocompletion from 'modules/accounts/useAccountsAutocompletion';
 import { AutocompletedInput } from 'components/form/AutocompletedInput';
 import { Label } from 'components/form/Label';
 import TrashIcon from 'icons/regular/trash-can.svg';
-import PlusIcon from 'icons/regular/plus.svg';
 
 const NextStepActionInputs = ({
   index,
@@ -15,11 +13,14 @@ const NextStepActionInputs = ({
   register,
   setValue,
   watch,
+  displayRemoveButton,
+  removeAction,
 }) => {
   const [accountInput, setAccountInput] = useState();
   const accountsOptions = useAccountsAutocompletion({
     valueWatcher: accountInput,
   });
+  const id = watch(`next_step_actions.${index}.id`);
   const accountWatcher = watch(`next_step_actions.${index}.assigned_to`);
   const accountValue = {
     display: accountWatcher?.email,
@@ -62,15 +63,17 @@ const NextStepActionInputs = ({
         {...register(`next_step_actions.${index}.due_at`)}
       />
       <div className="flex justify-center items-center">
-        <IconButton>
-          <TrashIcon className="w-4 fill-red-500" />
-        </IconButton>
+        {displayRemoveButton && (
+          <IconButton onClick={() => removeAction({ index, id })}>
+            <TrashIcon className="w-4 fill-red-500" />
+          </IconButton>
+        )}
       </div>
     </li>
   );
 };
 
-const NextStepActionsForm = ({ defaultValues }) => {
+const NextStepActionsForm = ({ defaultValues, deleteQuery }) => {
   const {
     register,
     control,
@@ -94,14 +97,23 @@ const NextStepActionsForm = ({ defaultValues }) => {
     }
   }, [fields]);
 
-  const everyNameFilled = watch('next_step_actions')?.every(
-    (action) => action.name,
-  );
+  const nextStepActions = watch('next_step_actions');
+  const everyNameFilled = nextStepActions?.every((action) => action.name);
   useEffect(() => {
-    if (everyNameFilled) {
-      append({}, { shouldFocus: false });
-    }
+    if (everyNameFilled) append({}, { shouldFocus: false });
   }, [everyNameFilled]);
+
+  // const lastRow = watch('next_step_actions')?.slice(-2)[0];
+  // useEffect(() => {
+  //   if (!lastRow.name && !lastRow.assigned_to && !lastRow.due_at) remove(-1);
+  // }, [lastRow.name, lastRow.assigned_to, lastRow.due_at]);
+
+  const removeAction = ({ index, id }) => {
+    if (id) {
+      deleteQuery({ id });
+    }
+    remove(index);
+  };
 
   return (
     <div>
@@ -111,11 +123,14 @@ const NextStepActionsForm = ({ defaultValues }) => {
           {fields.map((field, index) => (
             <NextStepActionInputs
               key={field.id}
+              id={field.id}
               index={index}
               setFocus={setFocus}
               register={register}
               setValue={setValue}
               watch={watch}
+              displayRemoveButton={index !== nextStepActions.length - 1}
+              removeAction={removeAction}
             />
           ))}
         </ul>
