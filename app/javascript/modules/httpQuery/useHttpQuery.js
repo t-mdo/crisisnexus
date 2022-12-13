@@ -54,7 +54,7 @@ const useHttpQuery = ({
     if (!trigger) executeRequest();
   }, [url]);
 
-  if (!trigger) return state;
+  if (!trigger) return { ...state, refresh: executeRequest };
   return { ...state, trigger: executeRequest };
 };
 

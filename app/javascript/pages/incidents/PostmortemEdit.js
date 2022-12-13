@@ -3,8 +3,13 @@ import useHttpQuery from 'modules/httpQuery/useHttpQuery';
 import { LinkButton } from 'components/LinkButton';
 import Card from 'components/Card';
 import { Loader, BlockLoader } from 'components/Loader';
+import { StatusBadge } from 'components/StatusBadge';
+import { Button } from 'components/Button';
+import Text from 'components/Text';
 import PostmortemForm from 'pages/incidents/postmortemEdit/PostmortemForm';
 import NextStepActionsForm from 'pages/incidents/postmortemEdit/NextStepActionsForm';
+import FileLinesIcon from 'icons/regular/file-lines.svg';
+import FileCheckIcon from 'icons/regular/file-check.svg';
 
 const UpdateStatus = ({ loading, success, wording }) => {
   if (loading) {
@@ -21,10 +26,13 @@ const UpdateStatus = ({ loading, success, wording }) => {
 const PostmortemEdit = () => {
   const { incident } = useOutletContext();
 
-  const { data: { postmortem } = {}, loading: fetchPostmortemLoading } =
-    useHttpQuery({
-      url: `/postmortems/${incident.postmortem.id}`,
-    });
+  const {
+    data: { postmortem } = {},
+    loading: fetchPostmortemLoading,
+    refresh: refreshPostmortem,
+  } = useHttpQuery({
+    url: `/postmortems/${incident.postmortem.id}`,
+  });
 
   const {
     loading: putPostmortemLoading,
@@ -34,6 +42,15 @@ const PostmortemEdit = () => {
     url: `/postmortems/${incident.postmortem.id}`,
     method: 'PUT',
     trigger: true,
+  });
+
+  const { trigger: triggerPutPostmortemStatus } = useHttpQuery({
+    url: `/postmortems/${incident.postmortem.id}/status`,
+    method: 'PUT',
+    trigger: true,
+    onSuccess: () => {
+      refreshPostmortem();
+    },
   });
 
   const {
@@ -58,15 +75,40 @@ const PostmortemEdit = () => {
       >
         Back to incident
       </LinkButton>
-      <h2 className="mb-4 font-semibold text-2xl">Postmortem edition</h2>
       <Card className="p-4">
         {fetchPostmortemLoading ? (
           <BlockLoader />
         ) : (
           <div>
+            <div className="mb-4 flex justify-between">
+              <div className="flex items-center gap-x-4 gap-y-2">
+                <Text uiStyle="heading-1">Postmortem</Text>
+                <StatusBadge
+                  color={postmortem.status === 'draft' ? 'info' : 'success'}
+                  icon={
+                    postmortem.status === 'draft'
+                      ? FileLinesIcon
+                      : FileCheckIcon
+                  }
+                >
+                  {postmortem.status}
+                </StatusBadge>
+              </div>
+              {postmortem.status === 'draft' && (
+                <Button
+                  onClick={() => {
+                    triggerPutPostmortemStatus({
+                      body: { status: 'published' },
+                    });
+                  }}
+                >
+                  Publish
+                </Button>
+              )}
+            </div>
             <div className="flex justify-end mb-4">
               <UpdateStatus
-                wording="Postmortem"
+                wording="Changes"
                 loading={putPostmortemLoading}
                 success={putPostmortemSuccess}
               />
@@ -77,7 +119,7 @@ const PostmortemEdit = () => {
             />
             <div className="flex justify-end mt-4">
               <UpdateStatus
-                wording="Postmortem"
+                wording="Changes"
                 loading={putPostmortemLoading}
                 success={putPostmortemSuccess}
               />

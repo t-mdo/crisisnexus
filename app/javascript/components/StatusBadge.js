@@ -17,7 +17,7 @@ export const StatusBadge = ({
       {
         'bg-blue-100 border-blue-400 text-blue-600':
           color === STATUS_COLOR_INFO,
-        'bg-green-100 border-green-400 text-green-600':
+        'bg-green-100 border-green-500 text-green-600':
           color === STATUS_COLOR_SUCCESS,
         'bg-orange-100 border-orange-400 text-orange-600':
           color === STATUS_COLOR_WARNING,
@@ -28,7 +28,7 @@ export const StatusBadge = ({
   >
     {Icon && (
       <Icon
-        className={classnames('w-3 mr-1', {
+        className={classnames('w-3 mr-2', {
           'fill-blue-600': color === STATUS_COLOR_INFO,
           'fill-green-600': color === STATUS_COLOR_SUCCESS,
           'fill-orange-600': color === STATUS_COLOR_WARNING,

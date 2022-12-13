@@ -1,3 +1,4 @@
+json.status postmortem.status
 json.summary postmortem.summary
 json.impact_who postmortem.impact_who
 json.impact_what postmortem.impact_what
