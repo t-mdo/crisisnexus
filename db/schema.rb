@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_09_140426) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_13_114448) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -116,6 +116,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_140426) do
     t.string "five_whys_text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status", default: "draft"
     t.index ["assigned_to_id"], name: "index_postmortems_on_assigned_to_id"
     t.index ["incident_id"], name: "index_postmortems_on_incident_id"
   end
