@@ -47,7 +47,7 @@ class Incident < ApplicationRecord
             allow_nil: true
   validate :is_enrolled_to_assume_role?
 
-  after_initialize :set_organization
+  before_validation :set_organization
   before_create :set_local_id
   before_create :abort_if_organization_has_open_incident
   before_update :set_ended_at,
@@ -125,13 +125,13 @@ class Incident < ApplicationRecord
   end
 
   def set_organization
-    return if creator.blank?
+    return if creator_id.blank?
 
     self.organization ||= creator.organization
   end
 
   def set_local_id
-    return if organization.blank?
+    return if organization_id.blank?
 
     self.local_id ||= organization.incidents.count + 1
   end
