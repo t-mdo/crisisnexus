@@ -71,10 +71,12 @@ const IncidentsShow = () => {
               {postmortem.assigned_to.display_name}
             </div>
             <Button
-              href={`postmortem${postmortem.is_touched ? '' : '/edit'}`}
+              href={`postmortem${
+                postmortem.status === 'published' ? '' : '/edit'
+              }`}
               className="text-center mb-4"
             >
-              {postmortem.is_touched ? 'View' : 'Edit'}
+              {postmortem.status === 'published' ? 'View' : 'Edit'}
             </Button>
           </>
         )}

@@ -3,7 +3,7 @@ json.incident do
   json.postmortem do
     if @incident.postmortem
       json.id @incident.postmortem.id
-      json.is_touched @incident.postmortem.touched?
+      json.status @incident.postmortem.status
       json.assigned_to @incident.postmortem.assigned_to, partial: 'api/models/account', as: :account
     end
   end

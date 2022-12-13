@@ -136,18 +136,12 @@ class IncidentsTest < ApplicationSystemTestCase
     assert_text "Owner: #{@account.display_name}"
     click_on 'Edit'
 
-    assert_text 'Postmortem edition'
+    assert_text 'Postmortem'
+    assert_text 'Draft'
     fill_in 'summary', with: 'The landing page was fully blank'
     sleep 2
-    assert_text 'Postmortem saved'
+    assert_text 'Changes saved'
     click_on 'Back to incident'
-    refresh
-    click_on 'View'
-
-    assert_text 'Postmortem'
-    assert_no_text 'edition'
-    assert_text 'One sentence summary'
-    assert_no_text 'Who was impacted'
     click_on 'Edit'
 
     assert_field 'summary', with: 'The landing page was fully blank'
@@ -162,17 +156,21 @@ class IncidentsTest < ApplicationSystemTestCase
     fill_in 'unlucky_text', with: 'Unlucky'
     fill_in 'five_whys_text', with: 'Five whys'
     sleep 2
-    assert_text 'Postmortem saved'
+    assert_text 'Changes saved'
     assert_no_field 'next_step_actions.1.name'
     fill_in 'next_step_actions.0.name', with: 'Deploy sentry to catch 500 sooner'
     assert_field 'next_step_actions.1.name'
     fill_in 'next_step_actions.1.name', with: 'Add a test on the landing page'
     sleep 2
     assert_text 'Actions saved'
+    click_on 'Publish'
+    assert_text 'Published'
     click_on 'Back to incident'
+    refresh
     click_on 'View'
 
     assert_text 'Postmortem'
+    assert_current_path '/incidents/1/postmortem'
     assert_no_text 'edition'
     assert_text 'The landing page was fully blank'
     assert_text 'All users'
