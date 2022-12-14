@@ -28,6 +28,7 @@ class Incident < ApplicationRecord
   has_many :minutes
   has_many :sms_notifications
   has_one :postmortem
+  has_many :next_step_actions, through: :postmortem
 
   enum :status,
        {
