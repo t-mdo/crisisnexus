@@ -28,6 +28,7 @@ Rails.application.routes.draw do
         resources :roles, only: %i[update]
       end
     end
+    resources :todos, only: %i[index update]
     resource :organization, only: %i[show create update]
     resource :current_account, only: %i[show update]
     resources :roles, only: %i[] do

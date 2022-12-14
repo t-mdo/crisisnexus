@@ -9,6 +9,7 @@ FactoryBot.define do
     ended_at { Faker::Time.between(from: started_at, to: started_at + 2.hours) }
 
     trait :open do
+      postmortem { nil }
       status { :open }
       started_at { Faker::Time.between(from: 2.hours.ago, to: 5.minutes.ago) }
       ended_at { nil }
