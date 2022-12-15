@@ -8,6 +8,7 @@ class Api::TodosController < ApiController
       .map do |postmortem|
         {
           type: 'postmortem',
+          id: postmortem.id,
           incident_local_id: postmortem.incident.local_id,
           incident_name: postmortem.incident.name,
           postmortem_id: postmortem.id
@@ -22,17 +23,17 @@ class Api::TodosController < ApiController
       .map do |action|
         {
           type: 'next_step_action',
+          id: action.id,
           incident_local_id: action.postmortem.incident.local_id,
           incident_name: action.postmortem.incident.name,
           postmortem_id: action.postmortem.id,
-          action_id: action.id,
           action_name: action.name
         }
       end
 
     @todos =
       (@assigned_postmortems_array + @assigned_actions_array)
-      .group_by { |todo| "Crisis ##{todo[:incident_local_id]}: #{todo[:incident_name]}" }
+      .group_by { |todo| todo[:incident_local_id] }
 
     render json: { todos: @todos }
   end

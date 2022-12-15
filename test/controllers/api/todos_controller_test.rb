@@ -21,7 +21,7 @@ class Api::TodosControllerTest < ActionDispatch::IntegrationTest
     todos = response.parsed_body['todos']
     todos.keys.each.with_index do |key, index|
       incident = @incidents[index]
-      assert_equal "Crisis ##{incident.local_id}: #{incident.name}", key
+      assert_equal incident.local_id.to_s, key
     end
     todos_array = todos.values.flatten
     assert_equal 15, todos_array.count
