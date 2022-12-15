@@ -23,7 +23,7 @@ const IncidentRow = ({ incident }) => {
     <li
       role="button"
       onClick={() => navigate(`/incidents/${incident.local_id}`)}
-      className="flex justify-between p-4 hover:bg-gray-100"
+      className="flex justify-between items-center p-4 hover:bg-gray-100"
     >
       <div className="w-full">
         <div className="flex justify-between md:justify-start mb-2">
@@ -50,7 +50,7 @@ const IncidentRow = ({ incident }) => {
           </div>
         </div>
       </div>
-      <ChevronRightIcon className="hidden md:block ml-4 w-3 fill-gray-400" />
+      <ChevronRightIcon className="hidden md:block ml-4 w-3 h-3 fill-gray-400" />
     </li>
   );
 };
