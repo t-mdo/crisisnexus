@@ -17,8 +17,10 @@ class Api::TodosController < ApiController
 
     @assigned_actions_array =
       NextStepAction
-      .where(assigned_to_id: current_account)
-      .where(completed_at: nil)
+      .joins(:postmortem)
+      .where(assigned_to: current_account)
+      .where(completed_at: nil).or(NextStepAction.where('completed_at < ?', 1.week.ago))
+      .merge(Postmortem.status_published)
       .includes(postmortem: :incident)
       .map do |action|
         {
@@ -27,7 +29,8 @@ class Api::TodosController < ApiController
           incident_local_id: action.postmortem.incident.local_id,
           incident_name: action.postmortem.incident.name,
           postmortem_id: action.postmortem.id,
-          action_name: action.name
+          action_name: action.name,
+          completed_at: action.completed_at
         }
       end
 
