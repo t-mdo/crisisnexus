@@ -17,18 +17,21 @@ const getElement = (uiStyle, inline) => {
   }
 };
 
-const Text = ({ uiStyle = 'body', inline, className, children }) => {
+const Text = ({ uiStyle = 'body', inline, color, className, children }) => {
   const Element = getElement(uiStyle, inline);
 
   return (
     <Element
       className={classnames(
         {
-          'text-gray-400 text-sm': uiStyle === 'subtext',
-          'text-gray-900': uiStyle === 'body',
-          'text-gray-900 font-semibold text-2xl': uiStyle === 'heading-1',
-          'text-gray-900 font-semibold text-xl': uiStyle === 'heading-2',
-          'text-gray-900 font-medium text-lg': uiStyle === 'heading-3',
+          'text-gray-400': !color && uiStyle === 'subtext',
+          'text-gray-900': !color && uiStyle !== 'subtext',
+          [color]: color,
+          'text-sm': uiStyle === 'subtext',
+          'text-base': uiStyle === 'body',
+          'font-semibold text-2xl': uiStyle === 'heading-1',
+          'font-semibold text-xl': uiStyle === 'heading-2',
+          'font-medium text-lg': uiStyle === 'heading-3',
         },
         className,
       )}

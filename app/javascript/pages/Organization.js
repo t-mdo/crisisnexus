@@ -88,10 +88,10 @@ const Organization = ({ organization, setOrganization }) => {
           </Button>
         </form>
       </Card>
-      <div className="mb-6 flex justify-between">
+      <div className="mb-6 flex flex-wrap gap-4 justify-between">
         <h3 className="font-semibold text-2xl">Registered accounts</h3>
         <Button className="nowrap text-ellipsis" href="/invite-accounts">
-          Invite new accounts in your organization
+          Invite accounts
         </Button>
       </div>
       <Card>

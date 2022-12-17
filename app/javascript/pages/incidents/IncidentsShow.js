@@ -95,7 +95,7 @@ const IncidentsShow = () => {
           <RoleBlock
             icon={<UserPenIcon className="w-6" />}
             displayName="Scribe"
-            roleHolder={incident.communication_manager}
+            roleHolder={incident.scribe}
           />
         </div>
       </div>

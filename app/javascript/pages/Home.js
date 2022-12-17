@@ -5,11 +5,11 @@ import FullView from 'components/FullView';
 import Alert from 'components/Alert';
 import { BlockLoader } from 'components/Loader';
 import Card from 'components/Card';
+import Text from 'components/Text';
 import Button, { BUTTON_COLOR_SUCCESS } from 'components/Button';
-import PastIncidentsList from 'pages/home/PastIncidentsList';
 import CloseIncidentModal from 'pages/home/CloseIncidentModal';
 import RolesBlock from 'pages/home/RolesBlock';
-import Text from 'components/Text';
+import TodoList from 'pages/home/TodoList';
 
 const HotStateDashboard = ({ incident }) => {
   const { account } = useContext(AccountContext);
@@ -57,23 +57,14 @@ const HotStateDashboard = ({ incident }) => {
   );
 };
 
-const TodosList = () => {
-  return (
-    <>
-      <Text uiStyle="heading-2" className="mb-3">
-        To do
-      </Text>
-      <Card className="flex flex-col items-center justify-center px-8 py-4 mb-12"></Card>
-    </>
-  );
-};
-
 const CoolStateDashboard = () => {
   return (
-    <>
-      <TodosList />
-      <PastIncidentsList queryLimit={5} />
-    </>
+    <div>
+      <Text uiStyle="heading-2" className="mb-3">
+        Next steps
+      </Text>
+      <TodoList />
+    </div>
   );
 };
 
