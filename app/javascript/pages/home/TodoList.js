@@ -18,6 +18,19 @@ import ArrowRightIcon from 'icons/regular/arrow-right.svg';
 const TODO_TYPE_POSTMORTEM = 'postmortem';
 const TODO_TYPE_NEXT_STEP_ACTION = 'next_step_action';
 
+const LinkToPostmortem = ({ children, type, incident_local_id }) => {
+  const editHrefSuffix = type === TODO_TYPE_POSTMORTEM ? '/edit' : '';
+
+  return (
+    <Link
+      className="group w-full flex justify-between items-center py-2 px-2 hover:bg-stone-300 active:bg-stone-400 rounded transition"
+      to={`/incidents/${incident_local_id}/postmortem${editHrefSuffix}`}
+    >
+      {children}
+    </Link>
+  );
+};
+
 const TodoItem = ({
   todo: { id, type, action_name, completed_at, incident_local_id },
   fetchRefresh,
@@ -37,37 +50,32 @@ const TodoItem = ({
     triggerCompletePut();
   };
 
-  const editHrefSuffix = type === TODO_TYPE_POSTMORTEM ? '/edit' : '';
-
-  return (
-    <Link
-      className="group w-full flex justify-between items-center py-2 px-3 hover:bg-stone-300 active:bg-stone-400 rounded transition"
-      to={`/incidents/${incident_local_id}/postmortem${editHrefSuffix}`}
-    >
-      {type === TODO_TYPE_POSTMORTEM && (
-        <div className="flex items-center gap-3">
-          <Checkbox disabled />
+  if (type === TODO_TYPE_POSTMORTEM)
+    return (
+      <div className="flex items-center gap-3">
+        <Checkbox disabled />
+        <LinkToPostmortem type={type} incident_local_id={incident_local_id}>
           <Text>Publish the postmortem</Text>
-        </div>
-      )}
-      {type === TODO_TYPE_NEXT_STEP_ACTION && (
-        <>
-          <div className="flex items-center gap-3">
-            <Checkbox checked={done} onChange={onCheckboxTick} />
-            <Text
-              className={classnames({ 'line-through': done })}
-              color={done ? 'text-gray-400' : null}
-            >
-              Action: {action_name}
-            </Text>
-          </div>
-        </>
-      )}
-      <div className="hidden group-hover:block">
-        <ArrowRightIcon className="w-5 h-5 fill-stone-600" />
+        </LinkToPostmortem>
       </div>
-    </Link>
-  );
+    );
+  if (type === TODO_TYPE_NEXT_STEP_ACTION)
+    return (
+      <div className="w-full flex gap-x-1 items-center">
+        <Checkbox checked={done} onChange={onCheckboxTick} />
+        <LinkToPostmortem type={type} incident_local_id={incident_local_id}>
+          <Text
+            className={classnames({ 'line-through': done })}
+            color={done ? 'text-gray-400' : null}
+          >
+            Action: {action_name}
+          </Text>
+          <div className="hidden group-hover:block">
+            <ArrowRightIcon className="w-5 h-5 fill-stone-600" />
+          </div>
+        </LinkToPostmortem>
+      </div>
+    );
 };
 
 const TodoList = () => {
