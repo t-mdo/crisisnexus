@@ -41,7 +41,7 @@ const TodoItem = ({
 
   return (
     <Link
-      className="group w-full flex justify-between items-center py-2 px-3 hover:bg-stone-300 rounded transition"
+      className="group w-full flex justify-between items-center py-2 px-3 hover:bg-stone-300 active:bg-stone-400 rounded transition"
       to={`/incidents/${incident_local_id}/postmortem${editHrefSuffix}`}
     >
       {type === TODO_TYPE_POSTMORTEM && (
@@ -90,6 +90,14 @@ const TodoList = () => {
       <Alert className="mb-8" color="error">
         Something went wrong loading the tasks
       </Alert>
+    );
+  if (todos && Object.entries(todos).length === 0)
+    return (
+      <Card className="flex justify-center p-4">
+        <span className="text-gray-400">
+          No next step for you at the moment!
+        </span>
+      </Card>
     );
   return (
     <Card className="flex flex-col py-8 px-8">

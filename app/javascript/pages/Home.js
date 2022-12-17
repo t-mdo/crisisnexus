@@ -10,6 +10,7 @@ import Button, { BUTTON_COLOR_SUCCESS } from 'components/Button';
 import CloseIncidentModal from 'pages/home/CloseIncidentModal';
 import RolesBlock from 'pages/home/RolesBlock';
 import TodoList from 'pages/home/TodoList';
+import PastIncidentsList from 'pages/home/PastIncidentsList';
 
 const HotStateDashboard = ({ incident }) => {
   const { account } = useContext(AccountContext);
@@ -61,9 +62,13 @@ const CoolStateDashboard = () => {
   return (
     <div>
       <Text uiStyle="heading-2" className="mb-3">
-        Next steps
+        To do
       </Text>
       <TodoList />
+      <Text uiStyle="heading-2" className="mt-8 mb-3">
+        Last incident
+      </Text>
+      <PastIncidentsList queryLimit={1} />
     </div>
   );
 };

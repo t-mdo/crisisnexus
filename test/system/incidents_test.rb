@@ -29,7 +29,7 @@ class IncidentsTest < ApplicationSystemTestCase
     assert_text 'Incident in progress'
     assert_button 'Join the war room'
     assert_text 'Open incident'
-    assert_text '#CRISIS-1: We are down'
+    assert_text 'Crisis #1: We are down'
     assert_text 'The root page cannot be loaded anymore'
 
     assert_difference 'Incident.status_open.count', -1 do
@@ -49,7 +49,7 @@ class IncidentsTest < ApplicationSystemTestCase
         end
 
         assert_text 'To do'
-        assert_text '#CRISIS-1: We are down'
+        assert_text 'Crisis #1: We are down'
         assert_text 'Closed'
       end
     end
@@ -116,7 +116,7 @@ class IncidentsTest < ApplicationSystemTestCase
       assert_text @account.display_name
     end
     click_on 'Start scribing'
-    assert_text '#CRISIS-1: We are down'
+    assert_text 'Crisis #1: We are down'
     assert_text 'Minutes'
     assert_text 'Jean-Claude'
     assert_text "1 + 1 = 11. Et ça c'est beau"
@@ -129,8 +129,8 @@ class IncidentsTest < ApplicationSystemTestCase
   test 'edits and views postmortem after the incident is closed' do
     create(:incident, :closed, creator: @account, name: 'Blank landing page')
     login_as(account: @account)
-    find('li', text: 'CRISIS-1').click
-    assert_text '#CRISIS-1: Blank landing page'
+    find('li', text: 'Crisis #1').click
+    assert_text 'Crisis #1: Blank landing page'
     assert_text 'Closed'
     assert_text 'Postmortem'
     assert_text "Owner: #{@account.display_name}"

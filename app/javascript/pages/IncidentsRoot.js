@@ -22,7 +22,7 @@ const IncidentsIndex = () => {
   return (
     <FullView>
       <Card className="flex items-center px-8 py-4">
-        <h2 className="mr-4 font-semibold text-2xl">{`#CRISIS-${incident.local_id}: ${incident.name}`}</h2>
+        <h2 className="mr-4 font-semibold text-2xl">{`Crisis #${incident.local_id}: ${incident.name}`}</h2>
         <StatusBadge
           color={getStatusBadgeType(incident.status)}
           icon={getStatusBadgeIcon(incident.status)}

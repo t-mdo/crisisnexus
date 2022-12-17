@@ -38,7 +38,7 @@ class OrganizationSettingsTest < ApplicationSystemTestCase
     assert_selector 'li', text: @account.email
     assert_selector 'li', text: Account.last.email
 
-    click_on 'Invite new accounts in your organization'
+    click_on 'Invite accounts'
     assert_text 'Invite accounts to your organization'
     assert_field disabled: true, with: "https://www.crisisnexus.com/account/new?organization=#{@organization.identifier}"
   end
