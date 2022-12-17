@@ -7,7 +7,9 @@ class NextStepAction < ApplicationRecord
   validates :due_at,
             comparison: {
               greater_than: Time.zone.now
-            }, allow_nil: true, on: :create
+            },
+            allow_nil: true,
+            if: -> { due_at_changed? }
 
   def completed?
     completed_at.present?

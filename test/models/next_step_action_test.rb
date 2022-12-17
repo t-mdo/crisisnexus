@@ -15,6 +15,5 @@ class NextStepActionTest < ActiveSupport::TestCase
     action = NextStepAction.new(name: 'name', due_at: 2.days.ago, postmortem: @postmortem)
     assert_not action.valid?
     assert_match(/must be greater than/, action.errors[:due_at].first)
-    assert
   end
 end
