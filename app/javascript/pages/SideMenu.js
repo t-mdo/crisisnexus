@@ -10,17 +10,15 @@ import GearIcon from 'icons/regular/gear.svg';
 import UsersGearIcon from 'icons/regular/users-gear.svg';
 import UserIcon from 'icons/regular/user.svg';
 
-const MenuOption = ({ children, to, icon: Icon, incidentInProgress }) => (
+const MenuOption = ({ children, to, icon: Icon }) => (
   <NavLink
     end
     className={({ isActive }) =>
       classnames(
         'block text-white px-4 py-3 text-lg w-full transition duration-100',
         {
-          'bg-stone-800 hover:bg-stone-700': !isActive && !incidentInProgress,
-          'bg-red-800 hover:bg-red-700': !isActive && incidentInProgress,
-          'bg-stone-600': isActive && !incidentInProgress,
-          'bg-red-600': isActive && incidentInProgress,
+          'bg-stone-800 hover:bg-stone-700': !isActive,
+          'bg-stone-600': isActive,
         },
       )
     }
@@ -37,19 +35,11 @@ const MenuOption = ({ children, to, icon: Icon, incidentInProgress }) => (
 
 const SideMenu = () => {
   const { account } = useContext(AccountContext);
-  const { openIncident, openIncidentFetchDone } =
-    useContext(OpenIncidentContext);
-
-  const incidentInProgress = openIncidentFetchDone && openIncident;
 
   return (
     <div
       className={classnames(
-        'flex flex-col justify-between h-screen md:w-64 pt-20 md:pt-0 pb-4 shrink-0',
-        {
-          'bg-red-800': incidentInProgress,
-          'bg-stone-800': !incidentInProgress,
-        },
+        'flex flex-col justify-between h-screen md:w-64 pt-20 md:pt-0 pb-4 shrink-0 bg-stone-800',
       )}
     >
       <div>
@@ -59,41 +49,21 @@ const SideMenu = () => {
             CrisisNexus
           </h1>
         </Link>
-        <MenuOption
-          incidentInProgress={incidentInProgress}
-          icon={HouseIcon}
-          to="/"
-        >
+        <MenuOption icon={HouseIcon} to="/">
           Dashboard
         </MenuOption>
-        <MenuOption
-          incidentInProgress={incidentInProgress}
-          icon={FireIcon}
-          to="/incidents"
-        >
+        <MenuOption icon={FireIcon} to="/incidents">
           Incidents
         </MenuOption>
-        <MenuOption
-          incidentInProgress={incidentInProgress}
-          icon={UsersGearIcon}
-          to="/roles"
-        >
+        <MenuOption icon={UsersGearIcon} to="/roles">
           Roles
         </MenuOption>
-        <MenuOption
-          incidentInProgress={incidentInProgress}
-          icon={GearIcon}
-          to="/organization"
-        >
+        <MenuOption icon={GearIcon} to="/organization">
           Organization
         </MenuOption>
       </div>
       <div>
-        <MenuOption
-          incidentInProgress={incidentInProgress}
-          icon={UserIcon}
-          to="/account"
-        >
+        <MenuOption icon={UserIcon} to="/account">
           {account.display_name}
         </MenuOption>
       </div>
