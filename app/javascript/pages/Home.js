@@ -23,7 +23,7 @@ const HotStateDashboard = ({ incident }) => {
       <h2 className="mb-3 font-semibold text-xl">Open incident</h2>
       <Card className="px-8 py-6">
         <div className="mb-4">
-          <span className="text-lg text-gray-400 font-semibold">{`#CRISIS-${incident.local_id}: `}</span>
+          <span className="text-lg text-gray-400 font-semibold">{`Crisis #${incident.local_id}: `}</span>
           <span className="text-xl text-gray-900 font-semibold">
             {incident.name}
           </span>
