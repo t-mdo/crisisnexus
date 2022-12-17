@@ -1,11 +1,12 @@
+import { useEffect } from 'react';
 import dayjs from 'dayjs';
 import { useForm } from 'react-hook-form';
 import useAutosave from 'modules/form/useAutosave';
 import { Label } from 'components/form/Label';
 import { Input, TextArea, DateInput } from 'components/form/Input';
 
-const PostmortemForm = ({ triggerPut, defaultValues }) => {
-  const { register, handleSubmit, control } = useForm({
+const PostmortemForm = ({ triggerPut, defaultValues, enablePublishing }) => {
+  const { register, handleSubmit, control, watch } = useForm({
     defaultValues: {
       ...defaultValues,
       incident_impact_started_at: dayjs(
@@ -37,6 +38,13 @@ const PostmortemForm = ({ triggerPut, defaultValues }) => {
     onSubmit: handleSubmit(onSubmit),
     control,
   });
+
+  const summary = watch('summary');
+  useEffect(() => {
+    if (summary) {
+      enablePublishing();
+    }
+  }, [summary]);
 
   return (
     <form>

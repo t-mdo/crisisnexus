@@ -4,12 +4,6 @@ class NextStepAction < ApplicationRecord
   has_one :incident, through: :postmortem
 
   validates :name, presence: true
-  validates :due_at,
-            comparison: {
-              greater_than: Time.zone.now
-            },
-            allow_nil: true,
-            if: -> { due_at_changed? }
 
   def completed?
     completed_at.present?

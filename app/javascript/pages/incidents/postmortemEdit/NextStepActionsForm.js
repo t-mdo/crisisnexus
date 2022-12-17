@@ -93,7 +93,6 @@ const validationSchema = yup
         assigned_to: yup.object().nullable().default(null),
         due_at: yup
           .date()
-          .min(new Date(), 'Due date must be in the future')
           .transform((curr, orig) => (orig === '' ? null : curr))
           .nullable()
           .default(null),

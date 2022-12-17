@@ -13,6 +13,7 @@ export const Button = ({
   href,
   color = BUTTON_COLOR_PRIMARY,
   className,
+  disabled,
   ...props
 }) => {
   const Element = href ? Link : 'button';
@@ -33,10 +34,10 @@ export const Button = ({
           'text-gray-900 border-gray-300 border bg-white hover:bg-gray-100 active:bg-gray-200 ':
             color === BUTTON_COLOR_WHITE,
         },
-        'disabled:opacity-50 disabled:cursor-not-allowed',
+        'disabled:opacity-50',
         className,
       )}
-      disabled={loading}
+      disabled={loading || disabled}
       {...props}
     >
       {loading ? 'Loading...' : children}

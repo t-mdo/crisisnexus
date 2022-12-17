@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import useHttpQuery from 'modules/httpQuery/useHttpQuery';
 import { LinkButton } from 'components/LinkButton';
@@ -66,6 +67,8 @@ const PostmortemEdit = () => {
     trigger: triggerQueryActions,
   } = useHttpQuery({ trigger: true });
 
+  const [canPublish, setCanPublish] = useState(false);
+
   return (
     <div id="form-body" className="py-6 px-4 md:px-32 overflow-y-auto">
       <LinkButton
@@ -101,6 +104,7 @@ const PostmortemEdit = () => {
                       body: { status: 'published' },
                     });
                   }}
+                  disabled={!canPublish}
                 >
                   Publish
                 </Button>
@@ -116,6 +120,7 @@ const PostmortemEdit = () => {
             <PostmortemForm
               triggerPut={triggerPutPostmortem}
               defaultValues={postmortem}
+              enablePublishing={() => setCanPublish(true)}
             />
             <div className="flex justify-end mt-4">
               <UpdateStatus
