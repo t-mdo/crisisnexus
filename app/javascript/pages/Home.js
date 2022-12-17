@@ -7,7 +7,6 @@ import { BlockLoader } from 'components/Loader';
 import Card from 'components/Card';
 import Text from 'components/Text';
 import Button, { BUTTON_COLOR_SUCCESS } from 'components/Button';
-import PastIncidentsList from 'pages/home/PastIncidentsList';
 import CloseIncidentModal from 'pages/home/CloseIncidentModal';
 import RolesBlock from 'pages/home/RolesBlock';
 import TodoList from 'pages/home/TodoList';
@@ -65,10 +64,6 @@ const CoolStateDashboard = () => {
         Next steps
       </Text>
       <TodoList />
-      <Text uiStyle="heading-2" className="mb-3">
-        Last incident
-      </Text>
-      <PastIncidentsList queryLimit={1} />
     </div>
   );
 };

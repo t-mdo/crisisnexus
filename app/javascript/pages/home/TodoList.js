@@ -56,7 +56,7 @@ const TodoItem = ({
             <Checkbox checked={done} onChange={onCheckboxTick} />
             <Text
               className={classnames({ 'line-through': done })}
-              color={done ? 'text-gray-500' : null}
+              color={done ? 'text-gray-400' : null}
             >
               Action: {action_name}
             </Text>
@@ -92,7 +92,7 @@ const TodoList = () => {
       </Alert>
     );
   return (
-    <Card className="flex flex-col px-8 py-4 mb-12">
+    <Card className="flex flex-col py-8 px-8">
       {intersperse(
         Object.entries(todos).map(([incidentId, incidentTodos]) => {
           const everyTodoDone = incidentTodos.every((todo) =>
