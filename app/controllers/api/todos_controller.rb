@@ -32,6 +32,7 @@ class Api::TodosController < ApiController
           incident_name: action.postmortem.incident.name,
           postmortem_id: action.postmortem.id,
           action_name: action.name,
+          due_at: action.due_at,
           completed_at: action.completed_at,
           created_at: action.created_at
         }

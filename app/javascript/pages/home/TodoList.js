@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 import classnames from 'classnames';
 import useHttpQuery from 'modules/httpQuery/useHttpQuery';
@@ -32,7 +33,7 @@ const LinkToPostmortem = ({ children, type, incident_local_id }) => {
 };
 
 const TodoItem = ({
-  todo: { id, type, action_name, completed_at, incident_local_id },
+  todo: { id, type, action_name, completed_at, incident_local_id, due_at },
   fetchRefresh,
 }) => {
   const [done, setDone] = useState(Boolean(completed_at));
@@ -59,6 +60,13 @@ const TodoItem = ({
         </LinkToPostmortem>
       </div>
     );
+
+  const isOverdue = dayjs(due_at).isBefore(dayjs());
+  const textColor =
+    classnames({
+      'text-red-600': !done && isOverdue,
+      'text-gray-400': done,
+    }) || null;
   if (type === TODO_TYPE_NEXT_STEP_ACTION)
     return (
       <div className="w-full flex gap-x-1 items-center">
@@ -66,7 +74,7 @@ const TodoItem = ({
         <LinkToPostmortem type={type} incident_local_id={incident_local_id}>
           <Text
             className={classnames({ 'line-through': done })}
-            color={done ? 'text-gray-400' : null}
+            color={textColor}
           >
             Action: {action_name}
           </Text>
