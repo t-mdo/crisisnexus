@@ -6,7 +6,7 @@ export const Checkbox = ({ className, ...props }) => {
   return (
     <Switch
       className={classnames(
-        'flex h-4 w-4 rounded transform bg-white ui-checked:bg-violet-400 disabled:bg-gray-200 border border-gray-300 disabled:border-gray-300 ui-checked:border-0 ring-0 transition duration-200 ease-in-out',
+        'flex flex-shrink-0 h-4 w-4 rounded transform bg-white ui-checked:bg-stone-500 disabled:bg-gray-200 border border-gray-300 disabled:border-gray-300 ui-checked:border-0 ring-0 transition duration-200 ease-in-out',
         className,
       )}
       {...props}

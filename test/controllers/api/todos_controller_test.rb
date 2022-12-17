@@ -42,5 +42,7 @@ class Api::TodosControllerTest < ActionDispatch::IntegrationTest
     todos_array = todos.values.flatten
     assert_equal 9, todos_array.count
     assert_equal 9, todos_array.select { |t| t['type'] == 'next_step_action' }.count
+    assert_not todos_array.pluck('id').include?(next_step_actions.first.id)
+    assert todos_array.pluck('id').include?(next_step_actions.second.id)
   end
 end

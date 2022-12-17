@@ -60,13 +60,16 @@ const HotStateDashboard = ({ incident }) => {
 
 const CoolStateDashboard = () => {
   return (
-    <>
+    <div>
       <Text uiStyle="heading-2" className="mb-3">
-        To do
+        Next steps
       </Text>
       <TodoList />
-      <PastIncidentsList queryLimit={5} />
-    </>
+      <Text uiStyle="heading-2" className="mb-3">
+        Last incident
+      </Text>
+      <PastIncidentsList queryLimit={1} />
+    </div>
   );
 };
 

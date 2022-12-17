@@ -8,4 +8,8 @@ class NextStepAction < ApplicationRecord
             comparison: {
               greater_than: Time.zone.now
             }, allow_nil: true
+
+  def completed?
+    completed_at.present?
+  end
 end

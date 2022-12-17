@@ -1,4 +1,6 @@
 class Api::TodosController < ApiController
+  before_action :set_todo, only: :update
+
   def index
     @assigned_postmortems_array =
       Postmortem
@@ -19,7 +21,7 @@ class Api::TodosController < ApiController
       NextStepAction
       .joins(:postmortem)
       .where(assigned_to: current_account)
-      .where(completed_at: nil).or(NextStepAction.where('completed_at < ?', 1.week.ago))
+      .and(NextStepAction.where(completed_at: nil).or(NextStepAction.where('completed_at > ?', 1.week.ago)))
       .merge(Postmortem.status_published)
       .includes(postmortem: :incident)
       .map do |action|
@@ -30,14 +32,31 @@ class Api::TodosController < ApiController
           incident_name: action.postmortem.incident.name,
           postmortem_id: action.postmortem.id,
           action_name: action.name,
-          completed_at: action.completed_at
+          completed_at: action.completed_at,
+          created_at: action.created_at
         }
       end
+      .sort_by { |action| action[:created_at] }
 
     @todos =
       (@assigned_postmortems_array + @assigned_actions_array)
       .group_by { |todo| todo[:incident_local_id] }
 
     render json: { todos: @todos }
+  end
+
+  def update
+    if @todo.completed?
+      @todo.update(completed_at: nil)
+    else
+      @todo.update(completed_at: Time.zone.now)
+    end
+    head :ok
+  end
+
+  private
+
+  def set_todo
+    @todo = NextStepAction.find(params[:id])
   end
 end
