@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :postmortem do
-    incident { nil }
+    incident
     association :assigned_to, factory: :account
     summary { nil }
     impact_who { nil }
