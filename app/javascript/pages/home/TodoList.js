@@ -100,7 +100,7 @@ const TodoList = () => {
           );
           return (
             <Accordion key={incidentId} defaultOpen={!everyTodoDone}>
-              <AccordionHeader className="text-left font-medium">{`Crisis #${incidentId}: ${incidentTodos[0].incident_name}`}</AccordionHeader>
+              <AccordionHeader className="text-left font-medium">{`Crisis #${incidentId} - ${incidentTodos[0].incident_name}`}</AccordionHeader>
               <AccordionBody>
                 {incidentTodos.map((todo) => (
                   <TodoItem

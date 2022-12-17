@@ -27,7 +27,7 @@ const IncidentRow = ({ incident }) => {
     >
       <div className="w-full">
         <div className="flex justify-between md:justify-start mb-2">
-          <h4 className="flex items-center mr-4 text-sm text-gray-900 font-semibold">{`#CRISIS-${incident.local_id}: ${incident.name}`}</h4>
+          <h4 className="flex items-center mr-4 text-sm text-gray-900 font-semibold">{`Crisis #${incident.local_id} - ${incident.name}`}</h4>
           <StatusBadge
             color={getStatusBadgeType(incident.status)}
             icon={getStatusBadgeIcon(incident.status)}
