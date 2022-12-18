@@ -57,6 +57,9 @@ const TodoItem = ({
         <Checkbox disabled />
         <LinkToPostmortem type={type} incident_local_id={incident_local_id}>
           <Text>Publish the postmortem</Text>
+          <div className="hidden group-hover:block">
+            <ArrowRightIcon className="w-5 h-5 fill-stone-600" />
+          </div>
         </LinkToPostmortem>
       </div>
     );
