@@ -14,7 +14,7 @@ const RoleColumn = ({ roleName, roleDisplayName, roleIcon, children }) => (
         {roleDisplayName}
       </p>
     </div>
-    <div className="flex items-center h-40 border-b px-4 justify-center">
+    <div className="flex py-4 h-40 border-b px-4 justify-center">
       <p className="text-sm text-gray-600">{children}</p>
     </div>
     <Link
