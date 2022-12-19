@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 import classnames from 'classnames';
 import { NavLink, Link } from 'react-router-dom';
-import OpenIncidentContext from 'modules/contexts/openIncidentContext';
 import AccountContext from 'modules/contexts/accountContext';
 import LogoWithWhiteBackground from 'assets/images/LogoWithWhiteBackground.png';
 import HouseIcon from 'icons/regular/house-chimney.svg';
@@ -25,7 +24,7 @@ const MenuOption = ({ children, to, icon: Icon }) => (
     to={to}
   >
     <div className="flex items-center overflow-x-hidden text-allipsis">
-      <Icon className="w-5 md:mr-4 fill-white shrink-0" />
+      <Icon className="w-5 h-5 md:mr-4 fill-white shrink-0" />
       <div className="text-ellipsis overflow-x-hidden hidden md:block">
         {children}
       </div>
