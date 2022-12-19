@@ -24,7 +24,7 @@ const LinkToPostmortem = ({ children, type, incident_local_id }) => {
 
   return (
     <Link
-      className="group w-full flex justify-between items-center py-2 px-2 hover:bg-stone-300 active:bg-stone-400 rounded transition"
+      className="group w-full flex justify-between items-center py-2 px-2 hover:bg-slate-300 active:bg-slate-400 rounded transition"
       to={`/incidents/${incident_local_id}/postmortem${editHrefSuffix}`}
     >
       {children}
@@ -58,7 +58,7 @@ const TodoItem = ({
         <LinkToPostmortem type={type} incident_local_id={incident_local_id}>
           <Text>Publish the postmortem</Text>
           <div className="hidden group-hover:block">
-            <ArrowRightIcon className="w-5 h-5 fill-stone-600" />
+            <ArrowRightIcon className="w-5 h-5 fill-slate-600" />
           </div>
         </LinkToPostmortem>
       </div>
@@ -68,7 +68,7 @@ const TodoItem = ({
   const textColor =
     classnames({
       'text-red-600': !done && isOverdue,
-      'text-gray-400': done,
+      'text-slate-400': done,
     }) || null;
   if (type === TODO_TYPE_NEXT_STEP_ACTION)
     return (
@@ -82,7 +82,7 @@ const TodoItem = ({
             Action: {action_name}
           </Text>
           <div className="hidden group-hover:block">
-            <ArrowRightIcon className="w-5 h-5 fill-stone-600" />
+            <ArrowRightIcon className="w-5 h-5 fill-slate-600" />
           </div>
         </LinkToPostmortem>
       </div>
@@ -113,7 +113,7 @@ const TodoList = () => {
   if (todos && Object.entries(todos).length === 0)
     return (
       <Card className="flex justify-center p-4">
-        <span className="text-gray-400">
+        <span className="text-slate-400">
           No next step for you at the moment!
         </span>
       </Card>

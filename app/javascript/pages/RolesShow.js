@@ -96,7 +96,7 @@ const RoleDescription = ({ name }) => {
   switch (name) {
     case 'incident_manager':
       return (
-        <div className="text-gray-600 text-sm">
+        <div className="text-slate-600 text-sm">
           <div>Incident managers lead the incident response.</div>
           <div className="mb-4">
             They act as the single source of truth of what is currently
@@ -120,7 +120,7 @@ const RoleDescription = ({ name }) => {
       );
     case 'communication_manager':
       return (
-        <div className="text-gray-600 text-sm">
+        <div className="text-slate-600 text-sm">
           <div className="mb-1">
             Communication managers are the link between the war room and the
             users.
@@ -134,7 +134,7 @@ const RoleDescription = ({ name }) => {
       );
     case 'scribe':
       return (
-        <div className="text-gray-600 text-sm">
+        <div className="text-slate-600 text-sm">
           <div className="mb-1">
             Scribes are participants that log everything that is said or done
             during the incident.
@@ -195,7 +195,7 @@ const Roles = () => {
       </div>
       <div className="flex flex-wrap gap-x-8 mx-8">
         <div className="mb-8 max-w-sm">
-          <Text uiStyle="heading-3" color="text-gray-800" className="mb-4">
+          <Text uiStyle="heading-3" color="text-slate-800" className="mb-4">
             Mission
           </Text>
           <RoleDescription name={name} />

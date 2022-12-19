@@ -7,7 +7,7 @@ export const Accordion = Disclosure;
 export const AccordionHeader = ({ className, children, ...props }) => (
   <Disclosure.Button
     className={classnames(
-      'w-full p-3 flex justify-between items-center bg-stone-100 ui-not-open:rounded ui-open:rounded-t',
+      'w-full p-3 flex justify-between items-center bg-slate-100 ui-not-open:rounded ui-open:rounded-t',
       className,
     )}
     {...props}
@@ -30,7 +30,7 @@ export const AccordionBody = ({ className, children, ...props }) => (
   >
     <Disclosure.Panel
       className={classnames(
-        'p-3 ui-not-open:rounded ui-open:rounded-b bg-stone-200',
+        'p-3 ui-not-open:rounded ui-open:rounded-b bg-slate-200',
         className,
       )}
       {...props}

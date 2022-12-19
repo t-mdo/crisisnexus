@@ -23,7 +23,7 @@ export const Button = ({
       className={classnames(
         'block py-2 px-4 focus-visible:ring ring-violet-300 text-white font-semibold rounded-lg transition duration-100',
         {
-          'bg-violet-500 hover:bg-violet-600 active:bg-violet-700 disabled:hover:bg-violet-500 disabled:active:big-violet-500':
+          'bg-slate-500 hover:bg-slate-600 active:bg-slate-700 disabled:hover:bg-slate-500 disabled:active:big-slate-500':
             color === BUTTON_COLOR_PRIMARY,
           'text-gray-700 bg-gray-200 hover:bg-gray-300 active:bg-gray-400':
             color === BUTTON_COLOR_SECONDARY,

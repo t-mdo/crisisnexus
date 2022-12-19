@@ -9,7 +9,7 @@ import {
 
 export const getStatusBadgeType = (status) => {
   if (status === 'open') return STATUS_COLOR_ERROR;
-  if (status === 'closed') return STATUS_COLOR_INFO;
+  if (status === 'closed') return STATUS_COLOR_SUCCESS;
   return STATUS_COLOR_SUCCESS;
 };
 
