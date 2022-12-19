@@ -6,7 +6,17 @@ export const inputComponentStyle =
   'px-3 py-2 bg-white border border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 block rounded sm:text-sm disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200';
 
 const InputComponent = forwardRef(
-  ({ className, element: Element, error = false, ...props }, ref) => (
+  (
+    {
+      className,
+      element: Element,
+      error = false,
+      placeholder,
+      disabled,
+      ...props
+    },
+    ref,
+  ) => (
     <Element
       ref={ref}
       className={classnames(
@@ -14,6 +24,8 @@ const InputComponent = forwardRef(
         { 'border-red-500 focus:border-red-500 focus:ring-red-500': error },
         className,
       )}
+      disabled={disabled}
+      placeholder={disabled ? null : placeholder}
       {...props}
     />
   ),
@@ -28,7 +40,7 @@ export const TextArea = forwardRef((props, ref) => (
 ));
 
 export const DateInput = forwardRef(
-  ({ className, placeholder, type = 'date', ...props }, ref) => {
+  ({ className, placeholder, type = 'date', disabled, ...props }, ref) => {
     const inputRef = useRef();
     const dateInputRef = useRef();
     const hasValue = Boolean(dateInputRef?.current?.value);
@@ -62,13 +74,15 @@ export const DateInput = forwardRef(
           ref={inputRef}
           className={classnames({ hidden: hasValue }, className)}
           onFocus={onFocus}
-          placeholder={placeholder}
+          disabled={disabled}
+          placeholder={disabled ? null : placeholder}
         />
         <Input
           className={classnames({ hidden: !hasValue }, className)}
           ref={mergeRefs([ref, dateInputRef])}
           element="input"
           type={type}
+          disabled={disabled}
           {...props}
         />
       </>

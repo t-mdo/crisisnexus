@@ -21,6 +21,7 @@ const NextStepActionInputs = ({
   displayRemoveButton,
   removeAction,
   errors,
+  disabled,
 }) => {
   const [accountInput, setAccountInput] = useState();
   const accountsOptions = useAccountsAutocompletion({
@@ -44,6 +45,7 @@ const NextStepActionInputs = ({
             setFocus(`next_step_actions.${index + 1}.name`);
           }}
           error={Boolean(errors?.name)}
+          disabled={disabled}
           {...register(`next_step_actions.${index}.name`)}
         />
         <InputError className="mt-1" message={errors?.name?.message} />
@@ -65,6 +67,7 @@ const NextStepActionInputs = ({
         onInputChange={({ target: { value } }) => {
           setAccountInput(value);
         }}
+        disabled={disabled}
       />
       <div className="col-span-2 flex flex-col">
         <DateInput
@@ -72,11 +75,12 @@ const NextStepActionInputs = ({
           error={Boolean(errors?.due_at)}
           max={dayjs().add(3, 'year').format('YYYY-MM-DD')}
           {...register(`next_step_actions.${index}.due_at`)}
+          disabled={disabled}
         />
         <InputError className="mt-1" message={errors?.due_at?.message} />
       </div>
       <div className="flex justify-center items-center">
-        {displayRemoveButton && (
+        {displayRemoveButton && !disabled && (
           <IconButton onClick={() => removeAction({ index, id })}>
             <TrashIcon className="w-4 fill-red-500" />
           </IconButton>
@@ -109,7 +113,12 @@ const validationSchema = yup
   })
   .required();
 
-const NextStepActionsForm = ({ defaultValues, deleteQuery, postQuery }) => {
+const NextStepActionsForm = ({
+  defaultValues,
+  deleteQuery = () => {},
+  postQuery = () => {},
+  disabled,
+}) => {
   const {
     register,
     control,
@@ -196,6 +205,7 @@ const NextStepActionsForm = ({ defaultValues, deleteQuery, postQuery }) => {
               displayRemoveButton={index !== nextStepActions.length - 1}
               removeAction={removeAction}
               errors={errors?.next_step_actions?.[index]}
+              disabled={disabled}
             />
           ))}
         </ul>

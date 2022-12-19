@@ -2,7 +2,9 @@ class Api::PostmortemsController < ApiController
   before_action :set_postmortem
   before_action :set_attributes, only: :update
 
-  def show; end
+  def show
+    @incident = @postmortem.incident
+  end
 
   def update
     @postmortem.update!(@postmortem_attributes)

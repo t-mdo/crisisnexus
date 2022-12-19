@@ -21,7 +21,7 @@ const IncidentsIndex = () => {
   if (error) return <p>Something went wrong</p>;
   return (
     <FullView>
-      <Card className="flex items-center px-8 py-4">
+      <Card className="z-10 flex items-center px-8 py-4">
         <h2 className="mr-4 font-semibold text-2xl">{`Crisis #${incident.local_id}: ${incident.name}`}</h2>
         <StatusBadge
           color={getStatusBadgeType(incident.status)}

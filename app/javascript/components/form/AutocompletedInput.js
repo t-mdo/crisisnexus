@@ -47,11 +47,12 @@ export const AutocompletedInput = forwardRef(
       inputValue,
       options,
       className,
+      disabled,
       ...props
     },
     ref,
   ) => (
-    <Combobox value={value} onChange={onChange}>
+    <Combobox disabled={disabled} value={value} onChange={onChange}>
       <div className={classnames('relative', className)}>
         <Combobox.Input
           ref={ref}
