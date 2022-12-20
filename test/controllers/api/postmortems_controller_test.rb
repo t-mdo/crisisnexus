@@ -13,7 +13,8 @@ class Api::PostmortemControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     body = response.parsed_body
-    body['postmortem'].except('assigned_to', 'created_at', 'updated_at', 'is_touched').each do |key, value|
+    body['postmortem']
+      .except('assigned_to', 'created_at', 'updated_at', 'is_touched', 'incident_started_at', 'incident_ended_at').each do |key, value|
       expected_value = @postmortem.send(key)
       if expected_value.nil?
         assert_nil value
@@ -25,6 +26,8 @@ class Api::PostmortemControllerTest < ActionDispatch::IntegrationTest
     assert_equal @postmortem.created_at.to_i, Time.parse(body['postmortem']['created_at']).to_i
     assert_equal @postmortem.updated_at.to_i, Time.parse(body['postmortem']['updated_at']).to_i
     assert_not body['postmortem']['is_touched']
+    assert_equal @incident.started_at.to_i, Time.parse(body['postmortem']['incident_started_at']).to_i
+    assert_equal @incident.ended_at, body['postmortem']['incident_ended_at']
   end
 
   test '#update updates postmortem' do

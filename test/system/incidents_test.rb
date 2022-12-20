@@ -26,7 +26,7 @@ class IncidentsTest < ApplicationSystemTestCase
       click_on 'Godspeed'
     end
 
-    assert_text 'Incident in progress'
+    assert_text 'Crisis #1 in progress:'
     assert_button 'Join the war room'
     assert_text 'Open incident'
     assert_text 'Crisis #1: We are down'
