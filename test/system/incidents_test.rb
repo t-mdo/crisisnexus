@@ -43,6 +43,8 @@ class IncidentsTest < ApplicationSystemTestCase
           assert_equal 'The root page cannot be loaded anymore', summary_input.value
           fill_in 'summary', with: 'The root page cannot be loaded anymore. It was the cat that unplugged the servers'
           click_on 'Next step'
+          click_on 'Close incident'
+          assert_text 'Please select an assignee'
           fill_in 'Postmortem owner email', with: @account.email
           find('li[role="option"]', text: @account.email).click
           click_on 'Close incident'
@@ -68,7 +70,7 @@ class IncidentsTest < ApplicationSystemTestCase
     communication_manager_block = find('div#role-block-communication_manager')
     communication_manager_block.assert_text "Communication manager\n#{default_cm_account.display_name}"
     scribe_block = find('button#role-block-scribe')
-    scribe_block.assert_text "Scribe\nNo scribe assigned\nAssume the role"
+    scribe_block.assert_text "Scribe\nAssume the role"
 
     click_on 'Roles'
     find_all('a', text: 'Details').first.click
@@ -109,7 +111,6 @@ class IncidentsTest < ApplicationSystemTestCase
 
     login_as(account: @account)
     assert_no_button 'Start scribing'
-    assert_text 'No scribe assigned'
     assert_text 'Assume the role'
     click_on 'Assume the role'
     within '#role-block-scribe' do
