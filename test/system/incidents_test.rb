@@ -127,7 +127,7 @@ class IncidentsTest < ApplicationSystemTestCase
   end
 
   test 'edits and views postmortem after the incident is closed' do
-    create(:incident, :closed, creator: @account, name: 'Blank landing page')
+    @incident = create(:incident, :closed, creator: @account, name: 'Blank landing page')
     login_as(account: @account)
     find('li', text: 'Crisis #1').click
     assert_text 'Crisis #1: Blank landing page'
@@ -171,17 +171,20 @@ class IncidentsTest < ApplicationSystemTestCase
 
     assert_text 'Postmortem'
     assert_current_path '/incidents/1/postmortem'
-    assert_no_text 'edition'
-    assert_text 'The landing page was fully blank'
-    assert_text 'All users'
-    assert_text 'They could not access the landing page and thus not login if they were logged out'
-    assert_text 'Dec 24, 2022 6:00 PM'
-    assert_text 'Dec 24, 2022 7:00 PM'
-    assert_text 'Timeline'
-    assert_text 'Lucky'
-    assert_text 'Unlucky'
-    assert_text 'Five whys'
-    assert_text 'Deploy sentry to catch 500 sooner'
-    assert_text 'Add a test on the landing page'
+    assert_field 'summary', disabled: true, with: 'The landing page was fully blank'
+    assert_field 'impact_who', disabled: true, with: 'All users'
+    assert_field 'impact_what',
+                 disabled: true,
+                 with: 'They could not access the landing page and thus not login if they were logged out'
+    assert_field 'incident_started_at', disabled: true, with: @incident.started_at.localtime.strftime('%Y-%m-%dT%H:%M')
+    assert_field 'incident_ended_at', disabled: true, with: @incident.ended_at.localtime.strftime('%Y-%m-%dT%H:%M')
+    assert_field 'incident_impact_started_at', disabled: true, with: '2022-12-24T18:00'
+    assert_field 'incident_impact_ended_at', disabled: true, with: '2022-12-24T19:00'
+    assert_field 'timeline_text', disabled: true, with: 'Timeline'
+    assert_field 'lucky_text', disabled: true, with: 'Lucky'
+    assert_field 'unlucky_text', disabled: true, with: 'Unlucky'
+    assert_field 'five_whys_text', disabled: true, with: 'Five whys'
+    assert_field 'next_step_actions.0.name', disabled: true, with: 'Deploy sentry to catch 500 sooner'
+    assert_field 'next_step_actions.1.name', disabled: true, with: 'Add a test on the landing page'
   end
 end
