@@ -48,19 +48,11 @@ const RoleBlock = ({
         <span className="mb-2 font-semibold text-gray-900">{displayName}</span>
       </div>
       {roleHolder ? (
-        <>
-          <span className="w-full text-gray-900 overflow-hidden text-ellipsis">
-            {roleHolder}
-          </span>
-          {clickable && <span className="font-medium">Assume the role</span>}
-        </>
+        <span className="w-full text-gray-900 overflow-hidden text-ellipsis">
+          {roleHolder}
+        </span>
       ) : (
-        <>
-          <span className="text-gray-900 italic">
-            No {displayName.toLowerCase()} assigned
-          </span>
-          {clickable && <span className="font-medium">Assume the role</span>}
-        </>
+        <>{clickable && <span className="font-medium">Assume the role</span>}</>
       )}
     </Element>
   );
