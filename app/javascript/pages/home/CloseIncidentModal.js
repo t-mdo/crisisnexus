@@ -13,6 +13,7 @@ import {
 import { Input, TextArea } from 'components/form/Input';
 import Label from 'components/form/Label';
 import ErrorFeedback from 'components/form/ErrorFeedback';
+import { InputError } from 'components/form/InputError';
 import Button from 'components/Button';
 
 const IncidentUpdateForm = ({
@@ -74,12 +75,19 @@ const PostmortemForm = ({
 }) => {
   const [queryText, setQueryText] = useState('');
   const [assignedToId, setAssignedToId] = useState();
+  const [error, setError] = useState();
 
   const accountsOptions = useAccountsAutocompletion({
     valueWatcher: queryText,
   });
 
-  const onSubmit = () => {
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    if (!assignedToId) {
+      setError('Please select an assignee');
+      return;
+    }
     setClosureFormData((data) => ({
       ...data,
       postmortem: { assigned_to: assignedToId },
@@ -100,7 +108,9 @@ const PostmortemForm = ({
           className="w-2/3"
           onInputChange={({ target: { value } }) => setQueryText(value)}
           inputValue={queryText}
+          error={Boolean(error)}
         />
+        <InputError message={error} />
       </div>
       <div className="mt-48 flex justify-end w-full">
         <Button loading={closingLoading} role="submit">
@@ -141,7 +151,7 @@ const CloseIncidentModal = ({ open, onClose }) => {
 
   useEffect(() => {
     if (closureFormData.postmortem.assigned_to) triggerIncidentPut();
-  }, [closureFormData]);
+  }, [closureFormData.postmortem.assigned_to]);
 
   return (
     <Modal open={open} onClose={onClose}>
