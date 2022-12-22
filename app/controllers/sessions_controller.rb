@@ -13,11 +13,11 @@ class SessionsController < ApplicationController
 
       case failure
       when :invalid_login
-        redirect_to login_path, flash: { error: 'No account for this email' }
+        redirect_to login_path, flash: { error: 'Invalid email or password' }
       when :inactive
         redirect_to login_path, flash: { error: 'You need to activate your account first. Check out your emails' }
       when :invalid_password
-        redirect_to login_path, flash: { error: 'Invalid password' }
+        redirect_to login_path, flash: { error: 'Invalid email or password' }
       else
         redirect_to login_path, flash: { error: 'Something went wrong' }
       end
@@ -29,6 +29,6 @@ class SessionsController < ApplicationController
 
     logout
     session[:ssid] = @ssid
-    redirect_to welcome_path, flash: { success: 'Logged out' }
+    redirect_to welcome_path
   end
 end
