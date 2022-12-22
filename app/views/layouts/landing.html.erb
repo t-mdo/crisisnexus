@@ -21,9 +21,11 @@
     <%= render 'layouts/landing/drift' %>
   </head>
   <body>
-    <%= render 'layouts/landing/header' %>
-    <%= render 'layouts/landing/flash' %>
-    <%= yield %>
-    <%= render 'layouts/landing/footer' %>
+    <div class="bg-gray-900 text-white">
+      <%= render 'layouts/landing/header' %>
+      <%= render 'layouts/landing/flash' %>
+      <%= yield %>
+      <%= render 'layouts/landing/footer' %>
+    </div>
   </body>
 </html>
