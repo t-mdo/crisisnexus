@@ -49,7 +49,7 @@ Rails.application.routes.draw do
   end
   get '/login', to: 'sessions#new'
   get '/logout', to: 'sessions#destroy'
-  resource :session, only: %i[destroy]
+  resource :session, only: %i[create destroy]
   resource :password_reset, only: %i[new create edit update]
 
   match '/tests/login', to: 'tests#login', via: %i[get post] if Rails.env.test?
