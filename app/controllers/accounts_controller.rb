@@ -4,7 +4,6 @@ class AccountsController < ApplicationController
   before_action :set_account_for_creation, only: %i[create]
 
   def new
-    @organization = params[:organization] && Organization.find_by(identifier: params[:organization])
     track_event('signup_page_viewed', source: params[:source])
   end
 

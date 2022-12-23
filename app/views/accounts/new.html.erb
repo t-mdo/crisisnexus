@@ -1,35 +1,29 @@
-<div class="bg-white pb-6 sm:py-8 lg:py-12">
+<div class="flex flex-col items-center pb-6 sm:py-8 lg:py-12">
   <h2 class="text-2xl lg:text-3xl font-bold text-center mb-4 md:mb-8 xl:mb-12">Sign up</h2>
-  <div class="flex flex-col items-center text-gray-800 px-4 md:px-8">
-    <div class="mb-4 sm:mb-10 p-6 w-[560px] max-w-full rounded-lg border border-gray-200 shadow-md">
-      <% if @organization.present? %>
-        <p class="text-sm text-gray-600">You are registering an account in the <b><%= @organization.name %></b> organization.</p>
-      <% else %>
-        <p class="text-sm text-gray-400">Use your work email to register your account. We'll use the domain to identify your organization.</p>
-      <% end %>
-      <%= form_tag account_path, class: 'justify-center w-full my-4' do %>
-        <%= label_tag :email, 'Email Address' %><br />
-        <% if @organization.present? %>
-          <%= hidden_field(:organization, :identifier) %>
-          <div class="mb-3 flex">
-            <%= text_field_tag :email, params[:email], class: 'w-4/6 border border-gray-200 rounded-l-lg px-4 py-2 mt-2', placeholder: 'email' %>
-            <%= text_field_tag :email_domain, "@#{@organization.identifier}", disabled: true, class: 'w-2/6 border border-gray-200 rounded-r-lg px-4 py-2 mt-2' %>
-          </div>
-        <% else %>
-          <%= text_field_tag :email,
-            params[:email],
-            class: "px-3 py-2 mb-3 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded sm:text-sm focus:ring-1",
-            placeholder: 'you@yourcompany.com',
-            type: 'email'
-          %>
-      <% end %>
-      <%= label_tag :password %><br />
-      <%= password_field_tag :password, nil,
-        class: 'px-3 py-2 mb-6 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded sm:text-sm focus:ring-1'
+  <div class="flex flex-col items-center max-w-xl px-3 md:px-8">
+      <p class="mb-4 text-sm text-gray-400">Use your work email to register your account. We'll use the domain to identify your organization.</p>
+    <%= form_tag account_path, class: 'w-full' do %>
+      <div class="mb-2">
+        <%= label_tag :email, 'Email Address' %>
+      </div>
+      <div class="mb-4">
+      <%= text_field_tag :email,
+        params[:email],
+        class: "px-3 py-2 bg-gray-800 placeholder-gray-400 focus:outline-none focus:ring-purple-600 block w-full rounded focus:ring-1",
+        placeholder: 'you@yourcompany.com',
+        type: 'email'
       %>
-    <%= submit_tag "Sign up", class: 'w-full bg-violet-500 hover:bg-violet-600 active:bg-violet-700 focus-visible:ring ring-violet-300 text-white text-xs md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-2 py-2 md:px-8 md:py-3' %>
-  <% end %>
-    </div>
-    <p class="text-gray-500 text-lg text-center">Any questions or need any help? <a class="text-violet-700" href="https://calendly.com/crisisnexus/demo" target="_blank">Just book a meeting in my calendar!</a></p>
+      </div>
+      <div class="mb-2">
+    <%= label_tag :password %><br />
+      </div>
+      <div class="mb-8">
+    <%= password_field_tag :password, nil,
+      class: 'px-3 py-2 bg-gray-800 placeholder-gray-400 focus:outline-none focus:ring-purple-600 block w-full rounded sm:text-sm focus:ring-1'
+    %>
+      </div>
+  <%= submit_tag "Sign up", class: 'w-full bg-purple-500 hover:bg-purple-600 active:bg-purple-700 focus-visible:ring ring-purple-300 text-white text-xs md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-2 py-2 md:px-8 md:py-3' %>
+<% end %>
+<p class="mt-8 text-gray-500 text-center">Any questions or need any help? <a class="text-purple-500" href="https://calendly.com/crisisnexus/tmo" target="_blank">Just book a meeting in my calendar!</a></p>
   </div>
 </div>
