@@ -9,7 +9,7 @@ const CoolStateStatusBar = () => {
     useState(false);
 
   return (
-    <div className="flex justify-end w-full h-16 p-3 bg-slate-300 shadow-sm">
+    <div className="flex justify-end w-full h-16 p-3 bg-gray-300 shadow-sm">
       <Button onClick={() => setTriggerIncidentModalOpen(true)}>
         Trigger an incident
       </Button>
@@ -25,7 +25,7 @@ const HotStateStatusBar = ({ incident }) => {
   const { organization } = useContext(OrganizationContext);
 
   return (
-    <div className="flex justify-between items-center w-full h-16 p-3 bg-red-600 border-b border-slate-300">
+    <div className="flex justify-between items-center w-full h-16 p-3 bg-red-600 border-b border-grey-300">
       <div className="flex gap-x-2 items-baseline text-xl text-white font-semibold">
         <div>
           Crisis #{incident.local_id} in progress

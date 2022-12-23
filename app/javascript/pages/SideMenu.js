@@ -16,8 +16,8 @@ const MenuOption = ({ children, to, icon: Icon }) => (
       classnames(
         'block text-white px-4 py-3 text-lg w-full transition duration-100',
         {
-          'bg-slate-800 hover:bg-slate-700': !isActive,
-          'bg-slate-600': isActive,
+          'bg-gray-900 hover:bg-gray-800': !isActive,
+          'bg-gray-700': isActive,
         },
       )
     }
@@ -38,7 +38,7 @@ const SideMenu = () => {
   return (
     <div
       className={classnames(
-        'flex flex-col justify-between h-screen md:w-64 pt-20 md:pt-0 pb-4 shrink-0 bg-slate-800',
+        'flex flex-col justify-between h-screen md:w-64 pt-20 md:pt-0 pb-4 shrink-0 bg-gray-900',
       )}
     >
       <div>
