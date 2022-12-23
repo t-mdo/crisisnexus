@@ -7,7 +7,7 @@
 
 <% alert_flashes = flash.to_h.select { |type| flash_classes.keys.include?(type) } %>
 <% alert_flashes.each do |type, msg| %>
-  <div class="flash-alert mx-auto border rounded px-2 py-3 text-center max-w-2xl <%= flash_classes[type] %>">
+  <div class="flash-alert mx-auto my-8 border rounded px-2 py-3 text-center max-w-2xl <%= flash_classes[type] %>">
     <%= msg %>
   </div>
 <% end %>

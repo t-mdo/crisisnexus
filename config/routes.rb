@@ -41,7 +41,7 @@ Rails.application.routes.draw do
 
   # Only static pages for lp
   get '/welcome', to: 'landing#index'
-  resource :lead, only: %i[new create]
+  resource :lead, only: %i[create]
   resource :account, only: %i[new create] do
     scope module: :accounts do
       resource :activation, only: %i[new show]
@@ -49,7 +49,7 @@ Rails.application.routes.draw do
   end
   get '/login', to: 'sessions#new'
   get '/logout', to: 'sessions#destroy'
-  resource :session, only: %i[create destroy]
+  resource :session, only: %i[destroy]
   resource :password_reset, only: %i[new create edit update]
 
   match '/tests/login', to: 'tests#login', via: %i[get post] if Rails.env.test?
