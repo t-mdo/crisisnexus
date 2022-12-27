@@ -1,5 +1,126 @@
-<%= render 'hero' %>
-<%= render 'advantages' %>
-<%= render 'features' %>
-<%= render 'results_data' %>
-<%= render 'conversion_cta' %>
+<div class="pb-6 sm:pb-8 lg:pb-12">
+  <div class="flex flex-col items-center gap-y-52">
+  <section class="flex flex-col items-center">
+    <div class="flex flex-col items-center max-w-2xl mx-4">
+      <div class="text-center font-bold text-5xl sm:text-7xl leading-[110%] mb-8">Don't let chaos manage incidents for you</div>
+      <div class="max-w-lg text-center text-xl text-gray-400 mb-10"><div>Carefully designed product to guide your teams throughout production incidents. Focus on the fixing, we take care of everything else.</div>
+      </div>
+      <%= render 'early_access_form' %>
+  </section>
+  <section class="flex flex-col items-center">
+    <div class="text-center font-bold text-3xl mb-16">Blazing fast reaction time</div>
+    <div class="w-full flex flex-wrap justify-center gap-8">
+      <div class="relative flex flex-col gap-4 px-8 pt-8 pb-10 overflow-hidden rounded bg-neutral-800 w-[300px]">
+        <div class="text-xl font-semibold text-blue-500">
+          Be notified right away
+        </div>
+        <div class="text-sm text-neutral-400 max-w-[180px]">
+          We send SMSes filled with the incident's context to everyone as soon as it is detected.
+        </div>
+        <div class="absolute -bottom-4 -right-4 p-7 rounded-full border-2 border-blue-700">
+          <%= inline_svg_tag 'icons/regular/bolt.svg', class: 'w-9 h-9 fill-blue-700' %>
+        </div>
+      </div>
+      <div class="relative flex flex-col gap-4 px-8 pt-8 pb-10 overflow-hidden rounded bg-neutral-800 w-[300px]">
+        <div class="text-xl font-semibold text-blue-500">
+          Meet instantly
+        </div>
+        <div class="text-sm text-neutral-400 max-w-[180px]">
+          We instantiate virtual war rooms for your teams to organise the incident’s response
+        </div>
+        <div class="absolute -bottom-4 -right-4 p-7 rounded-full border-2 border-blue-700">
+          <%= inline_svg_tag 'icons/regular/people-group.svg', class: 'w-9 h-9 fill-blue-700' %>
+        </div>
+      </div>
+      <div class="relative flex flex-col gap-4 px-8 pt-8 pb-10 overflow-hidden rounded bg-neutral-800 w-[300px]">
+        <div class="text-xl font-semibold text-blue-500">
+          Stop debating responsabilities
+        </div>
+        <div class="text-sm text-neutral-400 max-w-[180px]">
+          We pre-defined roles for your organization. Members are automatically appointed for each new incident.
+        </div>
+        <div class="absolute -bottom-4 -right-4 p-7 rounded-full border-2 border-blue-700">
+          <%= inline_svg_tag 'icons/regular/user-pilot.svg', class: 'w-9 h-9 fill-blue-700' %>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="flex flex-col items-center">
+    <div class="text-center font-bold text-3xl mb-16">Learn and come back stronger</div>
+    <div class="w-full flex flex-wrap justify-center gap-8">
+      <div class="relative flex flex-col gap-4 px-8 pt-8 pb-10 overflow-hidden rounded bg-neutral-800 w-[300px]">
+        <div class="text-xl font-semibold text-purple-500">
+          Never lose track of what was said or done
+        </div>
+        <div class="text-sm text-neutral-400 max-w-[180px]">
+          Scribing is a dedicated role that ensures every piece of informations discussed in the war room is logged.
+        </div>
+        <div class="absolute -bottom-4 -right-4 p-7 rounded-full border-2 border-purple-700">
+          <%= inline_svg_tag 'icons/regular/pen-nib.svg', class: 'w-9 h-9 fill-purple-700' %>
+        </div>
+      </div>
+      <div class="relative flex flex-col gap-4 px-8 pt-8 pb-10 overflow-hidden rounded bg-neutral-800 w-[300px]">
+        <div class="text-xl font-semibold text-purple-500">
+          Always learn from incidents
+        </div>
+        <div class="text-sm text-neutral-400 max-w-[180px]">
+          We create a postmortem document at the end of each incident. Each postmortem has its owner.
+        </div>
+        <div class="absolute -bottom-4 -right-4 p-7 rounded-full border-2 border-purple-700">
+          <%= inline_svg_tag 'icons/regular/graduation-cap.svg', class: 'w-9 h-9 fill-purple-700' %>
+        </div>
+      </div>
+      <div class="relative flex flex-col gap-4 px-8 pt-8 pb-10 overflow-hidden rounded bg-neutral-800 w-[300px]">
+        <div class="text-xl font-semibold text-purple-500">
+          Leverage carefully crafted templates
+        </div>
+        <div class="text-sm text-neutral-400 max-w-[180px]">
+          Postmortems’ templates are designed to extract as much learnings as possible from incidents.
+        </div>
+        <div class="absolute -bottom-4 -right-4 p-7 rounded-full border-2 border-purple-700">
+          <%= inline_svg_tag 'icons/regular/hammer.svg', class: 'w-9 h-9 fill-purple-700' %>
+        </div>
+      </div>
+      <div class="relative flex flex-col gap-4 px-8 pt-8 pb-10 overflow-hidden rounded bg-neutral-800 w-[300px]">
+        <div class="text-xl font-semibold text-purple-500">
+          Follow-up with actions
+        </div>
+        <div class="text-sm text-neutral-400 max-w-[180px]">
+          Each postmortem generates a list of actions that can be assigned to the right people.
+        </div>
+        <div class="absolute -bottom-4 -right-4 p-7 rounded-full border-2 border-purple-700">
+          <%= inline_svg_tag 'icons/regular/clipboard-list-check.svg', class: 'w-9 h-9 fill-purple-700' %>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="flex flex-col items-center mb-24">
+    <div class="text-center font-bold text-3xl mb-16">Keep your stakeholders in the loop</div>
+    <div class="w-full flex flex-wrap justify-center gap-8">
+      <div class="relative flex flex-col gap-4 px-8 pt-8 pb-10 overflow-hidden rounded bg-neutral-800 w-[300px]">
+        <div class="text-xl font-semibold text-pink-500">
+          Communicate proactively to users
+        </div>
+        <div class="text-sm text-neutral-400 max-w-[180px]">
+          A communication manager is appointed to each incident. They keep users informed about the situation.
+        </div>
+        <div class="absolute -bottom-4 -right-4 p-7 rounded-full border-2 border-pink-700">
+          <%= inline_svg_tag 'icons/regular/bullhorn.svg', class: 'w-9 h-9 fill-pink-700' %>
+        </div>
+      </div>
+      <div class="relative flex flex-col gap-4 px-8 pt-8 pb-10 overflow-hidden rounded bg-neutral-800 w-[300px]">
+        <div class="text-xl font-semibold text-pink-500">
+          Give clear updates to internal stakeholders
+        </div>
+        <div class="text-sm text-neutral-400 max-w-[180px]">
+          Communications are sent regularely to internal stakeholders to keep them updated about the response team's progress.
+        </div>
+        <div class="absolute -bottom-4 -right-4 p-7 rounded-full border-2 border-pink-700">
+          <%= inline_svg_tag 'icons/regular/envelope-circle-check.svg', class: 'w-9 h-9 fill-pink-700' %>
+        </div>
+      </div>
+    </div>
+  </section>
+    <%= render 'early_access_form' %>
+    </div>
+</div>

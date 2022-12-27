@@ -1,15 +1,30 @@
 class LeadsController < ApplicationController
-  layout 'landing'
-
-  def new; end
+  before_action :set_email
+  before_action :redirect_if_lead_already_exists
+  before_action :redirect_if_email_has_an_account
 
   def create
-    email = params.require(:email)
-    referrer_params_string = URI.parse(request.referrer).query
-    conversion_source =
-      (CGI.parse(referrer_params_string)['source']&.first if referrer_params_string.present?)
-    Lead.create(email:, conversion_source:)
+    @lead = Lead.create!(email: @email)
+    LeadMailer.internal_lead_creation_email(@lead).deliver_now
 
-    redirect_to '/', flash: { success: "We'll keep you posted, sit tight!" }
+    redirect_to '/', flash: { success: 'Thanks for your interest! You will receive an email from us very soon' }
+  end
+
+  private
+
+  def redirect_if_lead_already_exists
+    return unless Lead.find_by(email: @email)
+
+    redirect_to '/', flash: { success: 'Your request was taken into account. Check your emails!' }
+  end
+
+  def redirect_if_email_has_an_account
+    return unless Account.find_by(email: @email)
+
+    redirect_to '/login', flash: { warning: 'You already have an account.' }
+  end
+
+  def set_email
+    @email = params.require(:email)
   end
 end

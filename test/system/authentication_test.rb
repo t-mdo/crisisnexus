@@ -7,17 +7,22 @@ class AuthenticationTest < ApplicationSystemTestCase
   end
 
   test 'login step' do
-    visit login_path
+    visit root_path
+    click_on 'Login'
 
-    assert_text 'Login'
-    fill_in 'email', with: @account.email
-    fill_in 'password', with: 'crapcrap'
-    click_on 'Log in'
-    assert_selector '.flash-alert', text: 'Invalid password'
+    within 'form' do
+      fill_in 'email', with: @account.email
+      fill_in 'password', with: 'crapcrap'
+      click_on 'Login'
+    end
 
-    fill_in 'email', with: @account.email
-    fill_in 'password', with: 'strongpassword1234'
-    click_on 'Log in'
+    assert_selector '.flash-alert', text: 'Invalid email or password'
+
+    within 'form' do
+      fill_in 'email', with: @account.email
+      fill_in 'password', with: 'strongpassword1234'
+      click_on 'Login'
+    end
     assert_text 'Dashboard'
   end
 end

@@ -1,0 +1,12 @@
+<div class="w-full max-w-2xl px-8">
+  <%= form_tag lead_path, method: :post, class: 'flex flex-col md:flex-row justify-center gap-2 w-full' do %>
+    <%= text_field_tag :email,
+      params[:email],
+      class: "px-3 py-2 bg-gray-800 placeholder-gray-400 focus:outline-none focus:ring-orange-600 block w-full rounded focus:ring-2",
+      placeholder: 'Your work email',
+      type: 'email'
+    %>
+  <%= submit_tag "Get early access", class: 'bg-orange-600 hover:bg-orange-700 active:bg-orange-800 focus-visible:ring ring-orange-700 text-white font-semibold text-center rounded outline-none transition duration-100 px-8 py-3' %>
+<% end %>
+  <div class="text-gray-600 text-sm">No spam, we will only use it to reach out</div>
+</div>

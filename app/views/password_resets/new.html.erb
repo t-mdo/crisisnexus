@@ -1,17 +1,17 @@
-<div class="bg-white pb-6 sm:py-8 lg:py-12">
+<div class="flex flex-col items-center pb-6 sm:py-8 lg:py-12">
   <h2 class="text-2xl lg:text-3xl font-bold text-center mb-4 md:mb-8 xl:mb-12">Reset password</h2>
-  <div class="text-gray-800 px-4 md:px-8 flex justify-center">
-    <div class="p-6 w-96 rounded-lg border border-gray-200 shadow-md">
-      <%= form_tag password_reset_path, class: 'my-4 max-w-md' do %>
-        <%= label_tag :email, 'Email Address' %><br />
-        <%= text_field_tag :email,
-          params[:email],
-          class: "px-3 py-2 mb-6 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded sm:text-sm focus:ring-1",
-          placeholder: 'you@example.com',
-          type: 'email'
-        %>
-    <%= submit_tag "Reset password", class: 'w-full bg-violet-500 hover:bg-violet-600 active:bg-violet-700 focus-visible:ring ring-violet-300 text-white text-xs md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-2 py-2 md:px-8 md:py-3' %>
-  <% end %>
+  <%= form_tag password_reset_path, class: 'my-4 w-full max-w-lg' do %>
+    <div class="mb-2">
+    <%= label_tag :email, 'Email Address' %><br />
     </div>
-  </div>
+    <div class="mb-4">
+    <%= text_field_tag :email,
+      params[:email],
+      class: "px-3 py-2 bg-gray-800 placeholder-gray-400 focus:outline-none focus:ring-purple-600 block w-full rounded focus:ring-1",
+      placeholder: 'you@example.com',
+      type: 'email'
+    %>
+    </div>
+  <%= submit_tag "Reset password", class: 'w-full bg-purple-800 hover:bg-purple-900 active:bg-gray-800 focus-visible:ring ring-purple-300 text-white text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-4 py-2 md:px-8 md:py-3' %>
+<% end %>
 </div>

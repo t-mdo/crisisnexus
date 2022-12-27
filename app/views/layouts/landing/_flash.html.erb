@@ -1,13 +1,13 @@
 <% flash_classes = {
-  'success' => 'bg-green-200 border border-green-600 rounded text-green-600 px-2 py-3 text-center mb-8 mx-8',
-  'notice' => 'bg-green-200 border border-green-600 rounded text-green-600 px-2 py-3 text-center mb-8 mx-8',
-  'warning' => 'bg-orange-200 border border-orange-600 rounded text-orange-600 px-2 py-3 text-center mb-8 mx-8',
-  'error' => 'bg-red-200 border border-red-600 rounded text-red-600 px-2 py-3 text-center mb-8 mx-8'
+  'success' => 'bg-green-600 border border-green-800 rounded text-green-100 px-2',
+  'notice' => 'bg-green-600 border border-green-800 rounded text-green-100 px-2',
+  'warning' => 'bg-orange-600 border border-orange-800 rounded text-orange-100',
+  'error' => 'bg-red-600 border border-red-800 rounded text-red-100'
 } %>
 
 <% alert_flashes = flash.to_h.select { |type| flash_classes.keys.include?(type) } %>
 <% alert_flashes.each do |type, msg| %>
-  <div class="flash-alert <%= flash_classes[type] %>">
+  <div class="flash-alert mx-auto my-8 border rounded px-2 py-3 text-center max-w-2xl <%= flash_classes[type] %>">
     <%= msg %>
   </div>
 <% end %>
