@@ -4,7 +4,8 @@ class LeadsController < ApplicationController
   before_action :redirect_if_email_has_an_account
 
   def create
-    Lead.create!(email: @email)
+    @lead = Lead.create!(email: @email)
+    LeadMailer.internal_lead_creation_email(@lead).deliver_now
 
     redirect_to '/', flash: { success: 'Thanks for your interest! You will receive an email from us very soon' }
   end
