@@ -7,7 +7,7 @@ class RegistrationTest < ApplicationSystemTestCase
 
   test 'reset account password' do
     visit root_path
-    click_on 'Sign in'
+    click_on 'Login'
 
     assert_text 'Forgot your password?'
     click_on 'Reset it'
@@ -28,16 +28,18 @@ class RegistrationTest < ApplicationSystemTestCase
     fill_in 'Password confirmation', with: 'newpassword'
     click_on 'Update password'
 
-    click_on 'Sign in'
-    fill_in 'Email', with: @account.email
-    fill_in 'Password', with: 'newpassword'
-    click_on 'Log in'
+    click_on 'Login'
+    within 'form' do
+      fill_in 'Email', with: @account.email
+      fill_in 'Password', with: 'newpassword'
+      click_on 'Login'
+    end
     assert_text 'Dashboard'
   end
 
   test 'reset password with invalid email' do
     visit root_path
-    click_on 'Sign in'
+    click_on 'Login'
 
     assert_text 'Forgot your password?'
     click_on 'Reset it'
