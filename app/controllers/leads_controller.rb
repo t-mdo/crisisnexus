@@ -4,9 +4,9 @@ class LeadsController < ApplicationController
   before_action :redirect_if_email_has_an_account
 
   def create
-    Lead.create!(email:)
+    Lead.create!(email: @email)
 
-    redirect_to '/', flash: { success: 'Thanks for your interest! You will receive an email from us shortly' }
+    redirect_to '/', flash: { success: 'Thanks for your interest! You will receive an email from us very soon' }
   end
 
   private
@@ -20,7 +20,7 @@ class LeadsController < ApplicationController
   def redirect_if_email_has_an_account
     return unless Account.find_by(email: @email)
 
-    redirect_to '/login', flash: { warning: 'You already have an account. Please login' }
+    redirect_to '/login', flash: { warning: 'You already have an account.' }
   end
 
   def set_email
