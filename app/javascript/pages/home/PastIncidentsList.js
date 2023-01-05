@@ -20,7 +20,7 @@ const PastIncidentsList = ({ queryLimit }) => {
         if (error) return <div>Something went wrong</div>;
         if (noPastIncidents)
           return (
-            <div className="px-6 py-3 text-lg text-center">
+            <div className="text-gray-400 px-6 py-3 text-center">
               Nothing to show for now
             </div>
           );

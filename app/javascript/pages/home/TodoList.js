@@ -113,7 +113,7 @@ const TodoList = () => {
   if (todos && Object.entries(todos).length === 0)
     return (
       <Card className="flex justify-center p-4">
-        <span className="text-slate-400">
+        <span className="text-gray-400">
           No next step for you at the moment!
         </span>
       </Card>

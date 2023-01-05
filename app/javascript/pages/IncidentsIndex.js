@@ -20,8 +20,8 @@ const IncidentsIndex = () => {
       <h2 className="mb-6 font-semibold text-3xl">Incidents</h2>
       <Card as="ul">
         {noPastIncident ? (
-          <div className="px-6 py-3 text-lg text-center">
-            Nothing to show for now
+          <div className="px-6 py-3 text-gray-400 text-center">
+            No past incidents
           </div>
         ) : (
           intersperse(

@@ -75,7 +75,7 @@ const OnboardingStepOrganization = ({ account, setOrganization }) => {
           />
         </div>
         <div className="w-full flex justify-end">
-          <Button loading={postLoading} role="submit">
+          <Button color="purple" loading={postLoading} role="submit">
             Next step
           </Button>
         </div>

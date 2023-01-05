@@ -25,6 +25,8 @@ export const Button = ({
         {
           'bg-slate-500 hover:bg-slate-600 active:bg-slate-700 disabled:hover:bg-slate-500 disabled:active:big-slate-500':
             color === BUTTON_COLOR_PRIMARY,
+          'text-gray-100 bg-purple-600 hover:bg-purple-700 active:bg-purple-800':
+            color === 'purple',
           'text-gray-700 bg-gray-200 hover:bg-gray-300 active:bg-gray-400':
             color === BUTTON_COLOR_SECONDARY,
           'bg-green-600 hover:bg-green-700 active:bg-green-800 disabled:hover:bg-green-500 disabled:active:big-green-500':

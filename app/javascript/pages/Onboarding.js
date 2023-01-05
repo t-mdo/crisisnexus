@@ -12,7 +12,7 @@ const Step = (props) => {
 const Onboarding = ({ account, setAccount, organization, setOrganization }) => {
   return (
     <div className="flex items-center justify-center h-full">
-      <Card className="p-8 w-3/4">
+      <Card className="p-8 w-full max-w-2xl">
         <div className="mb-8">
           <h1 className="text-2xl font-semibold mb-1">
             A few more steps to go!

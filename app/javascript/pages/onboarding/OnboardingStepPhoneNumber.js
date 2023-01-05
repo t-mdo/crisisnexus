@@ -60,7 +60,7 @@ const OnboardingStepPhoneNumber = ({ setAccount }) => {
           placeholder="John Doe"
         />
         <div className="w-full flex justify-end">
-          <Button loading={patchLoading} role="submit">
+          <Button color="purple" loading={patchLoading} role="submit">
             Finish
           </Button>
         </div>

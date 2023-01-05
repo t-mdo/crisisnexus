@@ -27,7 +27,7 @@ const WelcomeModal = ({ open, onClose }) => {
   };
 
   const onBookButtonClick = () => {
-    window.open('https://calendly.com/crisisnexus/onboarding', '_blank');
+    window.open('https://calendly.com/crisisnexus/tmo', '_blank');
     trackEvent({ name: 'book_intro_call_button_clicked' });
     triggerOrganizationPatch();
     onClose();
@@ -36,7 +36,6 @@ const WelcomeModal = ({ open, onClose }) => {
   return (
     <Modal open={open}>
       <ModalPanel size="large">
-        <ModalTitle>Welcome to CrisisNexus</ModalTitle>
         <ModalDescription>
           <div className="mb-4 flex gap-8 pt-8">
             <div className="flex flex-col items-center w-1/4">
@@ -48,24 +47,28 @@ const WelcomeModal = ({ open, onClose }) => {
               <Text className="mb-4" uiStyle="heading-3">
                 Thank you for being one of our earliest users
               </Text>
-              <Text>
-                Now it’s my focus to ensure your company benefits from the best
-                process to handle production incidents.
+              <Text className="mb-2">
+                I'm Thibault, my goal is to help you get the most out of
+                CrisisNexus.
               </Text>
-              <Text className="mb-3">
-                The product is in its early life, so you’ll notice that it
-                evolves constantly to match your needs.
+              <Text className="mb-4">
+                The tool is still in limited alpha, so I'd love to hear your
+                feedbacks and ideas for improvements.
               </Text>
               <Text className="mb-16">
-                Book a first session with me to discuss your current needs and
-                start setting up the tool for your organisation.
+                Book a first session with me to see how I can best help you
+                setting up the tool for your organization.
               </Text>
             </div>
           </div>
           <div className="flex justify-end gap-8 pl-4">
             <div className="flex w-3/4">
-              <Button className="mr-4 w-5/6" onClick={onBookButtonClick}>
-                Book the session
+              <Button
+                color="purple"
+                className="mr-4 w-5/6"
+                onClick={onBookButtonClick}
+              >
+                Book a session
               </Button>
               <Button
                 color="secondary"
