@@ -44,5 +44,22 @@ I'm never using anything else to style my apps. Amazing improvement over everyth
 ## Others providers
 
 [sentry](https://sentry.io/welcome/)\
-[twilio](https://github.com/twilio/twilio-ruby)
+[twilio](https://github.com/twilio/twilio-ruby)\
 [sendgrid](https://sendgrid.com/)
+
+# Resources & tooling
+
+## Ruby environment
+
+[rbenv](https://github.com/rbenv/rbenv): manager of env for ruby
+
+## Rails init command
+
+To create a new rails project, I use more or less this command:
+`rails new . -d postgresql -c tailwind -j esbuild --skip-hotwire`\
+Setup everything for rails with tailwind and esbuild.
+
+## Learning resources
+
+[Rails official guides](https://guides.rubyonrails.org/): Amazing doc, everything is in there. Good place to start.
+[Odin project](https://www.theodinproject.com/paths/full-stack-ruby-on-rails): Full course on Ruby and RoR fullstack dev. Looks solid to ramp-up.
