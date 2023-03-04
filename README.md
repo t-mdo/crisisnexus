@@ -61,5 +61,5 @@ Setup everything for rails with tailwind and esbuild.
 
 ## Learning resources
 
-[Rails official guides](https://guides.rubyonrails.org/): Amazing doc, everything is in there. Good place to start.
+[Rails official guides](https://guides.rubyonrails.org/): Amazing doc, everything is in there. Good place to start.\
 [Odin project](https://www.theodinproject.com/paths/full-stack-ruby-on-rails): Full course on Ruby and RoR fullstack dev. Looks solid to ramp-up.
