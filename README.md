@@ -1,6 +1,7 @@
 # Project's vision and meaning
 I originally built CrisisNexus on the side as an experimental project, while I focused on finding a co-founder.
-I haven't manage to meet the criteria I was expecting for this project, so I dropped the effort.
+I haven't managed to meet the criteria I set for myself for this project, so I stopped trying to commercialize it.
+
 It's a simple tool, but I'm sure it can proove useful to small companies that want to try to formalize their incident management.
 
 Feel free to reach out if you want have any questions.
