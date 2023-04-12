@@ -7,6 +7,9 @@ It's a simple tool, but I'm sure it can proove useful to small companies that wa
 Feel free to reach out if you want have any questions.
 
 
+[More info about the project and why I killed the production.](https://tmo.one/today-i-killed-my-product-what-it-made-me-remember/)
+
+
 # Project's Stack and Tools
 
 ## [PostgreSQL](https://www.postgresql.org/)
